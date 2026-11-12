@@ -61,27 +61,50 @@ jobs:
           test "$(head -c 5 data/rain_snow_latest.pdf)" = "%PDF-"
       - name: Check independent ECMWF IFS / AIFS model availability
         run: python scripts/fetch_ecmwf.py
-      - name: Commit PUBLIC weather data only
+      - name: Safely publish PDF and forecast data even when code changed
+        shell: bash
         run: |
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add locations.csv data/latest.json data/summary.md data/all_regions.md data/all_regions.csv data/precipitation_only.md data/precipitation_only.csv data/rain_snow_latest.pdf data/pdf_manifest.json data/ecmwf_regional.json data/source_status.md
-          if ! git diff --cached --quiet; then
-            git commit -m "Update verified KMA nationwide and optional ECMWF forecasts"
-            # Code may be updated while the API is running. Rebase only the generated
-            # data commit onto the current main instead of force-pushing or losing files.
-            for attempt in 1 2 3; do
-              git fetch origin main
-              if ! git rebase origin/main; then
-                git rebase --abort
-                echo "Generated-data rebase conflict; existing published forecast preserved."
-                exit 1
-              fi
-              if git push origin HEAD:main; then
+          DATA_FILES=(
+            data/latest.json data/summary.md data/all_regions.md data/all_regions.csv
+            data/precipitation_only.md data/precipitation_only.csv
+            data/rain_snow_latest.pdf data/pdf_manifest.json
+            data/ecmwf_regional.json data/source_status.md
+          )
+          git add "${DATA_FILES[@]}"
+          if git diff --cached --quiet; then
+            echo "No generated data changes"
+            exit 0
+          fi
+          git commit -m "Stage generated KMA rain/snow PDF and forecasts"
+          GENERATED_COMMIT="$(git rev-parse HEAD)"
+          GENERATED_TIME="$(git show "$GENERATED_COMMIT:data/latest.json" | python -c 'import sys,json;print(json.load(sys.stdin)["generated_at_kst"])')"
+          for attempt in 1 2 3; do
+            git fetch origin main
+            if git cat-file -e origin/main:data/latest.json 2>/dev/null; then
+              REMOTE_TIME="$(git show origin/main:data/latest.json | python -c 'import sys,json;print(json.load(sys.stdin)["generated_at_kst"])')"
+              if [[ "$REMOTE_TIME" > "$GENERATED_TIME" ]]; then
+                echo "A newer forecast was already published; preserving the newer generation"
                 exit 0
               fi
-              sleep 2
-            done
-            echo "Unable to publish data after 3 safe retries."
-            exit 1
-          fi
+            fi
+            # Never rebase generated JSON/MD/PDF text; it causes conflicts.
+            # Apply this run's files on TOP of latest origin/main, preserving new code.
+            git switch -C publish-generated origin/main
+            git restore --source="$GENERATED_COMMIT" --staged --worktree -- "${DATA_FILES[@]}"
+            if git diff --cached --quiet; then
+              echo "All generated files already match main"
+              exit 0
+            fi
+            git commit -m "Publish latest verified nationwide rain/snow PDF and data"
+            if git push origin HEAD:main; then
+              echo "Published latest weather PDF successfully"
+              exit 0
+            fi
+            echo "Publication race; retrying against newest main"
+            sleep 2
+          done
+          echo "Could not publish after safe retries"
+          exit 1
