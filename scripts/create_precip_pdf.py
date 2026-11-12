@@ -169,6 +169,19 @@ def create_pdf(data,output):
 def main():
     data=json.loads((ROOT/"data/latest.json").read_text(encoding="utf-8"))
     count=create_pdf(data,OUTPUT)
+    manifest={
+        "pdf_file":"data/rain_snow_latest.pdf",
+        "source":"KMA getVilageFcst",
+        "source_issue_at_kst":data["issue_at_kst"],
+        "source_generated_at_kst":data["generated_at_kst"],
+        "pdf_generated_at_utc":dt.datetime.now(dt.timezone.utc).isoformat(),
+        "regions_checked":data["locations_checked"],
+        "regions_succeeded":data["locations_succeeded"],
+        "wet_region_date_rows":count,
+        "pdf_size_bytes":OUTPUT.stat().st_size,
+    }
+    ROOT.joinpath("data/pdf_manifest.json").write_text(
+        json.dumps(manifest,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print("PDF created, KMA forecast rain/snow region/date rows:",count,
           "file_size:",OUTPUT.stat().st_size)
 
