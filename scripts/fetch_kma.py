@@ -211,7 +211,8 @@ def render(data):
       "- 같은 5km 격자를 공유하는 구는 하나의 예보로 묶습니다. 예보량 범위가 겹치면 실제 우열은 확정할 수 없습니다.",
       "- 표의 강수량(PCP)은 비/눈을 포함한 총강수량입니다. 눈이 포함된 시점은 비만의 양으로 단정하지 않습니다.",
       "- '최고 시각별 강수확률'은 해당 기간 중 최대 한 시각의 확률이며 일별 누적 확률이 아닙니다.",
-      "- 표의 실제 시간 범위만 유효합니다. 7일 전체 구별 정량 예보가 아닙니다.",""]
+      "- 표의 실제 시간 범위만 유효합니다. 7일 전체 구별 정량 예보가 아닙니다.",
+      "- [**전국 174개 지역 전체 예보표**](all_regions.md) · [전체 CSV](all_regions.csv) · 다른 제공사는 자동 수집 연결 여부를 전체표에 명시합니다.",""]
     # Multiple districts can share one 5km grid: never count them as independent forecasts.
     groups=defaultdict(dict)
     for place in data["locations"]:
@@ -277,7 +278,10 @@ def amount_text(value, unit):
 def complete_report(data):
     """Full universe of checked district/city rows for each forecast calendar date."""
     places=data["locations"]
-    all_dates=sorted({day for p in places for day in p["days"]})
+    start=dt.datetime.fromisoformat(data.get("collection_started_at_kst",data["generated_at_kst"])).astimezone(KST)
+    end=start+dt.timedelta(hours=168)
+    all_dates=[(start.date()+dt.timedelta(days=i)).isoformat()
+               for i in range((end-dt.timedelta(microseconds=1)).date().__sub__(start.date()).days+1)]
     duplicate_grids=defaultdict(list)
     for p in places:
         duplicate_grids[(p["nx"],p["ny"])].append(p["name"])
@@ -362,7 +366,10 @@ def complete_csv(data):
     places=data["locations"]
     dup=defaultdict(int)
     for place in places:dup[(place["nx"],place["ny"])]+=1
-    all_dates=sorted({day for place in places for day in place["days"]})
+    start=dt.datetime.fromisoformat(data.get("collection_started_at_kst",data["generated_at_kst"])).astimezone(KST)
+    end=start+dt.timedelta(hours=168)
+    all_dates=[(start.date()+dt.timedelta(days=i)).isoformat()
+               for i in range((end-dt.timedelta(microseconds=1)).date().__sub__(start.date()).days+1)]
     for day in all_dates:
         for place in places:
             val=place["days"].get(day)
