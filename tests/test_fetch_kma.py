@@ -6,7 +6,7 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"scripts"))
-from fetch_kma import issues, interval, daily_summary, load_locations, build, render
+from fetch_kma import issues, interval, daily_summary, load_locations, build, render, complete_report, complete_csv
 
 class ForecastTests(unittest.TestCase):
     def test_issue_rollover(self):
@@ -64,6 +64,38 @@ class ForecastTests(unittest.TestCase):
         self.assertEqual(data["unique_grids_checked"],1)
         self.assertEqual(data["locations_succeeded"],2)
         self.assertIn("동일 격자",render(data))
+
+    def test_complete_output_contains_dry_and_unavailable_regions(self):
+        now=dt.datetime(2026,11,13,0,12,tzinfo=ZoneInfo("Asia/Seoul"))
+        base={"schema_version":"1.1","issue_at_kst":now.isoformat(),
+              "generated_at_kst":now.isoformat(),"locations_succeeded":2,
+              "locations_checked":2,"unique_grids_succeeded":2,"unique_grids_checked":2}
+        rainy={"from_kst":"2026-11-13T00:00:00+09:00",
+               "to_kst":"2026-11-13T23:00:00+09:00","hours":24,"full_day":True,
+               "max_pop_pct":80,
+               "precip_mm":{"comparable":True,"lower":2,"upper":4},
+               "rain_mm":{"comparable":True,"lower":2,"upper":4},
+               "snow_cm":{"comparable":True,"lower":0,"upper":0}}
+        dry={"from_kst":"2026-11-13T00:00:00+09:00",
+             "to_kst":"2026-11-13T23:00:00+09:00","hours":24,"full_day":True,
+             "max_pop_pct":10,
+             "precip_mm":{"comparable":True,"lower":0,"upper":0},
+             "rain_mm":{"comparable":True,"lower":0,"upper":0},
+             "snow_cm":{"comparable":True,"lower":0,"upper":0}}
+        base["locations"]=[
+             {"name":"서울특별시 강남구","level":"gu","nx":61,"ny":126,
+              "days":{"2026-11-13":rainy}},
+             {"name":"서울특별시 종로구","level":"gu","nx":60,"ny":127,
+              "days":{"2026-11-13":dry}}]
+        full=complete_report(base)
+        self.assertIn("서울특별시 강남구",full)
+        self.assertIn("서울특별시 종로구",full)
+        self.assertIn("2~4mm",full)
+        self.assertIn("0mm",full)
+        table=complete_csv(base)
+        self.assertEqual(len(table.splitlines()),3)
+        self.assertIn("서울특별시 종로구",table)
+        self.assertIn("서울특별시 강남구",table)
 
     def test_sample_locations(self):
         self.assertGreaterEqual(len(load_locations()),5)
