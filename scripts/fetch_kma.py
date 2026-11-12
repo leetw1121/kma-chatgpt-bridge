@@ -4,6 +4,7 @@ import csv
 import concurrent.futures
 import datetime as dt
 import json
+import io
 import math
 import os
 import re
@@ -261,6 +262,128 @@ def render(data):
     lines+=["---","인증키를 포함하지 않는 공개 예보 자료입니다.",""]
     return "\n".join(lines)
 
+
+def amount_text(value, unit):
+    """Return the full KMA interval, never a fabricated midpoint."""
+    if not value or not value.get("comparable") or value.get("lower") is None:
+        return "정량 미제공"
+    low,high=value["lower"],value.get("upper")
+    if high is None:
+        return str(low)+unit+" 이상"
+    if low==high:
+        return str(low)+unit
+    return str(low)+"~"+str(high)+unit
+
+def complete_report(data):
+    """Full universe of checked district/city rows for each forecast calendar date."""
+    places=data["locations"]
+    all_dates=sorted({day for p in places for day in p["days"]})
+    duplicate_grids=defaultdict(list)
+    for p in places:
+        duplicate_grids[(p["nx"],p["ny"])].append(p["name"])
+    lines=[
+        "# 전국 구·시별 전체 정량예보 — 실제 조회한 "+str(len(places))+"개 지역",
+        "",
+        "- KMA 단기예보 발표: **"+data["issue_at_kst"]+"**",
+        "- 자동 수집 완료: **"+data["generated_at_kst"]+"**",
+        "- 조회 성공: **"+str(data["locations_succeeded"])+"/"+str(data["locations_checked"])+"**, 고유 격자 **"+str(data.get("unique_grids_succeeded","?"))+"/"+str(data.get("unique_grids_checked","?"))+"**",
+        "- 모든 행정지역을 각 날짜에 표시합니다. **정량 미제공**은 0mm·0cm를 뜻하지 않습니다.",
+        "- 강수량 PCP는 비+눈을 포함한 총강수(mm)이며, SNO는 신적설(cm)입니다.",
+        "- 구·시 전체가 아니라 **행정지역의 기상청 대표 격자** 값입니다. 같은 격자를 쓰는 지역은 독립 예보가 아닙니다.",
+        "- **일부 시간대** 표시가 있으면 24시간 누적 강수량이 아닙니다. 범위가 겹치는 지역은 정확한 우열을 정할 수 없습니다.",
+        "- 최고 POP는 조회된 시각 중 한 시각의 최대값이며, 일별 강수 발생 확률이 아닙니다.",
+        "- 정량예보가 제공되지 않는 날짜는 별도 기상청 중기예보가 필요합니다.",
+        "",
+        "## 제공사 상태",
+        "",
+        "| 제공사 | 자동화 데이터 조회 상태 |",
+        "|---|---|",
+        "| 기상청 단기예보 API | **연결·실제 수집** |",
+        "| 기상청 중기예보·특보 | ChatGPT 예약에서 공식 발표본을 별도 확인 |",
+        "| AccuWeather | 자동 수집 미연결 · 최신 수치 수집 성공으로 간주 금지 |",
+        "| Weathernews | 자동 수집 미연결 · 최신 수치 수집 성공으로 간주 금지 |",
+        "| The Weather Channel | 자동 수집 미연결 · 최신 수치 수집 성공으로 간주 금지 |",
+        "| ECMWF IFS/AIFS | 자동 수집 미연결 · 최신 수치 수집 성공으로 간주 금지 |",
+        "",
+        "## 날짜별 전국 구·시 전체표",
+        "",
+    ]
+    for day in all_dates:
+        lines += ["### "+day+" (한국시간) — 조회 성공 "+str(len(places))+"개 지역","",
+          "| 구분 | 지역 | 총강수(mm) | 신적설(cm) | 해당기간 최고 POP | 예보 시간 범위 | 자료상태 | 대표 격자 |",
+          "|---|---|---:|---:|---:|---|---|---|"]
+        ranked=[]
+        for p in places:
+            val=p["days"].get(day)
+            if val is None:
+                ranked.append((p,None))
+            else:
+                ranked.append((p,val))
+        # All places included. Within each tier, place higher lower-bound precipitation first.
+        def order(pair):
+            p,d=pair
+            value=(d or {}).get("precip_mm",{})
+            valid=bool(value.get("comparable") and value.get("lower") is not None)
+            lower=value.get("lower") or 0
+            upper=value.get("upper") if value.get("upper") is not None else lower
+            return (p["level"]!="gu",not valid,-lower,-upper,p["name"])
+        ranked.sort(key=order)
+        for p,v in ranked:
+            if v is None:
+                total="정량 미제공";snow="정량 미제공";pop="미발표";hrs="—";status="해당 날짜 미제공"
+            else:
+                total=amount_text(v.get("precip_mm"),"mm")
+                snow=amount_text(v.get("snow_cm"),"cm")
+                pop=str(v["max_pop_pct"])+"%" if v.get("max_pop_pct") is not None else "미발표"
+                start=v["from_kst"][11:16]; end=v["to_kst"][11:16]
+                hrs=start+"~"+end+" ("+str(v["hours"])+"개 시각)"
+                status="24시간" if v.get("full_day") else "일부 시각·24시간 합산 아님"
+            names=duplicate_grids[(p["nx"],p["ny"])]
+            duplicate=" (공유 격자)" if len(names)>1 else ""
+            lines.append("| "+("구" if p["level"]=="gu" else "시")+" | "+p["name"]+duplicate+
+                         " | "+total+" | "+snow+" | "+pop+" | "+hrs+" | "+status+" | "+
+                         str(p["nx"])+","+str(p["ny"])+" |")
+        lines.append("")
+    # Beyond the KMA quantitative horizon, show the absence without inventing data.
+    lines += ["## 7일 중기 구간","",
+      "위 표에는 기상청 단기 API가 실제 제공한 날짜만 있습니다. 나머지 7일 중기 구간의 모든 행정구역별 mm/cm는 **미제공**이며, ChatGPT 예약이 기상청 공식 중기예보의 권역 전망을 별도로 제공해야 합니다.","",
+      "원본 공개 JSON: [data/latest.json](latest.json)","",
+      "정렬 가능한 전체 CSV: [data/all_regions.csv](all_regions.csv)",""]
+    return "\n".join(lines)
+
+def complete_csv(data):
+    columns=["date","level","region","nx","ny","grid_shared","from_kst","to_kst",
+             "forecast_slots","full_day","max_hourly_pop_pct","total_precip_mm_min",
+             "total_precip_mm_max","precip_data_valid","rain_mm_min","rain_mm_max",
+             "rain_data_valid","snow_cm_min","snow_cm_max","snow_data_valid","status"]
+    out=io.StringIO()
+    writer=csv.DictWriter(out,fieldnames=columns,lineterminator="\n")
+    writer.writeheader()
+    places=data["locations"]
+    dup=defaultdict(int)
+    for place in places:dup[(place["nx"],place["ny"])]+=1
+    all_dates=sorted({day for place in places for day in place["days"]})
+    for day in all_dates:
+        for place in places:
+            val=place["days"].get(day)
+            row={"date":day,"level":place["level"],"region":place["name"],
+                 "nx":place["nx"],"ny":place["ny"],
+                 "grid_shared":int(dup[(place["nx"],place["ny"])]>1)}
+            if val is None:
+                row["status"]="not_provided"
+            else:
+                row.update({"from_kst":val["from_kst"],"to_kst":val["to_kst"],
+                  "forecast_slots":val["hours"],"full_day":int(val.get("full_day",False)),
+                  "max_hourly_pop_pct":val.get("max_pop_pct"),
+                  "status":"full_day" if val.get("full_day") else "partial_day"})
+                for attr,prefix in (("precip_mm","total_precip_mm"),("rain_mm","rain_mm"),("snow_cm","snow_cm")):
+                    d=val.get(attr,{})
+                    row[prefix+"_min"]=d.get("lower")
+                    row[prefix+"_max"]=d.get("upper")
+                    row[("precip_data_valid" if attr=="precip_mm" else "rain_data_valid" if attr=="rain_mm" else "snow_data_valid")]=int(bool(d.get("comparable")))
+            writer.writerow(row)
+    return out.getvalue()
+
 def main():
     secret=os.getenv("KMA_SERVICE_KEY","").strip()
     if not secret:
@@ -274,6 +397,8 @@ def main():
         temp.write_text(json.dumps(forecast,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
         temp.replace(directory/"latest.json")
         (directory/"summary.md").write_text(render(forecast),encoding="utf-8")
+        (directory/"all_regions.md").write_text(complete_report(forecast),encoding="utf-8")
+        (directory/"all_regions.csv").write_text(complete_csv(forecast),encoding="utf-8-sig")
         print("KMA data collected: "+str(forecast["locations_succeeded"])+"/"+str(forecast["locations_checked"]))
         return 0
     except (ValueError,OSError) as exc:
