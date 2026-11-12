@@ -181,14 +181,22 @@ def render(data):
       "- 조회 성공: "+str(data["locations_succeeded"])+"/"+str(data["locations_checked"])+" 지역",
       "- 주의: 구 전체가 아닌 대표 격자 예보입니다. **전국 구별 전수 순위가 아닙니다.**",
       "- 시간별 강수량/적설의 범주를 합산한 것은 범위이며 정확한 단일 수치가 아닙니다.",
+      "- 같은 5km 격자를 공유하는 구는 하나의 예보로 묶습니다. 예보량 범위가 겹치면 실제 우열은 확정할 수 없습니다.",
       "- 표의 실제 시간 범위만 유효합니다. 7일 전체 구별 정량 예보가 아닙니다.",""]
-    groups=defaultdict(list)
+    # Multiple districts can share one 5km grid: never count them as independent forecasts.
+    groups=defaultdict(dict)
     for place in data["locations"]:
         if place["level"]!="gu":continue
         for day,values in place["days"].items():
             key=(day,values["from_kst"],values["to_kst"],values["hours"])
-            groups[key].append((place,values))
-    for key,entries in sorted(groups.items()):
+            grid=(place["nx"],place["ny"])
+            if grid in groups[key]:
+                merged,previous=groups[key][grid]
+                merged["name"] += " · " + place["name"] + " (동일 격자)"
+            else:
+                groups[key][grid]=({**place},values)
+    for key,grid_entries in sorted(groups.items()):
+        entries=list(grid_entries.values())
         day,start,end,hours=key
         lines+=["## "+day+" / "+start[11:16]+"~"+end[11:16]+" KST ("+str(hours)+"개 시각)",""]
         for col,title in (("rain_mm","🌧️ 강수량"),("snow_cm","❄️ 신적설")):
@@ -203,12 +211,17 @@ def render(data):
             if sortable:
                 lines+=["| 순위 | 구 대표 격자 | 예보량 | 최고 시각별 강수확률 |",
                         "|---:|---|---:|---:|"]
+                last_range=None
+                shown_rank=0
                 for i,(place,values,val) in enumerate(sortable[:10],1):
+                    value_range=(val["lower"],val["upper"])
+                    if value_range != last_range: shown_rank=i
+                    last_range=value_range
                     low,high=val["lower"],val["upper"];unit=val["unit"]
                     amount=(str(low)+unit+" 이상(상한 미확인)" if high is None else
                             str(low)+unit if low==high else str(low)+"~"+str(high)+unit+"(범위)")
                     prob=values["max_pop_pct"]
-                    lines.append("| "+str(i)+" | "+place["name"]+" | "+amount+" | "+(str(prob)+"%" if prob is not None else "미확인")+" |")
+                    lines.append("| "+str(shown_rank)+" | "+place["name"]+" | "+amount+" | "+(str(prob)+"%" if prob is not None else "미확인")+" |")
             else: lines.append("정량적으로 비교 가능한 비/눈 예보 지역 없음.")
             lines.append("")
     if data["warnings"]:
