@@ -2,6 +2,13 @@ name: KMA forecast feed
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/**"
+      - "tests/**"
+      - "locations.csv"
+      - ".github/workflows/update_kma.yml"
   schedule:
     # UTC 15:12,21:12,03:12,09:12 = KST 00:12,06:12,12:12,18:12
     - cron: '12 3,9,15,21 * * *'
@@ -15,8 +22,8 @@ concurrency:
 
 jobs:
   collect:
-    runs-on: ubuntu-latest
-    timeout-minutes: 25
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
