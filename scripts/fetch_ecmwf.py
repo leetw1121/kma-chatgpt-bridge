@@ -4,10 +4,12 @@
 Uses city-centre approximate coordinates ONLY for regional cross-check, never as
 an official KMA district-grid value. Failure does not block official KMA feed.
 """
+import concurrent.futures
 import datetime as dt
 import json
 import urllib.parse
 import urllib.request
+import urllib.error
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
@@ -30,8 +32,18 @@ def fetch_one(model,city,latitude,longitude,now):
            "models":model,"timezone":"Asia/Seoul","forecast_hours":168}
     req=urllib.request.Request(URL+"?"+urllib.parse.urlencode(query),
        headers={"User-Agent":"KMA-ChatGPT-Bridge/1.0","Accept":"application/json"})
-    with urllib.request.urlopen(req,timeout=15) as resp:
-        payload=json.loads(resp.read(350000).decode("utf-8"))
+    try:
+        with urllib.request.urlopen(req,timeout=12) as resp:
+            payload=json.loads(resp.read(350000).decode("utf-8"))
+    except urllib.error.HTTPError as exc:
+        if exc.code!=400:raise
+        # Some AIFS model products lack snowfall. Retry precipitation alone,
+        # never assume an unsupported snow field is zero.
+        query["hourly"]="precipitation"
+        req=urllib.request.Request(URL+"?"+urllib.parse.urlencode(query),
+           headers={"User-Agent":"KMA-ChatGPT-Bridge/1.0","Accept":"application/json"})
+        with urllib.request.urlopen(req,timeout=12) as resp:
+            payload=json.loads(resp.read(350000).decode("utf-8"))
     hourly=payload.get("hourly")
     if not isinstance(hourly,dict):
         raise ValueError("MISSING_HOURLY")
@@ -88,12 +100,17 @@ def collect(now):
          "models":{}}
     for name,model_id in MODELS.items():
         ok=[];errors=[]
-        for city,(lat,lon) in CITIES.items():
-            try:
-                ok.append(fetch_one(model_id,city,lat,lon,now))
-            except Exception as exc:
-                # Do not print URL or response body. No private credentials in request.
-                errors.append({"city":city,"error":type(exc).__name__})
+        with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
+            futures={pool.submit(fetch_one,model_id,city,lat,lon,now):city
+                     for city,(lat,lon) in CITIES.items()}
+            for future in concurrent.futures.as_completed(futures):
+                city=futures[future]
+                try:
+                    ok.append(future.result())
+                except Exception as exc:
+                    # No URLs, tokens, or response bodies in public error details.
+                    errors.append({"city":city,"error":type(exc).__name__})
+        ok.sort(key=lambda item:item["city"])
         out["models"][name]={"model_id":model_id,"status":"verified" if ok else "unavailable",
                              "cities_succeeded":len(ok),"cities_requested":len(CITIES),
                              "records":ok,"errors":errors}
