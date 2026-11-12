@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """KMA village forecast -> safe public GitHub feed. Python stdlib only."""
 import csv
+import concurrent.futures
 import datetime as dt
 import json
 import math
@@ -105,14 +106,15 @@ def daily_summary(rows,now):
     result = {}
     for day,slots in byday.items():
         contiguous = int((slots[-1][0]-slots[0][0]).total_seconds()/3600)+1 == len(slots)
+        full_day=(len(slots)==24 and slots[0][0].hour==0 and slots[-1][0].hour==23 and contiguous)
         result[day] = {"from_kst":slots[0][0].isoformat(),"to_kst":slots[-1][0].isoformat(),
-                       "hours":len(slots),"max_pop_pct":None}
+                       "hours":len(slots),"full_day":full_day,"max_pop_pct":None}
         pop=[]
         for _,data in slots:
             try: pop.append(int(data["POP"]))
             except (KeyError,ValueError,TypeError): pass
         if pop: result[day]["max_pop_pct"]=max(pop)
-        for cat,name,unit in (("PCP","rain_mm","mm"),("SNO","snow_cm","cm")):
+        for cat,name,unit in (("PCP","precip_mm","mm"),("SNO","snow_cm","cm")):
             lo=0.0;hi=0.0;valid=contiguous
             for _,data in slots:
                 if cat not in data:
@@ -128,6 +130,15 @@ def daily_summary(rows,now):
             result[day][name]={"unit":unit,"comparable":bool(valid),
                                 "lower":round(lo,2) if valid else None,
                                 "upper":round(hi,2) if valid and hi is not None else None}
+        # PCP is TOTAL precipitation (including water-equivalent snow), not rain-only.
+        # Keep rain_mm for old consumers, but suppress it whenever snow/mixed type is forecast.
+        pty_values={str(row.get("PTY","")).strip() for _,row in slots}
+        has_frozen_precip=any(code in {"2","3","6","7"} for code in pty_values)
+        original=result[day]["precip_mm"]
+        result[day]["rain_mm"]=(dict(original) if not has_frozen_precip else
+            {"unit":"mm","comparable":False,"lower":None,"upper":None,
+             "reason":"mixed_or_snow_precipitation"})
+        result[day]["precip_includes_snow"]=has_frozen_precip
     return result
 
 def load_locations():
@@ -154,34 +165,51 @@ def build(secret,locations,now):
         except ValueError as exc:
             warnings.append("issue_"+candidate.strftime("%Y%m%d%H%M")+"_"+str(exc))
     if issue is None: raise ValueError("NO_AVAILABLE_FORECAST_ISSUE")
-    cache={(locations[0]["nx"],locations[0]["ny"]):first}
+    grids=sorted({(place["nx"],place["ny"]) for place in locations})
+    first_grid=(locations[0]["nx"],locations[0]["ny"])
+    cache={first_grid:first}
+    failed={}
+    # Unique grid fetches only; bounded parallelism keeps the 10,000-call/day API quota safe.
+    remaining=[g for g in grids if g!=first_grid]
+    if remaining:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
+            futures={pool.submit(all_pages,secret,issue,*grid):grid for grid in remaining}
+            for future in concurrent.futures.as_completed(futures):
+                grid=futures[future]
+                try:
+                    cache[grid]=future.result()
+                except ValueError as exc:
+                    failed[grid]=str(exc)
     collected=[]
     for place in locations:
         grid=(place["nx"],place["ny"])
-        try:
-            if grid not in cache:
-                cache[grid]=all_pages(secret,issue,*grid)
-                time.sleep(.12)
+        if grid in cache:
             collected.append({**place,"days":daily_summary(cache[grid],now)})
-        except ValueError as exc:
-            warnings.append("location_failed_"+place["name"]+"_"+str(exc))
+        else:
+            warnings.append("location_failed_"+place["name"]+"_"+failed.get(grid,"UNKNOWN_ERROR"))
     if not collected: raise ValueError("NO_SUCCESSFUL_LOCATIONS")
-    return {"schema_version":"1.0","source":"KMA getVilageFcst",
-            "generated_at_kst":now.astimezone(KST).isoformat(),
+    finished=dt.datetime.now(KST)
+    # The run can succeed partially, but report exact coverage and prevent silent gaps.
+    return {"schema_version":"1.1","source":"KMA getVilageFcst",
+            "generated_at_kst":finished.isoformat(),
+            "collection_started_at_kst":now.astimezone(KST).isoformat(),
             "issue_at_kst":issue.isoformat(),
-            "coverage_note":"Only forecast hours returned by the KMA short-range API. NOT 168h of quantitative district predictions.",
-            "ranking_note":"Only checked representative grids and identical day/time windows, not all South Korean districts.",
+            "coverage_note":"Only returned KMA short-range forecast hours; not 168h of district totals.",
+            "ranking_note":"Representative grids only. Duplicate districts share the same forecast; intervals can overlap.",
             "locations_checked":len(locations),"locations_succeeded":len(collected),
-            "warnings":warnings[:20],"locations":collected}
+            "unique_grids_checked":len(grids),"unique_grids_succeeded":len(cache),
+            "warnings":warnings[:30],"locations":collected}
 
 def render(data):
     lines=["# 기상청 구별 단기예보 — 확인된 지역만 비교","",
       "- 수집 시각(KST): **"+data["generated_at_kst"]+"**",
       "- 기상청 발표 기준(KST): **"+data["issue_at_kst"]+"**",
-      "- 조회 성공: "+str(data["locations_succeeded"])+"/"+str(data["locations_checked"])+" 지역",
+      "- 조회 성공: "+str(data["locations_succeeded"])+"/"+str(data["locations_checked"])+" 지역 / 고유 격자 "+str(data.get("unique_grids_succeeded","?"))+"/"+str(data.get("unique_grids_checked","?"))+"개",
       "- 주의: 구 전체가 아닌 대표 격자 예보입니다. **전국 구별 전수 순위가 아닙니다.**",
       "- 시간별 강수량/적설의 범주를 합산한 것은 범위이며 정확한 단일 수치가 아닙니다.",
       "- 같은 5km 격자를 공유하는 구는 하나의 예보로 묶습니다. 예보량 범위가 겹치면 실제 우열은 확정할 수 없습니다.",
+      "- 표의 강수량(PCP)은 비/눈을 포함한 총강수량입니다. 눈이 포함된 시점은 비만의 양으로 단정하지 않습니다.",
+      "- '최고 시각별 강수확률'은 해당 기간 중 최대 한 시각의 확률이며 일별 누적 확률이 아닙니다.",
       "- 표의 실제 시간 범위만 유효합니다. 7일 전체 구별 정량 예보가 아닙니다.",""]
     # Multiple districts can share one 5km grid: never count them as independent forecasts.
     groups=defaultdict(dict)
@@ -199,7 +227,7 @@ def render(data):
         entries=list(grid_entries.values())
         day,start,end,hours=key
         lines+=["## "+day+" / "+start[11:16]+"~"+end[11:16]+" KST ("+str(hours)+"개 시각)",""]
-        for col,title in (("rain_mm","🌧️ 강수량"),("snow_cm","❄️ 신적설")):
+        for col,title in (("precip_mm","🌧️ 강수량(비·눈 포함)"),("snow_cm","❄️ 신적설")):
             sortable=[]
             for place,values in entries:
                 val=values[col]
@@ -207,9 +235,12 @@ def render(data):
                 if (val["upper"] if val["upper"] is not None else val["lower"])<=0:continue
                 sortable.append((place,values,val))
             sortable.sort(key=lambda x:(x[2]["lower"],x[2]["upper"] if x[2]["upper"] is not None else float("inf")),reverse=True)
-            lines+=["### "+title+" · 조회된 구 "+str(len(sortable))+"곳",""]
+            complete_day=(hours==24 and start[11:16]=="00:00" and end[11:16]=="23:00")
+            label="24시간 전체" if complete_day else "일부 시각만"
+            lines+=["### "+title+" · 조회된 고유 격자 "+str(len(sortable))+"개 · "+label,""]
             if sortable:
-                lines+=["| 순위 | 구 대표 격자 | 예보량 | 최고 시각별 강수확률 |",
+                lines+=["예보량 범위가 겹치는 지역의 선후 순위는 확정할 수 없습니다.",""]
+                lines+=["| 참고순서 | 구 대표 격자 | 예보량 | 최고 시각별 강수확률 |",
                         "|---:|---|---:|---:|"]
                 last_range=None
                 shown_rank=0
