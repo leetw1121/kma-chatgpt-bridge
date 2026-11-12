@@ -1,0 +1,767 @@
+{
+  "generated_at_kst": "2026-11-13T00:53:45.130951+09:00",
+  "source": "Open-Meteo ECMWF IFS/AIFS open data",
+  "sample_scope": "7 approximate city-centre points; NOT all 174 KMA regions or same grids",
+  "models": {
+    "IFS": {
+      "model_id": "ecmwf_ifs",
+      "status": "verified",
+      "cities_succeeded": 7,
+      "cities_requested": 7,
+      "records": [
+        {
+          "city": "강릉",
+          "lat": 37.7519,
+          "lon": 128.8761,
+          "actual_grid_lat": 37.785587,
+          "actual_grid_lon": 128.91566,
+          "timezone": "Asia/Seoul",
+          "days": {
+            "2026-11-13": {
+              "forecast_hours": 23,
+              "precip_mm": 0.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-14": {
+              "forecast_hours": 24,
+              "precip_mm": 0.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-15": {
+              "forecast_hours": 24,
+              "precip_mm": 2.5,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-16": {
+              "forecast_hours": 24,
+              "precip_mm": 10.2,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-17": {
+              "forecast_hours": 24,
+              "precip_mm": 2.5,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-18": {
+              "forecast_hours": 24,
+              "precip_mm": 3.3,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-19": {
+              "forecast_hours": 24,
+              "precip_mm": 0.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            }
+          },
+          "hours_valid": 167
+        },
+        {
+          "city": "광주",
+          "lat": 35.1595,
+          "lon": 126.8526,
+          "actual_grid_lat": 35.184532,
+          "actual_grid_lon": 126.84949,
+          "timezone": "Asia/Seoul",
+          "days": {
+            "2026-11-13": {
+              "forecast_hours": 23,
+              "precip_mm": 8.2,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-14": {
+              "forecast_hours": 24,
+              "precip_mm": 20.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-15": {
+              "forecast_hours": 24,
+              "precip_mm": 0.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-16": {
+              "forecast_hours": 24,
+              "precip_mm": 0.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-17": {
+              "forecast_hours": 24,
+              "precip_mm": 5.7,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-18": {
+              "forecast_hours": 24,
+              "precip_mm": 4.8,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-19": {
+              "forecast_hours": 24,
+              "precip_mm": 0.6,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            }
+          },
+          "hours_valid": 167
+        },
+        {
+          "city": "대전",
+          "lat": 36.3504,
+          "lon": 127.3845,
+          "actual_grid_lat": 36.309315,
+          "actual_grid_lon": 127.38281,
+          "timezone": "Asia/Seoul",
+          "days": {
+            "2026-11-13": {
+              "forecast_hours": 23,
+              "precip_mm": 0.7,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-14": {
+              "forecast_hours": 24,
+              "precip_mm": 12.7,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-15": {
+              "forecast_hours": 24,
+              "precip_mm": 0.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-16": {
+              "forecast_hours": 24,
+              "precip_mm": 0.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-17": {
+              "forecast_hours": 24,
+              "precip_mm": 4.8,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-18": {
+              "forecast_hours": 24,
+              "precip_mm": 7.2,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-19": {
+              "forecast_hours": 24,
+              "precip_mm": 0.2,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            }
+          },
+          "hours_valid": 167
+        },
+        {
+          "city": "부산",
+          "lat": 35.1796,
+          "lon": 129.0756,
+          "actual_grid_lat": 35.184532,
+          "actual_grid_lon": 129.03061,
+          "timezone": "Asia/Seoul",
+          "days": {
+            "2026-11-13": {
+              "forecast_hours": 23,
+              "precip_mm": 0.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-14": {
+              "forecast_hours": 24,
+              "precip_mm": 23.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-15": {
+              "forecast_hours": 24,
+              "precip_mm": 2.9,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-16": {
+              "forecast_hours": 24,
+              "precip_mm": 0.5,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-17": {
+              "forecast_hours": 24,
+              "precip_mm": 2.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-18": {
+              "forecast_hours": 24,
+              "precip_mm": 6.5,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-19": {
+              "forecast_hours": 24,
+              "precip_mm": 0.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            }
+          },
+          "hours_valid": 167
+        },
+        {
+          "city": "서귀포",
+          "lat": 33.2541,
+          "lon": 126.5601,
+          "actual_grid_lat": 33.286465,
+          "actual_grid_lon": 126.62145,
+          "timezone": "Asia/Seoul",
+          "days": {
+            "2026-11-13": {
+              "forecast_hours": 23,
+              "precip_mm": 4.3,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-14": {
+              "forecast_hours": 24,
+              "precip_mm": 53.9,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-15": {
+              "forecast_hours": 24,
+              "precip_mm": 0.4,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-16": {
+              "forecast_hours": 24,
+              "precip_mm": 0.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-17": {
+              "forecast_hours": 24,
+              "precip_mm": 5.4,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-18": {
+              "forecast_hours": 24,
+              "precip_mm": 3.4,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-19": {
+              "forecast_hours": 24,
+              "precip_mm": 2.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            }
+          },
+          "hours_valid": 167
+        },
+        {
+          "city": "서울",
+          "lat": 37.5665,
+          "lon": 126.978,
+          "actual_grid_lat": 37.57469,
+          "actual_grid_lon": 126.96,
+          "timezone": "Asia/Seoul",
+          "days": {
+            "2026-11-13": {
+              "forecast_hours": 23,
+              "precip_mm": 0.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-14": {
+              "forecast_hours": 24,
+              "precip_mm": 0.2,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-15": {
+              "forecast_hours": 24,
+              "precip_mm": 0.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-16": {
+              "forecast_hours": 24,
+              "precip_mm": 0.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-17": {
+              "forecast_hours": 24,
+              "precip_mm": 7.4,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-18": {
+              "forecast_hours": 24,
+              "precip_mm": 8.5,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-19": {
+              "forecast_hours": 24,
+              "precip_mm": 0.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            }
+          },
+          "hours_valid": 167
+        },
+        {
+          "city": "울산",
+          "lat": 35.5384,
+          "lon": 129.3114,
+          "actual_grid_lat": 35.536026,
+          "actual_grid_lon": 129.28113,
+          "timezone": "Asia/Seoul",
+          "days": {
+            "2026-11-13": {
+              "forecast_hours": 23,
+              "precip_mm": 0.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-14": {
+              "forecast_hours": 24,
+              "precip_mm": 16.9,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-15": {
+              "forecast_hours": 24,
+              "precip_mm": 1.8,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-16": {
+              "forecast_hours": 24,
+              "precip_mm": 1.8,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-17": {
+              "forecast_hours": 24,
+              "precip_mm": 1.1,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-18": {
+              "forecast_hours": 24,
+              "precip_mm": 2.2,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-19": {
+              "forecast_hours": 24,
+              "precip_mm": 0.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            }
+          },
+          "hours_valid": 167
+        }
+      ],
+      "errors": []
+    },
+    "AIFS Single": {
+      "model_id": "ecmwf_aifs025_single",
+      "status": "verified",
+      "cities_succeeded": 7,
+      "cities_requested": 7,
+      "records": [
+        {
+          "city": "강릉",
+          "lat": 37.7519,
+          "lon": 128.8761,
+          "actual_grid_lat": 37.75,
+          "actual_grid_lon": 128.75,
+          "timezone": "Asia/Seoul",
+          "days": {
+            "2026-11-13": {
+              "forecast_hours": 23,
+              "precip_mm": 0.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-14": {
+              "forecast_hours": 24,
+              "precip_mm": 11.2,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-15": {
+              "forecast_hours": 24,
+              "precip_mm": 6.6,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-16": {
+              "forecast_hours": 24,
+              "precip_mm": 18.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-17": {
+              "forecast_hours": 24,
+              "precip_mm": 7.6,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-18": {
+              "forecast_hours": 24,
+              "precip_mm": 4.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-19": {
+              "forecast_hours": 24,
+              "precip_mm": 0.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            }
+          },
+          "hours_valid": 167
+        },
+        {
+          "city": "광주",
+          "lat": 35.1595,
+          "lon": 126.8526,
+          "actual_grid_lat": 35.25,
+          "actual_grid_lon": 126.75,
+          "timezone": "Asia/Seoul",
+          "days": {
+            "2026-11-13": {
+              "forecast_hours": 23,
+              "precip_mm": 3.4,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-14": {
+              "forecast_hours": 24,
+              "precip_mm": 22.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-15": {
+              "forecast_hours": 24,
+              "precip_mm": 1.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-16": {
+              "forecast_hours": 24,
+              "precip_mm": 0.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-17": {
+              "forecast_hours": 24,
+              "precip_mm": 1.6,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-18": {
+              "forecast_hours": 24,
+              "precip_mm": 4.2,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-19": {
+              "forecast_hours": 24,
+              "precip_mm": 3.8,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            }
+          },
+          "hours_valid": 167
+        },
+        {
+          "city": "대전",
+          "lat": 36.3504,
+          "lon": 127.3845,
+          "actual_grid_lat": 36.25,
+          "actual_grid_lon": 127.5,
+          "timezone": "Asia/Seoul",
+          "days": {
+            "2026-11-13": {
+              "forecast_hours": 23,
+              "precip_mm": 1.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-14": {
+              "forecast_hours": 24,
+              "precip_mm": 18.8,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-15": {
+              "forecast_hours": 24,
+              "precip_mm": 1.8,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-16": {
+              "forecast_hours": 24,
+              "precip_mm": 0.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-17": {
+              "forecast_hours": 24,
+              "precip_mm": 1.4,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-18": {
+              "forecast_hours": 24,
+              "precip_mm": 4.8,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-19": {
+              "forecast_hours": 24,
+              "precip_mm": 1.2,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            }
+          },
+          "hours_valid": 167
+        },
+        {
+          "city": "부산",
+          "lat": 35.1796,
+          "lon": 129.0756,
+          "actual_grid_lat": 35.25,
+          "actual_grid_lon": 129.0,
+          "timezone": "Asia/Seoul",
+          "days": {
+            "2026-11-13": {
+              "forecast_hours": 23,
+              "precip_mm": 0.4,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-14": {
+              "forecast_hours": 24,
+              "precip_mm": 31.4,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-15": {
+              "forecast_hours": 24,
+              "precip_mm": 1.8,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-16": {
+              "forecast_hours": 24,
+              "precip_mm": 1.6,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-17": {
+              "forecast_hours": 24,
+              "precip_mm": 2.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-18": {
+              "forecast_hours": 24,
+              "precip_mm": 0.6,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-19": {
+              "forecast_hours": 24,
+              "precip_mm": 0.2,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            }
+          },
+          "hours_valid": 167
+        },
+        {
+          "city": "서귀포",
+          "lat": 33.2541,
+          "lon": 126.5601,
+          "actual_grid_lat": 33.25,
+          "actual_grid_lon": 126.5,
+          "timezone": "Asia/Seoul",
+          "days": {
+            "2026-11-13": {
+              "forecast_hours": 23,
+              "precip_mm": 4.2,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-14": {
+              "forecast_hours": 24,
+              "precip_mm": 34.4,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-15": {
+              "forecast_hours": 24,
+              "precip_mm": 1.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-16": {
+              "forecast_hours": 24,
+              "precip_mm": 5.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-17": {
+              "forecast_hours": 24,
+              "precip_mm": 8.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-18": {
+              "forecast_hours": 24,
+              "precip_mm": 3.6,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-19": {
+              "forecast_hours": 24,
+              "precip_mm": 2.8,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            }
+          },
+          "hours_valid": 167
+        },
+        {
+          "city": "서울",
+          "lat": 37.5665,
+          "lon": 126.978,
+          "actual_grid_lat": 37.5,
+          "actual_grid_lon": 127.0,
+          "timezone": "Asia/Seoul",
+          "days": {
+            "2026-11-13": {
+              "forecast_hours": 23,
+              "precip_mm": 0.2,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-14": {
+              "forecast_hours": 24,
+              "precip_mm": 9.6,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-15": {
+              "forecast_hours": 24,
+              "precip_mm": 0.4,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-16": {
+              "forecast_hours": 24,
+              "precip_mm": 0.2,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-17": {
+              "forecast_hours": 24,
+              "precip_mm": 5.2,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-18": {
+              "forecast_hours": 24,
+              "precip_mm": 4.2,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-19": {
+              "forecast_hours": 24,
+              "precip_mm": 0.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            }
+          },
+          "hours_valid": 167
+        },
+        {
+          "city": "울산",
+          "lat": 35.5384,
+          "lon": 129.3114,
+          "actual_grid_lat": 35.5,
+          "actual_grid_lon": 129.25,
+          "timezone": "Asia/Seoul",
+          "days": {
+            "2026-11-13": {
+              "forecast_hours": 23,
+              "precip_mm": 0.2,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-14": {
+              "forecast_hours": 24,
+              "precip_mm": 28.2,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-15": {
+              "forecast_hours": 24,
+              "precip_mm": 2.8,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-16": {
+              "forecast_hours": 24,
+              "precip_mm": 2.4,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-17": {
+              "forecast_hours": 24,
+              "precip_mm": 2.4,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-18": {
+              "forecast_hours": 24,
+              "precip_mm": 0.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-19": {
+              "forecast_hours": 24,
+              "precip_mm": 0.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            }
+          },
+          "hours_valid": 167
+        }
+      ],
+      "errors": []
+    }
+  }
+}
