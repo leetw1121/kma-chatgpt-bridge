@@ -11,8 +11,8 @@ on:
       - "assets/**"
       - ".github/workflows/update_kma.yml"
   schedule:
-    # UTC 15:12,21:12,03:12,09:12 = KST 00:12,06:12,12:12,18:12
-    - cron: '12 3,9,15,21 * * *'
+    # KST 00:12/00:22,06:12/06:22,12:12/12:22,18:12/18:22 (redundant to reduce delayed runs)
+    - cron: '12,22 3,9,15,21 * * *'
 
 permissions:
   contents: write
@@ -50,7 +50,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add locations.csv data/latest.json data/summary.md
+          git add locations.csv data/latest.json data/summary.md data/all_regions.md data/all_regions.csv
           if ! git diff --cached --quiet; then
             git commit -m "Update KMA public weather forecast"
             git push
