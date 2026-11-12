@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build gu/city representative-grid list from an official KMA mapping CSV/XLSX.
+"""Build gu/city representative grids using official second-stage rows of KMA CSV/XLSX.
 
 Source: KMA short-range forecast API user guide, grid/latlon appendix.
 This is an opt-in offline import, not scraping or an assumed set of coordinates.
@@ -7,7 +7,6 @@ This is an opt-in offline import, not scraping or an assumed set of coordinates.
 import argparse
 import csv
 import re
-from collections import Counter, defaultdict
 from pathlib import Path
 
 def norm(value):
@@ -18,6 +17,7 @@ def columns(head):
     aliases=[
         ["1단계","시도","시도명","시도명칭"],
         ["2단계","시군구","시군구명","시군구명칭"],
+        ["3단계","읍면동","동리","동명"],
         ["격자x","nx","gridx","격자x좌표"],
         ["격자y","ny","gridy","격자y좌표"],
     ]
@@ -59,7 +59,12 @@ def read_records(path):
             yield ([str(v or "").strip() for v in row],positions)
 
 def region_name(province,district):
-    if not province or not district or district.endswith("군"): return None
+    province=str(province or "").strip()
+    district=str(district or "").strip()
+    if not province or province=="이어도": return None
+    if province=="세종특별자치시" and (not district or district==province):
+        return province,"city"
+    if not district or district.endswith("군"): return None
     if district.endswith("구"):
         match=re.match(r"^(.*?시)\s*(.+구)$",district)
         if match: return province+" "+match[1]+" "+match[2],"gu"
@@ -69,23 +74,27 @@ def region_name(province,district):
     return None
 
 def convert(source,destination):
-    groups=defaultdict(Counter)
+    groups={}
     for row,positions in read_records(source):
-        a,b,x,y=positions
+        a,b,third,x,y=positions
+        # KMA already publishes one official representative grid for each second-stage unit.
+        # All subordinate dong/eup/myeon rows must be ignored, NOT counted as votes.
+        if row[third].strip(): continue
         label=region_name(row[a],row[b])
         if not label: continue
         try: coords=(int(float(row[x])),int(float(row[y])))
         except ValueError: continue
-        if 1<=coords[0]<=149 and 1<=coords[1]<=253:
-            groups[label][coords]+=1
+        if not (1<=coords[0]<=149 and 1<=coords[1]<=253): continue
+        old=groups.get(label)
+        if old is not None and old!=coords:
+            raise ValueError("CONFLICTING_OFFICIAL_GRID_FOR_"+label[0])
+        groups[label]=coords
     if not groups: raise ValueError("NO_VALID_KMA_GRID")
     destination.parent.mkdir(parents=True,exist_ok=True)
     with destination.open("w",encoding="utf-8",newline="") as stream:
         writer=csv.writer(stream)
         writer.writerow(("name","level","nx","ny"))
-        for (name,level),votes in sorted(groups.items()):
-            # Most common Dong grid represents only ONE point in an administrative area.
-            grid=votes.most_common(1)[0][0]
+        for (name,level),grid in sorted(groups.items()):
             writer.writerow((name,level,*grid))
     return len(groups)
 
