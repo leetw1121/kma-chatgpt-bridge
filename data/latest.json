@@ -1,0 +1,1057 @@
+{
+  "schema_version": "1.0",
+  "source": "KMA getVilageFcst",
+  "generated_at_kst": "2026-11-12T19:18:44.772955+09:00",
+  "issue_at_kst": "2026-11-12T17:00:00+09:00",
+  "coverage_note": "Only forecast hours returned by the KMA short-range API. NOT 168h of quantitative district predictions.",
+  "ranking_note": "Only checked representative grids and identical day/time windows, not all South Korean districts.",
+  "locations_checked": 9,
+  "locations_succeeded": 9,
+  "warnings": [],
+  "locations": [
+    {
+      "name": "서울특별시 종로구",
+      "level": "gu",
+      "nx": 60,
+      "ny": 127,
+      "days": {
+        "2026-11-12": {
+          "from_kst": "2026-11-12T20:00:00+09:00",
+          "to_kst": "2026-11-12T23:00:00+09:00",
+          "hours": 4,
+          "max_pop_pct": 30,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        },
+        "2026-11-13": {
+          "from_kst": "2026-11-13T00:00:00+09:00",
+          "to_kst": "2026-11-13T23:00:00+09:00",
+          "hours": 24,
+          "max_pop_pct": 30,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        },
+        "2026-11-14": {
+          "from_kst": "2026-11-14T00:00:00+09:00",
+          "to_kst": "2026-11-14T23:00:00+09:00",
+          "hours": 24,
+          "max_pop_pct": 60,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 2.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        },
+        "2026-11-15": {
+          "from_kst": "2026-11-15T00:00:00+09:00",
+          "to_kst": "2026-11-15T23:00:00+09:00",
+          "hours": 24,
+          "max_pop_pct": 20,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        },
+        "2026-11-16": {
+          "from_kst": "2026-11-16T00:00:00+09:00",
+          "to_kst": "2026-11-16T21:00:00+09:00",
+          "hours": 8,
+          "max_pop_pct": 30,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": false,
+            "lower": null,
+            "upper": null
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": false,
+            "lower": null,
+            "upper": null
+          }
+        },
+        "2026-11-17": {
+          "from_kst": "2026-11-17T00:00:00+09:00",
+          "to_kst": "2026-11-17T00:00:00+09:00",
+          "hours": 1,
+          "max_pop_pct": 30,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "서울특별시 중구",
+      "level": "gu",
+      "nx": 60,
+      "ny": 127,
+      "days": {
+        "2026-11-12": {
+          "from_kst": "2026-11-12T20:00:00+09:00",
+          "to_kst": "2026-11-12T23:00:00+09:00",
+          "hours": 4,
+          "max_pop_pct": 30,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        },
+        "2026-11-13": {
+          "from_kst": "2026-11-13T00:00:00+09:00",
+          "to_kst": "2026-11-13T23:00:00+09:00",
+          "hours": 24,
+          "max_pop_pct": 30,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        },
+        "2026-11-14": {
+          "from_kst": "2026-11-14T00:00:00+09:00",
+          "to_kst": "2026-11-14T23:00:00+09:00",
+          "hours": 24,
+          "max_pop_pct": 60,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 2.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        },
+        "2026-11-15": {
+          "from_kst": "2026-11-15T00:00:00+09:00",
+          "to_kst": "2026-11-15T23:00:00+09:00",
+          "hours": 24,
+          "max_pop_pct": 20,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        },
+        "2026-11-16": {
+          "from_kst": "2026-11-16T00:00:00+09:00",
+          "to_kst": "2026-11-16T21:00:00+09:00",
+          "hours": 8,
+          "max_pop_pct": 30,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": false,
+            "lower": null,
+            "upper": null
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": false,
+            "lower": null,
+            "upper": null
+          }
+        },
+        "2026-11-17": {
+          "from_kst": "2026-11-17T00:00:00+09:00",
+          "to_kst": "2026-11-17T00:00:00+09:00",
+          "hours": 1,
+          "max_pop_pct": 30,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "부산광역시",
+      "level": "city",
+      "nx": 98,
+      "ny": 76,
+      "days": {
+        "2026-11-12": {
+          "from_kst": "2026-11-12T20:00:00+09:00",
+          "to_kst": "2026-11-12T23:00:00+09:00",
+          "hours": 4,
+          "max_pop_pct": 20,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        },
+        "2026-11-13": {
+          "from_kst": "2026-11-13T00:00:00+09:00",
+          "to_kst": "2026-11-13T23:00:00+09:00",
+          "hours": 24,
+          "max_pop_pct": 30,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        },
+        "2026-11-14": {
+          "from_kst": "2026-11-14T00:00:00+09:00",
+          "to_kst": "2026-11-14T23:00:00+09:00",
+          "hours": 24,
+          "max_pop_pct": 60,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 7.0,
+            "upper": 18.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        },
+        "2026-11-15": {
+          "from_kst": "2026-11-15T00:00:00+09:00",
+          "to_kst": "2026-11-15T23:00:00+09:00",
+          "hours": 24,
+          "max_pop_pct": 60,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 6.8,
+            "upper": 6.8
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        },
+        "2026-11-16": {
+          "from_kst": "2026-11-16T00:00:00+09:00",
+          "to_kst": "2026-11-16T21:00:00+09:00",
+          "hours": 8,
+          "max_pop_pct": 30,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": false,
+            "lower": null,
+            "upper": null
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": false,
+            "lower": null,
+            "upper": null
+          }
+        },
+        "2026-11-17": {
+          "from_kst": "2026-11-17T00:00:00+09:00",
+          "to_kst": "2026-11-17T00:00:00+09:00",
+          "hours": 1,
+          "max_pop_pct": 20,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "대구광역시",
+      "level": "city",
+      "nx": 89,
+      "ny": 90,
+      "days": {
+        "2026-11-12": {
+          "from_kst": "2026-11-12T20:00:00+09:00",
+          "to_kst": "2026-11-12T23:00:00+09:00",
+          "hours": 4,
+          "max_pop_pct": 20,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        },
+        "2026-11-13": {
+          "from_kst": "2026-11-13T00:00:00+09:00",
+          "to_kst": "2026-11-13T23:00:00+09:00",
+          "hours": 24,
+          "max_pop_pct": 30,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        },
+        "2026-11-14": {
+          "from_kst": "2026-11-14T00:00:00+09:00",
+          "to_kst": "2026-11-14T23:00:00+09:00",
+          "hours": 24,
+          "max_pop_pct": 60,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 6.0,
+            "upper": 23.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        },
+        "2026-11-15": {
+          "from_kst": "2026-11-15T00:00:00+09:00",
+          "to_kst": "2026-11-15T23:00:00+09:00",
+          "hours": 24,
+          "max_pop_pct": 70,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 3.4,
+            "upper": 3.4
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        },
+        "2026-11-16": {
+          "from_kst": "2026-11-16T00:00:00+09:00",
+          "to_kst": "2026-11-16T21:00:00+09:00",
+          "hours": 8,
+          "max_pop_pct": 30,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": false,
+            "lower": null,
+            "upper": null
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": false,
+            "lower": null,
+            "upper": null
+          }
+        },
+        "2026-11-17": {
+          "from_kst": "2026-11-17T00:00:00+09:00",
+          "to_kst": "2026-11-17T00:00:00+09:00",
+          "hours": 1,
+          "max_pop_pct": 20,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "인천광역시",
+      "level": "city",
+      "nx": 55,
+      "ny": 124,
+      "days": {
+        "2026-11-12": {
+          "from_kst": "2026-11-12T20:00:00+09:00",
+          "to_kst": "2026-11-12T23:00:00+09:00",
+          "hours": 4,
+          "max_pop_pct": 30,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        },
+        "2026-11-13": {
+          "from_kst": "2026-11-13T00:00:00+09:00",
+          "to_kst": "2026-11-13T23:00:00+09:00",
+          "hours": 24,
+          "max_pop_pct": 30,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        },
+        "2026-11-14": {
+          "from_kst": "2026-11-14T00:00:00+09:00",
+          "to_kst": "2026-11-14T23:00:00+09:00",
+          "hours": 24,
+          "max_pop_pct": 60,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 10.0,
+            "upper": 11.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        },
+        "2026-11-15": {
+          "from_kst": "2026-11-15T00:00:00+09:00",
+          "to_kst": "2026-11-15T23:00:00+09:00",
+          "hours": 24,
+          "max_pop_pct": 20,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        },
+        "2026-11-16": {
+          "from_kst": "2026-11-16T00:00:00+09:00",
+          "to_kst": "2026-11-16T21:00:00+09:00",
+          "hours": 8,
+          "max_pop_pct": 30,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": false,
+            "lower": null,
+            "upper": null
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": false,
+            "lower": null,
+            "upper": null
+          }
+        },
+        "2026-11-17": {
+          "from_kst": "2026-11-17T00:00:00+09:00",
+          "to_kst": "2026-11-17T00:00:00+09:00",
+          "hours": 1,
+          "max_pop_pct": 30,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "광주광역시",
+      "level": "city",
+      "nx": 58,
+      "ny": 74,
+      "days": {
+        "2026-11-12": {
+          "from_kst": "2026-11-12T20:00:00+09:00",
+          "to_kst": "2026-11-12T23:00:00+09:00",
+          "hours": 4,
+          "max_pop_pct": 20,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        },
+        "2026-11-13": {
+          "from_kst": "2026-11-13T00:00:00+09:00",
+          "to_kst": "2026-11-13T23:00:00+09:00",
+          "hours": 24,
+          "max_pop_pct": 60,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 4.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        },
+        "2026-11-14": {
+          "from_kst": "2026-11-14T00:00:00+09:00",
+          "to_kst": "2026-11-14T23:00:00+09:00",
+          "hours": 24,
+          "max_pop_pct": 60,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 20.0,
+            "upper": 31.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        },
+        "2026-11-15": {
+          "from_kst": "2026-11-15T00:00:00+09:00",
+          "to_kst": "2026-11-15T23:00:00+09:00",
+          "hours": 24,
+          "max_pop_pct": 60,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 1.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        },
+        "2026-11-16": {
+          "from_kst": "2026-11-16T00:00:00+09:00",
+          "to_kst": "2026-11-16T21:00:00+09:00",
+          "hours": 8,
+          "max_pop_pct": 30,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": false,
+            "lower": null,
+            "upper": null
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": false,
+            "lower": null,
+            "upper": null
+          }
+        },
+        "2026-11-17": {
+          "from_kst": "2026-11-17T00:00:00+09:00",
+          "to_kst": "2026-11-17T00:00:00+09:00",
+          "hours": 1,
+          "max_pop_pct": 20,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "대전광역시",
+      "level": "city",
+      "nx": 67,
+      "ny": 100,
+      "days": {
+        "2026-11-12": {
+          "from_kst": "2026-11-12T20:00:00+09:00",
+          "to_kst": "2026-11-12T23:00:00+09:00",
+          "hours": 4,
+          "max_pop_pct": 20,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        },
+        "2026-11-13": {
+          "from_kst": "2026-11-13T00:00:00+09:00",
+          "to_kst": "2026-11-13T23:00:00+09:00",
+          "hours": 24,
+          "max_pop_pct": 30,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        },
+        "2026-11-14": {
+          "from_kst": "2026-11-14T00:00:00+09:00",
+          "to_kst": "2026-11-14T23:00:00+09:00",
+          "hours": 24,
+          "max_pop_pct": 60,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 25.0,
+            "upper": 35.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        },
+        "2026-11-15": {
+          "from_kst": "2026-11-15T00:00:00+09:00",
+          "to_kst": "2026-11-15T23:00:00+09:00",
+          "hours": 24,
+          "max_pop_pct": 30,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        },
+        "2026-11-16": {
+          "from_kst": "2026-11-16T00:00:00+09:00",
+          "to_kst": "2026-11-16T21:00:00+09:00",
+          "hours": 8,
+          "max_pop_pct": 30,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": false,
+            "lower": null,
+            "upper": null
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": false,
+            "lower": null,
+            "upper": null
+          }
+        },
+        "2026-11-17": {
+          "from_kst": "2026-11-17T00:00:00+09:00",
+          "to_kst": "2026-11-17T00:00:00+09:00",
+          "hours": 1,
+          "max_pop_pct": 30,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "울산광역시",
+      "level": "city",
+      "nx": 102,
+      "ny": 84,
+      "days": {
+        "2026-11-12": {
+          "from_kst": "2026-11-12T20:00:00+09:00",
+          "to_kst": "2026-11-12T23:00:00+09:00",
+          "hours": 4,
+          "max_pop_pct": 20,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        },
+        "2026-11-13": {
+          "from_kst": "2026-11-13T00:00:00+09:00",
+          "to_kst": "2026-11-13T23:00:00+09:00",
+          "hours": 24,
+          "max_pop_pct": 30,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        },
+        "2026-11-14": {
+          "from_kst": "2026-11-14T00:00:00+09:00",
+          "to_kst": "2026-11-14T23:00:00+09:00",
+          "hours": 24,
+          "max_pop_pct": 60,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 14.0,
+            "upper": 20.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        },
+        "2026-11-15": {
+          "from_kst": "2026-11-15T00:00:00+09:00",
+          "to_kst": "2026-11-15T23:00:00+09:00",
+          "hours": 24,
+          "max_pop_pct": 70,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 4.0,
+            "upper": 4.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        },
+        "2026-11-16": {
+          "from_kst": "2026-11-16T00:00:00+09:00",
+          "to_kst": "2026-11-16T21:00:00+09:00",
+          "hours": 8,
+          "max_pop_pct": 60,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": false,
+            "lower": null,
+            "upper": null
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": false,
+            "lower": null,
+            "upper": null
+          }
+        },
+        "2026-11-17": {
+          "from_kst": "2026-11-17T00:00:00+09:00",
+          "to_kst": "2026-11-17T00:00:00+09:00",
+          "hours": 1,
+          "max_pop_pct": 60,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 1.0,
+            "upper": 1.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "제주시",
+      "level": "city",
+      "nx": 52,
+      "ny": 38,
+      "days": {
+        "2026-11-12": {
+          "from_kst": "2026-11-12T20:00:00+09:00",
+          "to_kst": "2026-11-12T23:00:00+09:00",
+          "hours": 4,
+          "max_pop_pct": 20,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        },
+        "2026-11-13": {
+          "from_kst": "2026-11-13T00:00:00+09:00",
+          "to_kst": "2026-11-13T23:00:00+09:00",
+          "hours": 24,
+          "max_pop_pct": 60,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 6.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        },
+        "2026-11-14": {
+          "from_kst": "2026-11-14T00:00:00+09:00",
+          "to_kst": "2026-11-14T23:00:00+09:00",
+          "hours": 24,
+          "max_pop_pct": 60,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 21.0,
+            "upper": 32.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        },
+        "2026-11-15": {
+          "from_kst": "2026-11-15T00:00:00+09:00",
+          "to_kst": "2026-11-15T23:00:00+09:00",
+          "hours": 24,
+          "max_pop_pct": 60,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 2.2,
+            "upper": 3.2
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        },
+        "2026-11-16": {
+          "from_kst": "2026-11-16T00:00:00+09:00",
+          "to_kst": "2026-11-16T21:00:00+09:00",
+          "hours": 8,
+          "max_pop_pct": 30,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": false,
+            "lower": null,
+            "upper": null
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": false,
+            "lower": null,
+            "upper": null
+          }
+        },
+        "2026-11-17": {
+          "from_kst": "2026-11-17T00:00:00+09:00",
+          "to_kst": "2026-11-17T00:00:00+09:00",
+          "hours": 1,
+          "max_pop_pct": 30,
+          "rain_mm": {
+            "unit": "mm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "snow_cm": {
+            "unit": "cm",
+            "comparable": true,
+            "lower": 0.0,
+            "upper": 0.0
+          }
+        }
+      }
+    }
+  ]
+}
