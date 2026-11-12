@@ -65,7 +65,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add locations.csv data/latest.json data/summary.md data/all_regions.md data/all_regions.csv data/precipitation_only.md data/precipitation_only.csv data/rain_snow_latest.pdf data/ecmwf_regional.json data/source_status.md
+          git add locations.csv data/latest.json data/summary.md data/all_regions.md data/all_regions.csv data/precipitation_only.md data/precipitation_only.csv data/rain_snow_latest.pdf data/pdf_manifest.json data/ecmwf_regional.json data/source_status.md
           if ! git diff --cached --quiet; then
             git commit -m "Update verified KMA nationwide and optional ECMWF forecasts"
             # Code may be updated while the API is running. Rebase only the generated
