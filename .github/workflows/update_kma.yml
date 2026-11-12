@@ -8,6 +8,7 @@ on:
       - "scripts/**"
       - "tests/**"
       - "locations.csv"
+      - "assets/**"
       - ".github/workflows/update_kma.yml"
   schedule:
     # UTC 15:12,21:12,03:12,09:12 = KST 00:12,06:12,12:12,18:12
@@ -31,6 +32,16 @@ jobs:
           python-version: '3.11'
       - name: Validate collector
         run: python -m unittest discover -s tests -v
+      - name: Import official nationwide KMA grid mapping (if uploaded)
+        run: |
+          if [ -f assets/kma_grid_mapping.xlsx ]; then
+            python -m pip install --disable-pip-version-check openpyxl
+            python scripts/import_kma_grid.py assets/kma_grid_mapping.xlsx
+          elif [ -f assets/kma_grid_mapping.csv ]; then
+            python scripts/import_kma_grid.py assets/kma_grid_mapping.csv
+          else
+            echo "No official grid file uploaded; keeping verified representative sample."
+          fi
       - name: Fetch official KMA forecasts
         env:
           KMA_SERVICE_KEY: ${{ secrets.KMA_SERVICE_KEY }}
@@ -39,7 +50,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/latest.json data/summary.md
+          git add locations.csv data/latest.json data/summary.md
           if ! git diff --cached --quiet; then
             git commit -m "Update KMA public weather forecast"
             git push
