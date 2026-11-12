@@ -46,13 +46,15 @@ jobs:
         env:
           KMA_SERVICE_KEY: ${{ secrets.KMA_SERVICE_KEY }}
         run: python scripts/fetch_kma.py
+      - name: Publish rain/snow forecast regions only (all qualifying regions, no TOP limit)
+        run: python scripts/create_precip_report.py
       - name: Check independent ECMWF IFS / AIFS model availability
         run: python scripts/fetch_ecmwf.py
       - name: Commit PUBLIC weather data only
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add locations.csv data/latest.json data/summary.md data/all_regions.md data/all_regions.csv data/ecmwf_regional.json data/source_status.md
+          git add locations.csv data/latest.json data/summary.md data/all_regions.md data/all_regions.csv data/precipitation_only.md data/precipitation_only.csv data/ecmwf_regional.json data/source_status.md
           if ! git diff --cached --quiet; then
             git commit -m "Update verified KMA nationwide and optional ECMWF forecasts"
             # Code may be updated while the API is running. Rebase only the generated
