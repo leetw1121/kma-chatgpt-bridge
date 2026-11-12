@@ -121,19 +121,21 @@ def status_md(result):
        "- 점검 시각(KST): **"+result["generated_at_kst"]+"**",
        "- 기상청 단기 API: **자동 연결** (성공·실제 수치는 [latest.json](latest.json)에서 확인)",
        "- 기상청 중기예보·특보: 이 GitHub 수집에는 미포함, ChatGPT 예약에서 최신 공식 본문 별도 확인",
-       "- AccuWeather: **미연결** (별도 인증/이용허가 필요, 임의 수집 금지)",
-       "- Weathernews: **미연결** (최신 한국 지역 수치 자동 조회 경로 미검증)",
-       "- The Weather Channel: **미연결** (최신 한국 지역 수치 자동 조회 경로 미검증)",
        "",
-       "## ECMWF 공개 예측모델 접속 확인",
+       "## ECMWF 공개 예측모델 — 최신 한국 도시 수치 확인에 성공한 모델만 표시",
        "",
        "| 모델 | 한국 도시 중심좌표 실제 조회 | 처리 |",
        "|---|---:|---|"]
+    verified=0
     for model,v in result["models"].items():
+        if v["status"]!="verified" or v["cities_succeeded"]<=0:continue
+        verified+=1
         lines.append("| "+model+" | "+str(v["cities_succeeded"])+"/"+str(v["cities_requested"])+
-            " | "+("실제 수치 확인" if v["status"]=="verified" else "실제 수치 확인 실패")+" |")
+            " | 실제 한국 수치 확인 |")
+    if not verified:
+        lines.append("| 확인된 독립 모델 없음 | — | 최신 수치 미확보 · 비교 생략 |")
     lines += ["","**주의:** ECMWF 모델은 기상청 API와 다른 격자·해상도에서 계산한 *결정론적 예보*입니다. 두 모델의 수치가 일치해도 적중률이 검증된 것은 아니며, 모델 강수량을 확률로 바꿀 수 없습니다.",
-       "이 상태표는 임의로 민간 예보사의 최신 데이터를 채워 넣지 않습니다. 모델별 검증 성공은 [ecmwf_regional.json](ecmwf_regional.json)을 함께 확인하세요.",
+       "현재 자동 조회에 연결하지 않은 예보 제공사는 표와 알림에서 제외합니다. 모델별 검증 성공은 [ecmwf_regional.json](ecmwf_regional.json)을 함께 확인하세요.",
        ""]
     return "\n".join(lines)
 
