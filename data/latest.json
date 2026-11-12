@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "source": "KMA getVilageFcst",
-  "generated_at_kst": "2026-11-12T19:18:44.772955+09:00",
+  "generated_at_kst": "2026-11-12T19:25:19.483994+09:00",
   "issue_at_kst": "2026-11-12T17:00:00+09:00",
   "coverage_note": "Only forecast hours returned by the KMA short-range API. NOT 168h of quantitative district predictions.",
   "ranking_note": "Only checked representative grids and identical day/time windows, not all South Korean districts.",
