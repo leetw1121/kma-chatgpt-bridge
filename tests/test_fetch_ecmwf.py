@@ -29,8 +29,9 @@ class ECMWFModelTests(unittest.TestCase):
         text=status_md(result)
         self.assertIn("0/7",text)
         self.assertIn("2/7",text)
-        self.assertIn("AccuWeather",text)
-        self.assertIn("미연결",text)
+        self.assertNotIn("AccuWeather",text)
+        self.assertNotIn("IFS | 0/7",text)
+        self.assertIn("AIFS Single | 2/7",text)
 
 if __name__=="__main__":
     unittest.main()
