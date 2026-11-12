@@ -1,11 +1,12 @@
 import datetime as dt
 import sys
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"scripts"))
-from fetch_kma import issues, interval, daily_summary, load_locations
+from fetch_kma import issues, interval, daily_summary, load_locations, build, render
 
 class ForecastTests(unittest.TestCase):
     def test_issue_rollover(self):
@@ -29,6 +30,40 @@ class ForecastTests(unittest.TestCase):
         self.assertEqual(value["rain_mm"]["lower"],2.0)
         self.assertEqual(value["rain_mm"]["upper"],3.0)
         self.assertEqual(value["max_pop_pct"],80)
+
+    def test_snow_is_not_counted_as_rain(self):
+        now=dt.datetime(2026,11,12,18,tzinfo=ZoneInfo("Asia/Seoul"))
+        rows=[
+            {"fcstDate":"20261112","fcstTime":"1900","category":cat,"fcstValue":value}
+            for cat,value in (("PCP","2mm"),("SNO","1cm"),("PTY","3"),("POP","80"))
+        ]
+        values=daily_summary(rows,now)["2026-11-12"]
+        self.assertEqual(values["precip_mm"]["lower"],2.0)
+        self.assertFalse(values["rain_mm"]["comparable"])
+        self.assertFalse(values["full_day"])
+
+    def test_partial_day_not_claimed_as_full_day(self):
+        now=dt.datetime(2026,11,12,18,tzinfo=ZoneInfo("Asia/Seoul"))
+        rows=[{"fcstDate":"20261112","fcstTime":"1900","category":"PCP","fcstValue":"1mm"}]
+        d=daily_summary(rows,now)["2026-11-12"]
+        self.assertEqual(d["hours"],1)
+        self.assertFalse(d["full_day"])
+
+    def test_shared_grid_fetch_once(self):
+        now=dt.datetime(2026,11,12,18,tzinfo=ZoneInfo("Asia/Seoul"))
+        places=[
+            {"name":"서울특별시 종로구","level":"gu","nx":60,"ny":127},
+            {"name":"서울특별시 중구","level":"gu","nx":60,"ny":127},
+        ]
+        rows=[{"fcstDate":"20261112","fcstTime":"1900","category":"PCP","fcstValue":"1mm"},
+              {"fcstDate":"20261112","fcstTime":"1900","category":"SNO","fcstValue":"적설없음"},
+              {"fcstDate":"20261112","fcstTime":"1900","category":"POP","fcstValue":"60"}]
+        with patch("fetch_kma.all_pages",return_value=rows) as getter:
+            data=build("dummy",places,now)
+        self.assertEqual(getter.call_count,1)
+        self.assertEqual(data["unique_grids_checked"],1)
+        self.assertEqual(data["locations_succeeded"],2)
+        self.assertIn("동일 격자",render(data))
 
     def test_sample_locations(self):
         self.assertGreaterEqual(len(load_locations()),5)
