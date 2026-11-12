@@ -1,8 +1,8 @@
 {
   "schema_version": "1.1",
   "source": "KMA getVilageFcst",
-  "generated_at_kst": "2026-11-12T20:08:37.856613+09:00",
-  "collection_started_at_kst": "2026-11-12T20:06:36.311314+09:00",
+  "generated_at_kst": "2026-11-12T20:11:23.534340+09:00",
+  "collection_started_at_kst": "2026-11-12T20:09:06.035685+09:00",
   "issue_at_kst": "2026-11-12T17:00:00+09:00",
   "coverage_note": "Only returned KMA short-range forecast hours; not 168h of district totals.",
   "ranking_note": "Representative grids only. Duplicate districts share the same forecast; intervals can overlap.",
