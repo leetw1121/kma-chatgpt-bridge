@@ -27,7 +27,7 @@ class ECMWFModelTests(unittest.TestCase):
              "IFS":{"cities_succeeded":0,"cities_requested":7,"status":"unavailable"},
              "AIFS Single":{"cities_succeeded":2,"cities_requested":7,"status":"verified"}}}
         text=status_md(result)
-        self.assertIn("0/7",text)
+        self.assertNotIn("0/7",text)
         self.assertIn("2/7",text)
         self.assertNotIn("AccuWeather",text)
         self.assertNotIn("IFS | 0/7",text)
