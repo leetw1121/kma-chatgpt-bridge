@@ -93,7 +93,8 @@ class ForecastTests(unittest.TestCase):
         self.assertIn("2~4mm",full)
         self.assertIn("0mm",full)
         table=complete_csv(base)
-        self.assertEqual(len(table.splitlines()),3)
+        self.assertEqual(len(table.splitlines()),17)  # 2 regions x 8 calendar dates in a 168h window + header
+        self.assertIn("not_provided",table)
         self.assertIn("서울특별시 종로구",table)
         self.assertIn("서울특별시 강남구",table)
 
