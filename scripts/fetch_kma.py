@@ -201,11 +201,11 @@ def build(secret,locations,now):
             "warnings":warnings[:30],"locations":collected}
 
 def render(data):
-    lines=["# 기상청 구별 단기예보 — 확인된 지역만 비교","",
+    lines=["# 기상청 구·시 단기예보 — 확인된 대표 격자만 비교","",
       "- 수집 시각(KST): **"+data["generated_at_kst"]+"**",
       "- 기상청 발표 기준(KST): **"+data["issue_at_kst"]+"**",
       "- 조회 성공: "+str(data["locations_succeeded"])+"/"+str(data["locations_checked"])+" 지역 / 고유 격자 "+str(data.get("unique_grids_succeeded","?"))+"/"+str(data.get("unique_grids_checked","?"))+"개",
-      "- 주의: 구 전체가 아닌 대표 격자 예보입니다. **전국 구별 전수 순위가 아닙니다.**",
+      "- 주의: 구·시 전체 평균이 아닌 대표 격자 예보입니다. 조회하지 않은 격자에 대한 전국 전수 순위가 아닙니다.",
       "- 시간별 강수량/적설의 범주를 합산한 것은 범위이며 정확한 단일 수치가 아닙니다.",
       "- 같은 5km 격자를 공유하는 구는 하나의 예보로 묶습니다. 예보량 범위가 겹치면 실제 우열은 확정할 수 없습니다.",
       "- 표의 강수량(PCP)은 비/눈을 포함한 총강수량입니다. 눈이 포함된 시점은 비만의 양으로 단정하지 않습니다.",
@@ -214,19 +214,20 @@ def render(data):
     # Multiple districts can share one 5km grid: never count them as independent forecasts.
     groups=defaultdict(dict)
     for place in data["locations"]:
-        if place["level"]!="gu":continue
+        if place["level"] not in ("gu","city"):continue
         for day,values in place["days"].items():
-            key=(day,values["from_kst"],values["to_kst"],values["hours"])
+            key=(day,place["level"],values["from_kst"],values["to_kst"],values["hours"])
             grid=(place["nx"],place["ny"])
             if grid in groups[key]:
                 merged,previous=groups[key][grid]
                 merged["name"] += " · " + place["name"] + " (동일 격자)"
             else:
                 groups[key][grid]=({**place},values)
-    for key,grid_entries in sorted(groups.items()):
+    for key,grid_entries in sorted(groups.items(),key=lambda item:(item[0][0],item[0][1]!="gu",item[0][2])):
         entries=list(grid_entries.values())
-        day,start,end,hours=key
-        lines+=["## "+day+" / "+start[11:16]+"~"+end[11:16]+" KST ("+str(hours)+"개 시각)",""]
+        day,level,start,end,hours=key
+        tier_name="구(區)" if level=="gu" else "시(市)"
+        lines+=["## "+day+" / "+tier_name+" · "+start[11:16]+"~"+end[11:16]+" KST ("+str(hours)+"개 시각)",""]
         for col,title in (("precip_mm","🌧️ 강수량(비·눈 포함)"),("snow_cm","❄️ 신적설")):
             sortable=[]
             for place,values in entries:
@@ -240,7 +241,7 @@ def render(data):
             lines+=["### "+title+" · 조회된 고유 격자 "+str(len(sortable))+"개 · "+label,""]
             if sortable:
                 lines+=["예보량 범위가 겹치는 지역의 선후 순위는 확정할 수 없습니다.",""]
-                lines+=["| 참고순서 | 구 대표 격자 | 예보량 | 최고 시각별 강수확률 |",
+                lines+=["| 참고순서 | 구·시 대표 격자 | 예보량 | 최고 시각별 강수확률 |",
                         "|---:|---|---:|---:|"]
                 last_range=None
                 shown_rank=0
