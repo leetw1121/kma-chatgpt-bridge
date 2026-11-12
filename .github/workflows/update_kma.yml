@@ -1,0 +1,39 @@
+name: KMA forecast feed
+
+on:
+  workflow_dispatch:
+  schedule:
+    # UTC 15:12,21:12,03:12,09:12 = KST 00:12,06:12,12:12,18:12
+    - cron: '12 3,9,15,21 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: kma-forecast-feed
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate collector
+        run: python -m unittest discover -s tests -v
+      - name: Fetch official KMA forecasts
+        env:
+          KMA_SERVICE_KEY: ${{ secrets.KMA_SERVICE_KEY }}
+        run: python scripts/fetch_kma.py
+      - name: Commit PUBLIC weather data only
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/latest.json data/summary.md
+          if ! git diff --cached --quiet; then
+            git commit -m "Update KMA public weather forecast"
+            git push
+          fi
