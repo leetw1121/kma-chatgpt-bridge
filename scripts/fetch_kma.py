@@ -212,7 +212,7 @@ def render(data):
       "- 표의 강수량(PCP)은 비/눈을 포함한 총강수량입니다. 눈이 포함된 시점은 비만의 양으로 단정하지 않습니다.",
       "- '최고 시각별 강수확률'은 해당 기간 중 최대 한 시각의 확률이며 일별 누적 확률이 아닙니다.",
       "- 표의 실제 시간 범위만 유효합니다. 7일 전체 구별 정량 예보가 아닙니다.",
-      "- [**전국 174개 지역 전체 예보표**](all_regions.md) · [전체 CSV](all_regions.csv) · 다른 제공사는 자동 수집 연결 여부를 전체표에 명시합니다.",""]
+      "- [**전국 174개 지역 전체 예보표**](all_regions.md) · [전체 CSV](all_regions.csv) · [기상정보 제공사 연결·실제 조회 결과](source_status.md)",""]
     # Multiple districts can share one 5km grid: never count them as independent forecasts.
     groups=defaultdict(dict)
     for place in data["locations"]:
@@ -307,7 +307,7 @@ def complete_report(data):
         "| AccuWeather | 자동 수집 미연결 · 최신 수치 수집 성공으로 간주 금지 |",
         "| Weathernews | 자동 수집 미연결 · 최신 수치 수집 성공으로 간주 금지 |",
         "| The Weather Channel | 자동 수집 미연결 · 최신 수치 수집 성공으로 간주 금지 |",
-        "| ECMWF IFS/AIFS | 자동 수집 미연결 · 최신 수치 수집 성공으로 간주 금지 |",
+        "| ECMWF IFS/AIFS | [실제 한국 도시별 데이터 조회 상태](source_status.md)에서 성공 여부 확인. 실패한 경우 비교 금지 |",
         "",
         "## 날짜별 전국 구·시 전체표",
         "",
