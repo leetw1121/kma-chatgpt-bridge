@@ -140,6 +140,12 @@ def daily_summary(rows,now):
             {"unit":"mm","comparable":False,"lower":None,"upper":None,
              "reason":"mixed_or_snow_precipitation"})
         result[day]["precip_includes_snow"]=has_frozen_precip
+        # Keep explicit KMA precipitation type for the precipitation-only feed.
+        # 1 rain, 2 rain/snow, 3 snow, 4 showers, 5 raindrops,
+        # 6 rain/snow flurries, 7 snow flurries; 0 is no precip.
+        result[day]["forecast_rain"]=bool(pty_values & {"1","2","4","5","6"})
+        result[day]["forecast_snow"]=bool(pty_values & {"2","3","6","7"})
+        result[day]["forecast_mixed"]=bool(pty_values & {"2","6"})
     return result
 
 def load_locations():
@@ -191,7 +197,7 @@ def build(secret,locations,now):
     if not collected: raise ValueError("NO_SUCCESSFUL_LOCATIONS")
     finished=dt.datetime.now(KST)
     # The run can succeed partially, but report exact coverage and prevent silent gaps.
-    return {"schema_version":"1.1","source":"KMA getVilageFcst",
+    return {"schema_version":"1.2","source":"KMA getVilageFcst",
             "generated_at_kst":finished.isoformat(),
             "collection_started_at_kst":now.astimezone(KST).isoformat(),
             "issue_at_kst":issue.isoformat(),
