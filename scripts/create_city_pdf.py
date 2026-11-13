@@ -105,7 +105,7 @@ def verified_model_rows(kma,model):
     out=defaultdict(dict)
     good=False
     for model_name,record in (model.get("models") or {}).items():
-        if record.get("status")!="verified" or not record.get("cities_succeeded"):continue
+        if record.get("status") not in ("verified","verified_cached_recent") or not record.get("cities_succeeded"):continue
         good=True
         for item in record.get("records",[]):
             for date,day in item.get("days",{}).items():
@@ -118,7 +118,9 @@ def model_section(kma,model,st):
     story=[PageBreak(),P("7일 비·눈 참고: ECMWF IFS · AIFS",st["title"]),
       P("기상청 단기예보 이후의 전망을 보완하는 별도 모델입니다. Open-Meteo가 제공한 실제 ECMWF 모델 수치를 사용합니다.",st["small"]),
       P("모델 지점은 한국 7개 도시 중심의 참고 좌표입니다. 기상청 구·시 대표 격자와 일치하지 않으며 174개 시의 예보가 아닙니다.",st["small"]),
-      P("모델 수집: "+str((model or {}).get("generated_at_kst","조회 실패"))+" | 1일 미만 시간대는 일부 기간 누적량입니다.",st["small"])]
+      P("모델 수집: "+str((model or {}).get("generated_at_kst","조회 실패"))+
+        (" | 최신 요청 실패, 최근 3시간 이내 성공본 재사용" if (model or {}).get("fallback_recent_success") else " | 이번 실행 신규 조회")+
+        " | 1일 미만 시간대는 일부 기간 누적량입니다.",st["small"])]
     if not good:
         story.append(P("실제 최신 수치를 확인한 ECMWF 모델이 없으므로 비교표를 싣지 않았습니다.",st["note"]))
         return story,False
