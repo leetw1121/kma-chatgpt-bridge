@@ -2,10 +2,10 @@
   "pdf_file": "data/rain_snow_latest.pdf",
   "source": "KMA getVilageFcst",
   "source_issue_at_kst": "2026-11-13T11:00:00+09:00",
-  "source_generated_at_kst": "2026-11-13T12:20:00.028111+09:00",
-  "pdf_generated_at_utc": "2026-11-13T03:20:21.304401+00:00",
+  "source_generated_at_kst": "2026-11-13T12:22:29.677136+09:00",
+  "pdf_generated_at_utc": "2026-11-13T03:22:44.736740+00:00",
   "regions_checked": 174,
   "regions_succeeded": 174,
   "wet_region_date_rows": 312,
-  "pdf_size_bytes": 127092
+  "pdf_size_bytes": 127093
 }
