@@ -1,9 +1,9 @@
 {
   "schema_version": "1.2",
   "source": "KMA getVilageFcst",
-  "generated_at_kst": "2026-11-13T01:28:12.581013+09:00",
-  "collection_started_at_kst": "2026-11-13T01:25:42.042816+09:00",
-  "issue_at_kst": "2026-11-12T23:00:00+09:00",
+  "generated_at_kst": "2026-11-13T10:52:24.958022+09:00",
+  "collection_started_at_kst": "2026-11-13T10:50:04.013284+09:00",
+  "issue_at_kst": "2026-11-13T08:00:00+09:00",
   "coverage_note": "Only returned KMA short-range forecast hours; not 168h of district totals.",
   "ranking_note": "Representative grids only. Duplicate districts share the same forecast; intervals can overlap.",
   "locations_checked": 174,
@@ -19,9 +19,9 @@
       "ny": 131,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -57,7 +57,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 10.0
+            "upper": 8.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -69,7 +69,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 10.0
+            "upper": 8.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -85,8 +85,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 1.8,
-            "upper": 2.8
+            "lower": 0.0,
+            "upper": 3.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -97,8 +97,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 1.8,
-            "upper": 2.8
+            "lower": 0.0,
+            "upper": 3.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -139,12 +139,12 @@
           "to_kst": "2026-11-17T00:00:00+09:00",
           "hours": 1,
           "full_day": false,
-          "max_pop_pct": 30,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 0.0,
-            "upper": 0.0
+            "lower": 1.0,
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -155,11 +155,11 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 0.0,
-            "upper": 0.0
+            "lower": 1.0,
+            "upper": 1.0
           },
           "precip_includes_snow": false,
-          "forecast_rain": false,
+          "forecast_rain": true,
           "forecast_snow": false,
           "forecast_mixed": false
         }
@@ -172,9 +172,9 @@
       "ny": 127,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -210,7 +210,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 10.0
+            "upper": 9.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -222,7 +222,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 10.0
+            "upper": 9.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -238,8 +238,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.2,
-            "upper": 4.2
+            "lower": 0.0,
+            "upper": 5.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -250,8 +250,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.2,
-            "upper": 4.2
+            "lower": 0.0,
+            "upper": 5.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -325,9 +325,9 @@
       "ny": 125,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -363,7 +363,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 11.0
+            "upper": 10.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -375,7 +375,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 11.0
+            "upper": 10.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -391,8 +391,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.4,
-            "upper": 4.4
+            "lower": 0.0,
+            "upper": 5.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -403,8 +403,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.4,
-            "upper": 4.4
+            "lower": 0.0,
+            "upper": 5.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -478,9 +478,9 @@
       "ny": 141,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -544,8 +544,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.0,
-            "upper": 3.0
+            "lower": 4.0,
+            "upper": 4.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -556,8 +556,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.0,
-            "upper": 3.0
+            "lower": 4.0,
+            "upper": 4.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -631,9 +631,9 @@
       "ny": 122,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -784,9 +784,9 @@
       "ny": 134,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -937,9 +937,9 @@
       "ny": 119,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -975,7 +975,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 16.0
+            "upper": 15.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -987,7 +987,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 16.0
+            "upper": 15.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -999,12 +999,12 @@
           "to_kst": "2026-11-15T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 60,
+          "max_pop_pct": 30,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 1.0
+            "upper": 0.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -1016,10 +1016,10 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 1.0
+            "upper": 0.0
           },
           "precip_includes_snow": false,
-          "forecast_rain": true,
+          "forecast_rain": false,
           "forecast_snow": false,
           "forecast_mixed": false
         },
@@ -1090,9 +1090,9 @@
       "ny": 128,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -1243,9 +1243,9 @@
       "ny": 129,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -1396,9 +1396,9 @@
       "ny": 129,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -1549,9 +1549,9 @@
       "ny": 124,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -1587,7 +1587,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -1599,7 +1599,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -1702,9 +1702,9 @@
       "ny": 125,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -1740,7 +1740,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -1752,7 +1752,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -1855,9 +1855,9 @@
       "ny": 123,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -1893,7 +1893,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 10.0
+            "upper": 11.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -1905,7 +1905,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 10.0
+            "upper": 11.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -2008,9 +2008,9 @@
       "ny": 127,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -2045,8 +2045,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 4.0,
-            "upper": 5.0
+            "lower": 1.0,
+            "upper": 4.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -2057,8 +2057,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 4.0,
-            "upper": 5.0
+            "lower": 1.0,
+            "upper": 4.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -2161,9 +2161,9 @@
       "ny": 122,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -2199,7 +2199,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 2.0,
-            "upper": 7.0
+            "upper": 8.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -2211,7 +2211,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 2.0,
-            "upper": 7.0
+            "upper": 8.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -2314,9 +2314,9 @@
       "ny": 128,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -2467,9 +2467,9 @@
       "ny": 128,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -2504,7 +2504,7 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 4.0,
+            "lower": 1.0,
             "upper": 5.0
           },
           "snow_cm": {
@@ -2516,7 +2516,7 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 4.0,
+            "lower": 1.0,
             "upper": 5.0
           },
           "precip_includes_snow": false,
@@ -2620,9 +2620,9 @@
       "ny": 134,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -2773,9 +2773,9 @@
       "ny": 125,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -2811,7 +2811,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -2823,7 +2823,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -2926,9 +2926,9 @@
       "ny": 126,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -2964,7 +2964,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -2976,7 +2976,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -3079,9 +3079,9 @@
       "ny": 125,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -3117,7 +3117,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -3129,7 +3129,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -3232,9 +3232,9 @@
       "ny": 123,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -3270,7 +3270,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -3282,7 +3282,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -3385,9 +3385,9 @@
       "ny": 124,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -3423,7 +3423,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 7.0
+            "upper": 8.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -3435,7 +3435,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 7.0
+            "upper": 8.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -3538,9 +3538,9 @@
       "ny": 124,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -3576,7 +3576,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 7.0
+            "upper": 8.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -3588,7 +3588,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 7.0
+            "upper": 8.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -3691,9 +3691,9 @@
       "ny": 120,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -3729,7 +3729,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 2.0,
-            "upper": 11.0
+            "upper": 13.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -3741,7 +3741,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 2.0,
-            "upper": 11.0
+            "upper": 13.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -3844,9 +3844,9 @@
       "ny": 120,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -3882,7 +3882,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 2.0,
-            "upper": 12.0
+            "upper": 14.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -3894,7 +3894,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 2.0,
-            "upper": 12.0
+            "upper": 14.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -3997,9 +3997,9 @@
       "ny": 121,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -4035,7 +4035,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 2.0,
-            "upper": 11.0
+            "upper": 12.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -4047,7 +4047,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 2.0,
-            "upper": 11.0
+            "upper": 12.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -4150,9 +4150,9 @@
       "ny": 121,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -4188,7 +4188,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 2.0,
-            "upper": 12.0
+            "upper": 13.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -4200,7 +4200,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 2.0,
-            "upper": 12.0
+            "upper": 13.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -4303,9 +4303,9 @@
       "ny": 123,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -4341,7 +4341,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 3.0,
-            "upper": 7.0
+            "upper": 8.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -4353,7 +4353,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 3.0,
-            "upper": 7.0
+            "upper": 8.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -4456,9 +4456,9 @@
       "ny": 121,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -4494,7 +4494,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 2.0,
-            "upper": 10.0
+            "upper": 12.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -4506,7 +4506,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 2.0,
-            "upper": 10.0
+            "upper": 12.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -4609,9 +4609,9 @@
       "ny": 121,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -4647,7 +4647,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 2.0,
-            "upper": 8.0
+            "upper": 10.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -4659,7 +4659,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 2.0,
-            "upper": 8.0
+            "upper": 10.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -4762,9 +4762,9 @@
       "ny": 115,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -4915,9 +4915,9 @@
       "ny": 123,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -4953,7 +4953,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -4965,7 +4965,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -5068,9 +5068,9 @@
       "ny": 123,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -5106,7 +5106,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -5118,7 +5118,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -5221,9 +5221,9 @@
       "ny": 131,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -5374,9 +5374,9 @@
       "ny": 121,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -5527,9 +5527,9 @@
       "ny": 118,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -5565,7 +5565,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 4.0,
-            "upper": 12.0
+            "upper": 14.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -5577,7 +5577,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 4.0,
-            "upper": 12.0
+            "upper": 14.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -5680,9 +5680,9 @@
       "ny": 120,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -5718,7 +5718,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 2.0,
-            "upper": 12.0
+            "upper": 14.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -5730,7 +5730,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 2.0,
-            "upper": 12.0
+            "upper": 14.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -5833,9 +5833,9 @@
       "ny": 121,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -5871,7 +5871,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 2.0,
-            "upper": 12.0
+            "upper": 13.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -5883,7 +5883,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 2.0,
-            "upper": 12.0
+            "upper": 13.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -5986,9 +5986,9 @@
       "ny": 119,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -6024,7 +6024,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 2.0,
-            "upper": 12.0
+            "upper": 14.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -6036,7 +6036,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 2.0,
-            "upper": 12.0
+            "upper": 14.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -6139,9 +6139,9 @@
       "ny": 122,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -6177,7 +6177,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 2.0,
-            "upper": 7.0
+            "upper": 8.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -6189,7 +6189,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 2.0,
-            "upper": 7.0
+            "upper": 8.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -6292,9 +6292,9 @@
       "ny": 130,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -6445,9 +6445,9 @@
       "ny": 121,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -6598,9 +6598,9 @@
       "ny": 131,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -6751,9 +6751,9 @@
       "ny": 114,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -6789,7 +6789,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 2.0,
-            "upper": 14.0
+            "upper": 15.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -6801,7 +6801,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 2.0,
-            "upper": 14.0
+            "upper": 15.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -6904,9 +6904,9 @@
       "ny": 134,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -7057,9 +7057,9 @@
       "ny": 126,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -7210,9 +7210,9 @@
       "ny": 119,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -7248,7 +7248,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 3.0,
-            "upper": 12.0
+            "upper": 14.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -7260,7 +7260,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 3.0,
-            "upper": 12.0
+            "upper": 14.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -7363,9 +7363,9 @@
       "ny": 117,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -7401,7 +7401,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 3.0,
-            "upper": 14.0
+            "upper": 15.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -7413,7 +7413,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 3.0,
-            "upper": 14.0
+            "upper": 15.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -7516,9 +7516,9 @@
       "ny": 119,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -7554,7 +7554,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 2.0,
-            "upper": 12.0
+            "upper": 14.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -7566,7 +7566,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 2.0,
-            "upper": 12.0
+            "upper": 14.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -7669,9 +7669,9 @@
       "ny": 119,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -7707,7 +7707,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 2.0,
-            "upper": 12.0
+            "upper": 14.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -7719,7 +7719,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 2.0,
-            "upper": 12.0
+            "upper": 14.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -7822,9 +7822,9 @@
       "ny": 69,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -7859,8 +7859,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 11.0,
-            "upper": 20.0
+            "lower": 8.0,
+            "upper": 19.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -7871,8 +7871,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 11.0,
-            "upper": 20.0
+            "lower": 8.0,
+            "upper": 19.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -7888,8 +7888,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 10.4,
-            "upper": 10.4
+            "lower": 1.0,
+            "upper": 4.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -7900,8 +7900,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 10.4,
-            "upper": 10.4
+            "lower": 1.0,
+            "upper": 4.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -7975,9 +7975,9 @@
       "ny": 77,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -8012,8 +8012,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 15.0,
-            "upper": 27.0
+            "lower": 11.0,
+            "upper": 25.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -8024,8 +8024,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 15.0,
-            "upper": 27.0
+            "lower": 11.0,
+            "upper": 25.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -8041,8 +8041,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.1,
-            "upper": 6.1
+            "lower": 0.0,
+            "upper": 4.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -8053,8 +8053,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.1,
-            "upper": 6.1
+            "lower": 0.0,
+            "upper": 4.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -8128,9 +8128,9 @@
       "ny": 83,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -8161,12 +8161,12 @@
           "to_kst": "2026-11-14T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 70,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 10.0,
-            "upper": 23.0
+            "lower": 5.0,
+            "upper": 20.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -8177,8 +8177,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 10.0,
-            "upper": 23.0
+            "lower": 5.0,
+            "upper": 20.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -8190,12 +8190,12 @@
           "to_kst": "2026-11-15T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 70,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 4.9,
-            "upper": 4.9
+            "lower": 0.0,
+            "upper": 3.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -8206,8 +8206,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 4.9,
-            "upper": 4.9
+            "lower": 0.0,
+            "upper": 3.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -8281,9 +8281,9 @@
       "ny": 71,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -8314,12 +8314,12 @@
           "to_kst": "2026-11-14T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 70,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 18.0,
-            "upper": 28.0
+            "lower": 13.0,
+            "upper": 25.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -8330,8 +8330,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 18.0,
-            "upper": 28.0
+            "lower": 13.0,
+            "upper": 25.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -8347,8 +8347,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.1,
-            "upper": 3.1
+            "lower": 1.0,
+            "upper": 4.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -8359,8 +8359,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.1,
-            "upper": 3.1
+            "lower": 1.0,
+            "upper": 4.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -8434,9 +8434,9 @@
       "ny": 79,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -8471,8 +8471,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 16.0,
-            "upper": 23.0
+            "lower": 11.0,
+            "upper": 20.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -8483,8 +8483,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 16.0,
-            "upper": 23.0
+            "lower": 11.0,
+            "upper": 20.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -8496,12 +8496,12 @@
           "to_kst": "2026-11-15T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 70,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.8,
-            "upper": 3.8
+            "lower": 0.0,
+            "upper": 4.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -8512,8 +8512,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.8,
-            "upper": 3.8
+            "lower": 0.0,
+            "upper": 4.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -8587,9 +8587,9 @@
       "ny": 75,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -8620,12 +8620,12 @@
           "to_kst": "2026-11-14T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 70,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 18.0,
-            "upper": 31.0
+            "lower": 13.0,
+            "upper": 28.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -8636,8 +8636,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 18.0,
-            "upper": 31.0
+            "lower": 13.0,
+            "upper": 28.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -8653,8 +8653,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.5,
-            "upper": 3.5
+            "lower": 0.0,
+            "upper": 3.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -8665,8 +8665,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.5,
-            "upper": 3.5
+            "lower": 0.0,
+            "upper": 3.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -8740,9 +8740,9 @@
       "ny": 76,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -8777,7 +8777,7 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 7.0,
+            "lower": 5.0,
             "upper": 23.0
           },
           "snow_cm": {
@@ -8789,7 +8789,7 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 7.0,
+            "lower": 5.0,
             "upper": 23.0
           },
           "precip_includes_snow": false,
@@ -8802,12 +8802,12 @@
           "to_kst": "2026-11-15T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 70,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 4.2,
-            "upper": 4.2
+            "lower": 0.0,
+            "upper": 4.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -8818,8 +8818,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 4.2,
-            "upper": 4.2
+            "lower": 0.0,
+            "upper": 4.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -8893,9 +8893,9 @@
       "ny": 76,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -8930,7 +8930,7 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 7.0,
+            "lower": 5.0,
             "upper": 23.0
           },
           "snow_cm": {
@@ -8942,7 +8942,7 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 7.0,
+            "lower": 5.0,
             "upper": 23.0
           },
           "precip_includes_snow": false,
@@ -8955,12 +8955,12 @@
           "to_kst": "2026-11-15T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 70,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 4.2,
-            "upper": 4.2
+            "lower": 0.0,
+            "upper": 4.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -8971,8 +8971,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 4.2,
-            "upper": 4.2
+            "lower": 0.0,
+            "upper": 4.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -9046,9 +9046,9 @@
       "ny": 76,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -9083,8 +9083,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 8.0,
-            "upper": 24.0
+            "lower": 5.0,
+            "upper": 23.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -9095,8 +9095,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 8.0,
-            "upper": 24.0
+            "lower": 5.0,
+            "upper": 23.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -9108,12 +9108,12 @@
           "to_kst": "2026-11-15T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 70,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 5.4,
-            "upper": 5.4
+            "lower": 0.0,
+            "upper": 4.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -9124,8 +9124,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 5.4,
-            "upper": 5.4
+            "lower": 0.0,
+            "upper": 4.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -9199,9 +9199,9 @@
       "ny": 77,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -9236,7 +9236,7 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.0,
+            "lower": 4.0,
             "upper": 21.0
           },
           "snow_cm": {
@@ -9248,7 +9248,7 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.0,
+            "lower": 4.0,
             "upper": 21.0
           },
           "precip_includes_snow": false,
@@ -9261,12 +9261,12 @@
           "to_kst": "2026-11-15T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 70,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 4.7,
-            "upper": 4.7
+            "lower": 0.0,
+            "upper": 4.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -9277,8 +9277,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 4.7,
-            "upper": 4.7
+            "lower": 0.0,
+            "upper": 4.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -9352,9 +9352,9 @@
       "ny": 75,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -9389,7 +9389,7 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 5.0,
+            "lower": 3.0,
             "upper": 22.0
           },
           "snow_cm": {
@@ -9401,7 +9401,7 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 5.0,
+            "lower": 3.0,
             "upper": 22.0
           },
           "precip_includes_snow": false,
@@ -9414,12 +9414,12 @@
           "to_kst": "2026-11-15T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 70,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 4.5,
-            "upper": 4.5
+            "lower": 0.0,
+            "upper": 4.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -9430,8 +9430,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 4.5,
-            "upper": 4.5
+            "lower": 0.0,
+            "upper": 4.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -9505,9 +9505,9 @@
       "ny": 68,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -9542,8 +9542,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 7.0,
-            "upper": 19.0
+            "lower": 5.0,
+            "upper": 18.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -9554,8 +9554,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 7.0,
-            "upper": 19.0
+            "lower": 5.0,
+            "upper": 18.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -9571,8 +9571,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 8.6,
-            "upper": 9.6
+            "lower": 1.0,
+            "upper": 4.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -9583,8 +9583,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 8.6,
-            "upper": 9.6
+            "lower": 1.0,
+            "upper": 4.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -9658,9 +9658,9 @@
       "ny": 90,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -9695,8 +9695,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 14.0,
-            "upper": 27.0
+            "lower": 9.0,
+            "upper": 24.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -9707,8 +9707,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 14.0,
-            "upper": 27.0
+            "lower": 9.0,
+            "upper": 24.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -9720,12 +9720,12 @@
           "to_kst": "2026-11-15T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 70,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 4.4,
-            "upper": 4.4
+            "lower": 0.0,
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -9736,8 +9736,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 4.4,
-            "upper": 4.4
+            "lower": 0.0,
+            "upper": 1.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -9811,9 +9811,9 @@
       "ny": 91,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -9848,8 +9848,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 12.0,
-            "upper": 20.0
+            "lower": 10.0,
+            "upper": 19.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -9860,8 +9860,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 12.0,
-            "upper": 20.0
+            "lower": 10.0,
+            "upper": 19.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -9877,8 +9877,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 4.2,
-            "upper": 4.2
+            "lower": 0.0,
+            "upper": 2.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -9889,8 +9889,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 4.2,
-            "upper": 4.2
+            "lower": 0.0,
+            "upper": 2.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -9964,9 +9964,9 @@
       "ny": 96,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -10001,8 +10001,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 9.0,
-            "upper": 26.0
+            "lower": 5.0,
+            "upper": 24.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -10013,8 +10013,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 9.0,
-            "upper": 26.0
+            "lower": 5.0,
+            "upper": 24.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -10117,9 +10117,9 @@
       "ny": 96,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -10154,8 +10154,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 11.0,
-            "upper": 27.0
+            "lower": 8.0,
+            "upper": 26.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -10166,8 +10166,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 11.0,
-            "upper": 27.0
+            "lower": 8.0,
+            "upper": 26.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -10270,9 +10270,9 @@
       "ny": 106,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -10307,8 +10307,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.0,
-            "upper": 21.0
+            "lower": 5.0,
+            "upper": 20.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -10319,8 +10319,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.0,
-            "upper": 21.0
+            "lower": 5.0,
+            "upper": 20.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -10423,9 +10423,9 @@
       "ny": 102,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -10460,7 +10460,7 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 17.0,
+            "lower": 16.0,
             "upper": 25.0
           },
           "snow_cm": {
@@ -10472,7 +10472,7 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 17.0,
+            "lower": 16.0,
             "upper": 25.0
           },
           "precip_includes_snow": false,
@@ -10576,9 +10576,9 @@
       "ny": 106,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -10638,12 +10638,12 @@
           "to_kst": "2026-11-15T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 60,
+          "max_pop_pct": 30,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 1.0
+            "upper": 0.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -10655,10 +10655,10 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 1.0
+            "upper": 0.0
           },
           "precip_includes_snow": false,
-          "forecast_rain": true,
+          "forecast_rain": false,
           "forecast_snow": false,
           "forecast_mixed": false
         },
@@ -10729,9 +10729,9 @@
       "ny": 111,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -10882,9 +10882,9 @@
       "ny": 93,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -10919,8 +10919,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 14.0,
-            "upper": 21.0
+            "lower": 11.0,
+            "upper": 20.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -10931,8 +10931,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 14.0,
-            "upper": 21.0
+            "lower": 11.0,
+            "upper": 20.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -10948,8 +10948,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.4,
-            "upper": 3.4
+            "lower": 0.0,
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -10960,8 +10960,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.4,
-            "upper": 3.4
+            "lower": 0.0,
+            "upper": 1.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -11035,9 +11035,9 @@
       "ny": 94,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -11072,8 +11072,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 10.0,
-            "upper": 18.0
+            "lower": 8.0,
+            "upper": 17.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -11084,8 +11084,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 10.0,
-            "upper": 18.0
+            "lower": 8.0,
+            "upper": 17.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -11101,8 +11101,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.9,
-            "upper": 3.9
+            "lower": 0.0,
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -11113,8 +11113,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.9,
-            "upper": 3.9
+            "lower": 0.0,
+            "upper": 1.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -11155,12 +11155,12 @@
           "to_kst": "2026-11-17T00:00:00+09:00",
           "hours": 1,
           "full_day": false,
-          "max_pop_pct": 60,
+          "max_pop_pct": 30,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 1.0,
-            "upper": 1.0
+            "lower": 0.0,
+            "upper": 0.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -11171,11 +11171,11 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 1.0,
-            "upper": 1.0
+            "lower": 0.0,
+            "upper": 0.0
           },
           "precip_includes_snow": false,
-          "forecast_rain": true,
+          "forecast_rain": false,
           "forecast_snow": false,
           "forecast_mixed": false
         }
@@ -11188,9 +11188,9 @@
       "ny": 95,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -11225,8 +11225,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 10.0,
-            "upper": 18.0
+            "lower": 8.0,
+            "upper": 17.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -11237,8 +11237,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 10.0,
-            "upper": 18.0
+            "lower": 8.0,
+            "upper": 17.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -11254,8 +11254,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.8,
-            "upper": 3.8
+            "lower": 0.0,
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -11266,8 +11266,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.8,
-            "upper": 3.8
+            "lower": 0.0,
+            "upper": 1.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -11279,7 +11279,7 @@
           "to_kst": "2026-11-16T21:00:00+09:00",
           "hours": 8,
           "full_day": false,
-          "max_pop_pct": 30,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": false,
@@ -11299,7 +11299,7 @@
             "upper": null
           },
           "precip_includes_snow": false,
-          "forecast_rain": false,
+          "forecast_rain": true,
           "forecast_snow": false,
           "forecast_mixed": false
         },
@@ -11308,12 +11308,12 @@
           "to_kst": "2026-11-17T00:00:00+09:00",
           "hours": 1,
           "full_day": false,
-          "max_pop_pct": 60,
+          "max_pop_pct": 30,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 1.0,
-            "upper": 1.0
+            "lower": 0.0,
+            "upper": 0.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -11324,11 +11324,11 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 1.0,
-            "upper": 1.0
+            "lower": 0.0,
+            "upper": 0.0
           },
           "precip_includes_snow": false,
-          "forecast_rain": true,
+          "forecast_rain": false,
           "forecast_snow": false,
           "forecast_mixed": false
         }
@@ -11341,9 +11341,9 @@
       "ny": 90,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -11378,8 +11378,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.0,
-            "upper": 23.0
+            "lower": 2.0,
+            "upper": 21.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -11390,8 +11390,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.0,
-            "upper": 23.0
+            "lower": 2.0,
+            "upper": 21.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -11403,12 +11403,12 @@
           "to_kst": "2026-11-15T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 70,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.4,
-            "upper": 3.4
+            "lower": 0.0,
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -11419,8 +11419,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.4,
-            "upper": 3.4
+            "lower": 0.0,
+            "upper": 1.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -11494,9 +11494,9 @@
       "ny": 90,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -11531,8 +11531,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.0,
-            "upper": 23.0
+            "lower": 0.0,
+            "upper": 22.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -11543,8 +11543,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.0,
-            "upper": 23.0
+            "lower": 0.0,
+            "upper": 22.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -11560,8 +11560,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 2.4,
-            "upper": 2.4
+            "lower": 0.0,
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -11572,8 +11572,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 2.4,
-            "upper": 2.4
+            "lower": 0.0,
+            "upper": 1.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -11647,9 +11647,9 @@
       "ny": 91,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -11684,8 +11684,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 10.0,
-            "upper": 24.0
+            "lower": 6.0,
+            "upper": 22.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -11696,8 +11696,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 10.0,
-            "upper": 24.0
+            "lower": 6.0,
+            "upper": 22.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -11709,12 +11709,12 @@
           "to_kst": "2026-11-15T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 70,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.4,
-            "upper": 3.4
+            "lower": 0.0,
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -11725,8 +11725,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.4,
-            "upper": 3.4
+            "lower": 0.0,
+            "upper": 1.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -11800,9 +11800,9 @@
       "ny": 91,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -11837,7 +11837,7 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.0,
+            "lower": 1.0,
             "upper": 21.0
           },
           "snow_cm": {
@@ -11849,7 +11849,7 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.0,
+            "lower": 1.0,
             "upper": 21.0
           },
           "precip_includes_snow": false,
@@ -11866,8 +11866,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 2.2,
-            "upper": 2.2
+            "lower": 0.0,
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -11878,8 +11878,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 2.2,
-            "upper": 2.2
+            "lower": 0.0,
+            "upper": 1.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -11953,9 +11953,9 @@
       "ny": 90,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -11990,8 +11990,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.0,
-            "upper": 23.0
+            "lower": 0.0,
+            "upper": 22.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -12002,8 +12002,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.0,
-            "upper": 23.0
+            "lower": 0.0,
+            "upper": 22.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -12019,8 +12019,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 2.4,
-            "upper": 2.4
+            "lower": 0.0,
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -12031,8 +12031,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 2.4,
-            "upper": 2.4
+            "lower": 0.0,
+            "upper": 1.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -12106,9 +12106,9 @@
       "ny": 90,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -12143,8 +12143,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.0,
-            "upper": 23.0
+            "lower": 2.0,
+            "upper": 21.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -12155,8 +12155,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.0,
-            "upper": 23.0
+            "lower": 2.0,
+            "upper": 21.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -12168,12 +12168,12 @@
           "to_kst": "2026-11-15T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 70,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.4,
-            "upper": 3.4
+            "lower": 0.0,
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -12184,8 +12184,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.4,
-            "upper": 3.4
+            "lower": 0.0,
+            "upper": 1.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -12259,9 +12259,9 @@
       "ny": 90,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -12296,8 +12296,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.0,
-            "upper": 23.0
+            "lower": 2.0,
+            "upper": 21.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -12308,8 +12308,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.0,
-            "upper": 23.0
+            "lower": 2.0,
+            "upper": 21.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -12321,12 +12321,12 @@
           "to_kst": "2026-11-15T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 70,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.4,
-            "upper": 3.4
+            "lower": 0.0,
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -12337,8 +12337,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.4,
-            "upper": 3.4
+            "lower": 0.0,
+            "upper": 1.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -12412,9 +12412,9 @@
       "ny": 100,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -12450,7 +12450,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 25.0,
-            "upper": 35.0
+            "upper": 33.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -12462,7 +12462,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 25.0,
-            "upper": 35.0
+            "upper": 33.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -12565,9 +12565,9 @@
       "ny": 100,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -12603,7 +12603,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 25.0,
-            "upper": 35.0
+            "upper": 33.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -12615,7 +12615,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 25.0,
-            "upper": 35.0
+            "upper": 33.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -12718,9 +12718,9 @@
       "ny": 100,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -12756,7 +12756,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 25.0,
-            "upper": 35.0
+            "upper": 33.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -12768,7 +12768,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 25.0,
-            "upper": 35.0
+            "upper": 33.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -12871,9 +12871,9 @@
       "ny": 101,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -12909,7 +12909,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 12.0,
-            "upper": 24.0
+            "upper": 22.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -12921,7 +12921,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 12.0,
-            "upper": 24.0
+            "upper": 22.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -13024,9 +13024,9 @@
       "ny": 100,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -13062,7 +13062,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 25.0,
-            "upper": 35.0
+            "upper": 33.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -13074,7 +13074,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 25.0,
-            "upper": 35.0
+            "upper": 33.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -13177,9 +13177,9 @@
       "ny": 76,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -13214,7 +13214,7 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.0,
+            "lower": 1.0,
             "upper": 17.0
           },
           "snow_cm": {
@@ -13226,7 +13226,7 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.0,
+            "lower": 1.0,
             "upper": 17.0
           },
           "precip_includes_snow": false,
@@ -13239,12 +13239,12 @@
           "to_kst": "2026-11-15T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 70,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.0,
-            "upper": 6.0
+            "lower": 0.0,
+            "upper": 4.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -13255,8 +13255,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.0,
-            "upper": 6.0
+            "lower": 0.0,
+            "upper": 4.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -13330,9 +13330,9 @@
       "ny": 77,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -13367,8 +13367,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 10.0,
-            "upper": 19.0
+            "lower": 7.0,
+            "upper": 18.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -13379,8 +13379,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 10.0,
-            "upper": 19.0
+            "lower": 7.0,
+            "upper": 18.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -13396,8 +13396,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.0,
-            "upper": 6.0
+            "lower": 0.0,
+            "upper": 4.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -13408,8 +13408,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.0,
-            "upper": 6.0
+            "lower": 0.0,
+            "upper": 4.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -13483,9 +13483,9 @@
       "ny": 75,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -13520,7 +13520,7 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 9.0,
+            "lower": 7.0,
             "upper": 17.0
           },
           "snow_cm": {
@@ -13532,7 +13532,7 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 9.0,
+            "lower": 7.0,
             "upper": 17.0
           },
           "precip_includes_snow": false,
@@ -13545,12 +13545,12 @@
           "to_kst": "2026-11-15T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 70,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 7.2,
-            "upper": 7.2
+            "lower": 0.0,
+            "upper": 4.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -13561,8 +13561,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 7.2,
-            "upper": 7.2
+            "lower": 0.0,
+            "upper": 4.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -13636,9 +13636,9 @@
       "ny": 75,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -13673,7 +13673,7 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 9.0,
+            "lower": 7.0,
             "upper": 17.0
           },
           "snow_cm": {
@@ -13685,7 +13685,7 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 9.0,
+            "lower": 7.0,
             "upper": 17.0
           },
           "precip_includes_snow": false,
@@ -13698,12 +13698,12 @@
           "to_kst": "2026-11-15T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 70,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 7.2,
-            "upper": 7.2
+            "lower": 0.0,
+            "upper": 4.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -13714,8 +13714,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 7.2,
-            "upper": 7.2
+            "lower": 0.0,
+            "upper": 4.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -13789,9 +13789,9 @@
       "ny": 76,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -13826,7 +13826,7 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 7.0,
+            "lower": 5.0,
             "upper": 18.0
           },
           "snow_cm": {
@@ -13838,7 +13838,7 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 7.0,
+            "lower": 5.0,
             "upper": 18.0
           },
           "precip_includes_snow": false,
@@ -13855,8 +13855,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.8,
-            "upper": 6.8
+            "lower": 0.0,
+            "upper": 4.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -13867,8 +13867,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.8,
-            "upper": 6.8
+            "lower": 0.0,
+            "upper": 4.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -13942,9 +13942,9 @@
       "ny": 75,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -14004,12 +14004,12 @@
           "to_kst": "2026-11-15T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 70,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.4,
-            "upper": 6.4
+            "lower": 0.0,
+            "upper": 4.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -14020,8 +14020,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.4,
-            "upper": 6.4
+            "lower": 0.0,
+            "upper": 4.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -14095,9 +14095,9 @@
       "ny": 76,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -14132,7 +14132,7 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.0,
+            "lower": 1.0,
             "upper": 17.0
           },
           "snow_cm": {
@@ -14144,7 +14144,7 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.0,
+            "lower": 1.0,
             "upper": 17.0
           },
           "precip_includes_snow": false,
@@ -14157,12 +14157,12 @@
           "to_kst": "2026-11-15T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 70,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.0,
-            "upper": 6.0
+            "lower": 0.0,
+            "upper": 4.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -14173,8 +14173,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.0,
-            "upper": 6.0
+            "lower": 0.0,
+            "upper": 4.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -14248,9 +14248,9 @@
       "ny": 75,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -14285,7 +14285,7 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 7.0,
+            "lower": 5.0,
             "upper": 18.0
           },
           "snow_cm": {
@@ -14297,7 +14297,7 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 7.0,
+            "lower": 5.0,
             "upper": 18.0
           },
           "precip_includes_snow": false,
@@ -14310,12 +14310,12 @@
           "to_kst": "2026-11-15T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 70,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.8,
-            "upper": 6.8
+            "lower": 0.0,
+            "upper": 4.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -14326,8 +14326,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.8,
-            "upper": 6.8
+            "lower": 0.0,
+            "upper": 4.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -14401,9 +14401,9 @@
       "ny": 74,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -14438,7 +14438,7 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 9.0,
+            "lower": 7.0,
             "upper": 18.0
           },
           "snow_cm": {
@@ -14450,7 +14450,7 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 9.0,
+            "lower": 7.0,
             "upper": 18.0
           },
           "precip_includes_snow": false,
@@ -14463,12 +14463,12 @@
           "to_kst": "2026-11-15T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 70,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 8.0,
-            "upper": 8.0
+            "lower": 0.0,
+            "upper": 4.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -14479,8 +14479,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 8.0,
-            "upper": 8.0
+            "lower": 0.0,
+            "upper": 4.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -14554,9 +14554,9 @@
       "ny": 74,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -14591,7 +14591,7 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 7.0,
+            "lower": 5.0,
             "upper": 17.0
           },
           "snow_cm": {
@@ -14603,7 +14603,7 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 7.0,
+            "lower": 5.0,
             "upper": 17.0
           },
           "precip_includes_snow": false,
@@ -14620,8 +14620,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.8,
-            "upper": 6.8
+            "lower": 0.0,
+            "upper": 4.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -14632,8 +14632,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.8,
-            "upper": 6.8
+            "lower": 0.0,
+            "upper": 4.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -14707,9 +14707,9 @@
       "ny": 75,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -14744,7 +14744,7 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 9.0,
+            "lower": 7.0,
             "upper": 18.0
           },
           "snow_cm": {
@@ -14756,7 +14756,7 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 9.0,
+            "lower": 7.0,
             "upper": 18.0
           },
           "precip_includes_snow": false,
@@ -14769,12 +14769,12 @@
           "to_kst": "2026-11-15T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 70,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 5.5,
-            "upper": 5.5
+            "lower": 0.0,
+            "upper": 4.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -14785,8 +14785,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 5.5,
-            "upper": 5.5
+            "lower": 0.0,
+            "upper": 4.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -14860,9 +14860,9 @@
       "ny": 76,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -14897,7 +14897,7 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 7.0,
+            "lower": 5.0,
             "upper": 18.0
           },
           "snow_cm": {
@@ -14909,7 +14909,7 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 7.0,
+            "lower": 5.0,
             "upper": 18.0
           },
           "precip_includes_snow": false,
@@ -14926,8 +14926,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.8,
-            "upper": 6.8
+            "lower": 0.0,
+            "upper": 4.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -14938,8 +14938,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.8,
-            "upper": 6.8
+            "lower": 0.0,
+            "upper": 4.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -15013,9 +15013,9 @@
       "ny": 74,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -15050,7 +15050,7 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 8.0,
+            "lower": 6.0,
             "upper": 17.0
           },
           "snow_cm": {
@@ -15062,7 +15062,7 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 8.0,
+            "lower": 6.0,
             "upper": 17.0
           },
           "precip_includes_snow": false,
@@ -15075,12 +15075,12 @@
           "to_kst": "2026-11-15T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 70,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.9,
-            "upper": 6.9
+            "lower": 0.0,
+            "upper": 4.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -15091,8 +15091,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.9,
-            "upper": 6.9
+            "lower": 0.0,
+            "upper": 4.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -15166,9 +15166,9 @@
       "ny": 74,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -15203,7 +15203,7 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 7.0,
+            "lower": 5.0,
             "upper": 17.0
           },
           "snow_cm": {
@@ -15215,7 +15215,7 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 7.0,
+            "lower": 5.0,
             "upper": 17.0
           },
           "precip_includes_snow": false,
@@ -15232,8 +15232,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.8,
-            "upper": 6.8
+            "lower": 0.0,
+            "upper": 4.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -15244,8 +15244,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.8,
-            "upper": 6.8
+            "lower": 0.0,
+            "upper": 4.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -15319,9 +15319,9 @@
       "ny": 75,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -15356,7 +15356,7 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 9.0,
+            "lower": 7.0,
             "upper": 18.0
           },
           "snow_cm": {
@@ -15368,7 +15368,7 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 9.0,
+            "lower": 7.0,
             "upper": 18.0
           },
           "precip_includes_snow": false,
@@ -15381,12 +15381,12 @@
           "to_kst": "2026-11-15T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 70,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 5.5,
-            "upper": 5.5
+            "lower": 0.0,
+            "upper": 4.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -15397,8 +15397,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 5.5,
-            "upper": 5.5
+            "lower": 0.0,
+            "upper": 4.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -15472,9 +15472,9 @@
       "ny": 126,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -15510,7 +15510,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 4.0
+            "upper": 5.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -15522,7 +15522,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 4.0
+            "upper": 5.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -15625,9 +15625,9 @@
       "ny": 126,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -15663,7 +15663,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -15675,7 +15675,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -15778,9 +15778,9 @@
       "ny": 128,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -15931,9 +15931,9 @@
       "ny": 126,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -15969,7 +15969,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -15981,7 +15981,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -16084,9 +16084,9 @@
       "ny": 125,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -16122,7 +16122,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -16134,7 +16134,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -16237,9 +16237,9 @@
       "ny": 126,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -16275,7 +16275,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -16287,7 +16287,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -16390,9 +16390,9 @@
       "ny": 125,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -16428,7 +16428,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -16440,7 +16440,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -16543,9 +16543,9 @@
       "ny": 124,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -16581,7 +16581,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -16593,7 +16593,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -16696,9 +16696,9 @@
       "ny": 129,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -16849,9 +16849,9 @@
       "ny": 129,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -17002,9 +17002,9 @@
       "ny": 127,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -17155,9 +17155,9 @@
       "ny": 125,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -17193,7 +17193,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -17205,7 +17205,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -17308,9 +17308,9 @@
       "ny": 127,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -17461,9 +17461,9 @@
       "ny": 127,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -17614,9 +17614,9 @@
       "ny": 125,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -17652,7 +17652,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -17664,7 +17664,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -17767,9 +17767,9 @@
       "ny": 127,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -17920,9 +17920,9 @@
       "ny": 127,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -18073,9 +18073,9 @@
       "ny": 126,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -18111,7 +18111,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -18123,7 +18123,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -18226,9 +18226,9 @@
       "ny": 126,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -18264,7 +18264,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -18276,7 +18276,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -18379,9 +18379,9 @@
       "ny": 126,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -18417,7 +18417,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -18429,7 +18429,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -18532,9 +18532,9 @@
       "ny": 126,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -18570,7 +18570,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 2.0
+            "upper": 3.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -18582,7 +18582,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 2.0
+            "upper": 3.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -18685,9 +18685,9 @@
       "ny": 127,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -18838,9 +18838,9 @@
       "ny": 127,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -18991,9 +18991,9 @@
       "ny": 127,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -19144,9 +19144,9 @@
       "ny": 128,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -19297,9 +19297,9 @@
       "ny": 103,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -19335,7 +19335,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 7.0,
-            "upper": 23.0
+            "upper": 22.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -19347,7 +19347,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 7.0,
-            "upper": 23.0
+            "upper": 22.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -19450,9 +19450,9 @@
       "ny": 84,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -19487,8 +19487,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 14.0,
-            "upper": 20.0
+            "lower": 10.0,
+            "upper": 18.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -19499,8 +19499,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 14.0,
-            "upper": 20.0
+            "lower": 10.0,
+            "upper": 18.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -19512,12 +19512,12 @@
           "to_kst": "2026-11-15T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 70,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 4.0,
-            "upper": 4.0
+            "lower": 0.0,
+            "upper": 3.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -19528,8 +19528,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 4.0,
-            "upper": 4.0
+            "lower": 0.0,
+            "upper": 3.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -19570,12 +19570,12 @@
           "to_kst": "2026-11-17T00:00:00+09:00",
           "hours": 1,
           "full_day": false,
-          "max_pop_pct": 60,
+          "max_pop_pct": 30,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 1.0,
-            "upper": 1.0
+            "lower": 0.0,
+            "upper": 0.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -19586,11 +19586,11 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 1.0,
-            "upper": 1.0
+            "lower": 0.0,
+            "upper": 0.0
           },
           "precip_includes_snow": false,
-          "forecast_rain": true,
+          "forecast_rain": false,
           "forecast_snow": false,
           "forecast_mixed": false
         }
@@ -19603,9 +19603,9 @@
       "ny": 83,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -19640,8 +19640,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 14.0,
-            "upper": 19.0
+            "lower": 10.0,
+            "upper": 17.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -19652,8 +19652,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 14.0,
-            "upper": 19.0
+            "lower": 10.0,
+            "upper": 17.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -19669,7 +19669,7 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 4.0,
+            "lower": 0.0,
             "upper": 4.0
           },
           "snow_cm": {
@@ -19681,7 +19681,7 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 4.0,
+            "lower": 0.0,
             "upper": 4.0
           },
           "precip_includes_snow": false,
@@ -19723,12 +19723,12 @@
           "to_kst": "2026-11-17T00:00:00+09:00",
           "hours": 1,
           "full_day": false,
-          "max_pop_pct": 60,
+          "max_pop_pct": 30,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 1.0,
-            "upper": 1.0
+            "lower": 0.0,
+            "upper": 0.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -19739,11 +19739,11 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 1.0,
-            "upper": 1.0
+            "lower": 0.0,
+            "upper": 0.0
           },
           "precip_includes_snow": false,
-          "forecast_rain": true,
+          "forecast_rain": false,
           "forecast_snow": false,
           "forecast_mixed": false
         }
@@ -19756,9 +19756,9 @@
       "ny": 85,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -19793,7 +19793,7 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.0,
+            "lower": 5.0,
             "upper": 14.0
           },
           "snow_cm": {
@@ -19805,7 +19805,7 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.0,
+            "lower": 5.0,
             "upper": 14.0
           },
           "precip_includes_snow": false,
@@ -19822,8 +19822,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 2.5,
-            "upper": 2.5
+            "lower": 0.0,
+            "upper": 3.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -19834,8 +19834,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 2.5,
-            "upper": 2.5
+            "lower": 0.0,
+            "upper": 3.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -19876,12 +19876,12 @@
           "to_kst": "2026-11-17T00:00:00+09:00",
           "hours": 1,
           "full_day": false,
-          "max_pop_pct": 60,
+          "max_pop_pct": 30,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 1.0,
-            "upper": 1.0
+            "lower": 0.0,
+            "upper": 0.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -19892,11 +19892,11 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 1.0,
-            "upper": 1.0
+            "lower": 0.0,
+            "upper": 0.0
           },
           "precip_includes_snow": false,
-          "forecast_rain": true,
+          "forecast_rain": false,
           "forecast_snow": false,
           "forecast_mixed": false
         }
@@ -19909,9 +19909,9 @@
       "ny": 84,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -19946,8 +19946,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 14.0,
-            "upper": 20.0
+            "lower": 10.0,
+            "upper": 18.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -19958,8 +19958,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 14.0,
-            "upper": 20.0
+            "lower": 10.0,
+            "upper": 18.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -19971,12 +19971,12 @@
           "to_kst": "2026-11-15T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 70,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 4.0,
-            "upper": 4.0
+            "lower": 0.0,
+            "upper": 3.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -19987,8 +19987,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 4.0,
-            "upper": 4.0
+            "lower": 0.0,
+            "upper": 3.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -20029,12 +20029,12 @@
           "to_kst": "2026-11-17T00:00:00+09:00",
           "hours": 1,
           "full_day": false,
-          "max_pop_pct": 60,
+          "max_pop_pct": 30,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 1.0,
-            "upper": 1.0
+            "lower": 0.0,
+            "upper": 0.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -20045,11 +20045,11 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 1.0,
-            "upper": 1.0
+            "lower": 0.0,
+            "upper": 0.0
           },
           "precip_includes_snow": false,
-          "forecast_rain": true,
+          "forecast_rain": false,
           "forecast_snow": false,
           "forecast_mixed": false
         }
@@ -20062,9 +20062,9 @@
       "ny": 127,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -20099,8 +20099,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 7.0,
-            "upper": 10.0
+            "lower": 1.0,
+            "upper": 6.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -20111,8 +20111,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 7.0,
-            "upper": 10.0
+            "lower": 1.0,
+            "upper": 6.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -20215,9 +20215,9 @@
       "ny": 126,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -20252,8 +20252,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 7.0,
-            "upper": 10.0
+            "lower": 1.0,
+            "upper": 6.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -20264,8 +20264,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 7.0,
-            "upper": 10.0
+            "lower": 1.0,
+            "upper": 6.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -20368,9 +20368,9 @@
       "ny": 124,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -20405,8 +20405,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 10.0,
-            "upper": 10.0
+            "lower": 1.0,
+            "upper": 7.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -20417,8 +20417,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 10.0,
-            "upper": 10.0
+            "lower": 1.0,
+            "upper": 7.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -20521,9 +20521,9 @@
       "ny": 124,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -20558,8 +20558,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 9.0,
-            "upper": 11.0
+            "lower": 0.0,
+            "upper": 7.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -20570,8 +20570,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 9.0,
-            "upper": 11.0
+            "lower": 0.0,
+            "upper": 7.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -20674,9 +20674,9 @@
       "ny": 125,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -20711,8 +20711,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 7.0,
-            "upper": 9.0
+            "lower": 1.0,
+            "upper": 6.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -20723,8 +20723,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 7.0,
-            "upper": 9.0
+            "lower": 1.0,
+            "upper": 6.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -20827,9 +20827,9 @@
       "ny": 126,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -20864,8 +20864,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 7.0,
-            "upper": 9.0
+            "lower": 1.0,
+            "upper": 5.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -20876,8 +20876,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 7.0,
-            "upper": 9.0
+            "lower": 1.0,
+            "upper": 5.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -20980,9 +20980,9 @@
       "ny": 123,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -21017,8 +21017,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 14.0,
-            "upper": 15.0
+            "lower": 0.0,
+            "upper": 8.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -21029,8 +21029,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 14.0,
-            "upper": 15.0
+            "lower": 0.0,
+            "upper": 8.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -21133,9 +21133,9 @@
       "ny": 125,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -21170,8 +21170,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 9.0,
-            "upper": 11.0
+            "lower": 1.0,
+            "upper": 6.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -21182,8 +21182,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 9.0,
-            "upper": 11.0
+            "lower": 1.0,
+            "upper": 6.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -21286,9 +21286,9 @@
       "ny": 125,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -21323,8 +21323,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 8.0,
-            "upper": 11.0
+            "lower": 0.0,
+            "upper": 7.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -21335,8 +21335,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 8.0,
-            "upper": 11.0
+            "lower": 0.0,
+            "upper": 7.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -21439,16 +21439,16 @@
       "ny": 74,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 4.0
+            "upper": 7.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -21460,7 +21460,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 4.0
+            "upper": 7.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -21476,8 +21476,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 20.0,
-            "upper": 32.0
+            "lower": 17.0,
+            "upper": 29.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -21488,8 +21488,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 20.0,
-            "upper": 32.0
+            "lower": 17.0,
+            "upper": 29.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -21592,16 +21592,16 @@
       "ny": 70,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 2.0
+            "upper": 5.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -21613,7 +21613,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 2.0
+            "upper": 5.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -21629,8 +21629,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 9.0,
-            "upper": 24.0
+            "lower": 5.0,
+            "upper": 23.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -21641,8 +21641,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 9.0,
-            "upper": 24.0
+            "lower": 5.0,
+            "upper": 23.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -21658,8 +21658,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 1.6,
-            "upper": 2.6
+            "lower": 0.0,
+            "upper": 3.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -21670,8 +21670,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 1.6,
-            "upper": 2.6
+            "lower": 0.0,
+            "upper": 3.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -21745,16 +21745,16 @@
       "ny": 71,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 4.0
+            "upper": 7.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -21766,7 +21766,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 4.0
+            "upper": 7.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -21782,8 +21782,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 25.0,
-            "upper": 35.0
+            "lower": 20.0,
+            "upper": 30.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -21794,8 +21794,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 25.0,
-            "upper": 35.0
+            "lower": 20.0,
+            "upper": 30.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -21898,16 +21898,16 @@
       "ny": 73,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 4.0
+            "upper": 7.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -21919,7 +21919,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 4.0
+            "upper": 7.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -21935,8 +21935,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 22.0,
-            "upper": 32.0
+            "lower": 12.0,
+            "upper": 24.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -21947,8 +21947,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 22.0,
-            "upper": 32.0
+            "lower": 12.0,
+            "upper": 24.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -22051,16 +22051,16 @@
       "ny": 74,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 4.0
+            "upper": 7.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -22072,7 +22072,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 4.0
+            "upper": 7.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -22204,16 +22204,16 @@
       "ny": 67,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 0.0,
-            "upper": 6.0
+            "lower": 1.0,
+            "upper": 8.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -22224,8 +22224,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 0.0,
-            "upper": 6.0
+            "lower": 1.0,
+            "upper": 8.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -22241,8 +22241,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 18.0,
-            "upper": 30.0
+            "lower": 17.0,
+            "upper": 29.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -22253,8 +22253,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 18.0,
-            "upper": 30.0
+            "lower": 17.0,
+            "upper": 29.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -22266,12 +22266,12 @@
           "to_kst": "2026-11-15T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 60,
+          "max_pop_pct": 30,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 1.0
+            "upper": 0.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -22283,10 +22283,10 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 1.0
+            "upper": 0.0
           },
           "precip_includes_snow": false,
-          "forecast_rain": true,
+          "forecast_rain": false,
           "forecast_snow": false,
           "forecast_mixed": false
         },
@@ -22357,16 +22357,16 @@
       "ny": 75,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 4.0
+            "upper": 6.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -22378,7 +22378,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 4.0
+            "upper": 6.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -22394,8 +22394,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 10.0,
-            "upper": 26.0
+            "lower": 7.0,
+            "upper": 24.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -22406,8 +22406,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 10.0,
-            "upper": 26.0
+            "lower": 7.0,
+            "upper": 24.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -22510,16 +22510,16 @@
       "ny": 74,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 4.0
+            "upper": 7.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -22531,7 +22531,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 4.0
+            "upper": 7.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -22547,8 +22547,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 11.0,
-            "upper": 25.0
+            "lower": 7.0,
+            "upper": 24.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -22559,8 +22559,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 11.0,
-            "upper": 25.0
+            "lower": 7.0,
+            "upper": 24.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -22663,16 +22663,16 @@
       "ny": 70,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 3.0
+            "upper": 5.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -22684,7 +22684,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 3.0
+            "upper": 5.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -22700,7 +22700,7 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 12.0,
+            "lower": 10.0,
             "upper": 25.0
           },
           "snow_cm": {
@@ -22712,7 +22712,7 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 12.0,
+            "lower": 10.0,
             "upper": 25.0
           },
           "precip_includes_snow": false,
@@ -22729,8 +22729,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 1.1,
-            "upper": 2.1
+            "lower": 0.0,
+            "upper": 2.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -22741,8 +22741,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 1.1,
-            "upper": 2.1
+            "lower": 0.0,
+            "upper": 2.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -22816,16 +22816,16 @@
       "ny": 66,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
-          "max_pop_pct": 30,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 0.0
+            "upper": 2.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -22837,10 +22837,10 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 0.0
+            "upper": 2.0
           },
           "precip_includes_snow": false,
-          "forecast_rain": false,
+          "forecast_rain": true,
           "forecast_snow": false,
           "forecast_mixed": false
         },
@@ -22849,12 +22849,12 @@
           "to_kst": "2026-11-14T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 80,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 28.0,
-            "upper": 32.0
+            "lower": 24.0,
+            "upper": 29.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -22865,8 +22865,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 28.0,
-            "upper": 32.0
+            "lower": 24.0,
+            "upper": 29.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -22882,8 +22882,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 2.4,
-            "upper": 3.4
+            "lower": 1.0,
+            "upper": 3.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -22894,8 +22894,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 2.4,
-            "upper": 3.4
+            "lower": 1.0,
+            "upper": 3.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -22969,16 +22969,16 @@
       "ny": 92,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 2.0
+            "upper": 4.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -22990,7 +22990,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 2.0
+            "upper": 4.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -23007,7 +23007,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 24.0
+            "upper": 22.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -23019,7 +23019,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 24.0
+            "upper": 22.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -23122,9 +23122,9 @@
       "ny": 88,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 60,
           "precip_mm": {
@@ -23159,8 +23159,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 9.0,
-            "upper": 25.0
+            "lower": 4.0,
+            "upper": 24.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -23171,8 +23171,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 9.0,
-            "upper": 25.0
+            "lower": 4.0,
+            "upper": 24.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -23275,9 +23275,9 @@
       "ny": 80,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 60,
           "precip_mm": {
@@ -23337,12 +23337,12 @@
           "to_kst": "2026-11-15T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 30,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 0.0
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -23354,10 +23354,10 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 0.0
+            "upper": 1.0
           },
           "precip_includes_snow": false,
-          "forecast_rain": false,
+          "forecast_rain": true,
           "forecast_snow": false,
           "forecast_mixed": false
         },
@@ -23428,9 +23428,9 @@
       "ny": 91,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 60,
           "precip_mm": {
@@ -23466,7 +23466,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 24.0
+            "upper": 23.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -23478,7 +23478,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 24.0
+            "upper": 23.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -23581,9 +23581,9 @@
       "ny": 89,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 60,
           "precip_mm": {
@@ -23618,7 +23618,7 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 1.0,
+            "lower": 0.0,
             "upper": 24.0
           },
           "snow_cm": {
@@ -23630,7 +23630,7 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 1.0,
+            "lower": 0.0,
             "upper": 24.0
           },
           "precip_includes_snow": false,
@@ -23734,9 +23734,9 @@
       "ny": 89,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 60,
           "precip_mm": {
@@ -23771,7 +23771,7 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 1.0,
+            "lower": 0.0,
             "upper": 24.0
           },
           "snow_cm": {
@@ -23783,7 +23783,7 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 1.0,
+            "lower": 0.0,
             "upper": 24.0
           },
           "precip_includes_snow": false,
@@ -23887,16 +23887,16 @@
       "ny": 83,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 3.0
+            "upper": 6.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -23908,7 +23908,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 3.0
+            "upper": 6.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -23924,8 +23924,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.0,
-            "upper": 24.0
+            "lower": 2.0,
+            "upper": 23.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -23936,8 +23936,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 3.0,
-            "upper": 24.0
+            "lower": 2.0,
+            "upper": 23.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -24040,16 +24040,16 @@
       "ny": 33,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 7.0
+            "upper": 10.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -24061,7 +24061,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 7.0
+            "upper": 10.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -24077,8 +24077,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 45.0,
-            "upper": 47.0
+            "lower": 46.0,
+            "upper": 48.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -24089,8 +24089,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 45.0,
-            "upper": 47.0
+            "lower": 46.0,
+            "upper": 48.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -24102,12 +24102,12 @@
           "to_kst": "2026-11-15T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 60,
+          "max_pop_pct": 70,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.9,
-            "upper": 7.9
+            "lower": 7.0,
+            "upper": 9.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -24118,8 +24118,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.9,
-            "upper": 7.9
+            "lower": 7.0,
+            "upper": 9.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -24131,7 +24131,7 @@
           "to_kst": "2026-11-16T21:00:00+09:00",
           "hours": 8,
           "full_day": false,
-          "max_pop_pct": 30,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": false,
@@ -24151,7 +24151,7 @@
             "upper": null
           },
           "precip_includes_snow": false,
-          "forecast_rain": false,
+          "forecast_rain": true,
           "forecast_snow": false,
           "forecast_mixed": false
         },
@@ -24193,16 +24193,16 @@
       "ny": 38,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -24214,7 +24214,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 1.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -24226,12 +24226,12 @@
           "to_kst": "2026-11-14T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 60,
+          "max_pop_pct": 70,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 19.0,
-            "upper": 30.0
+            "lower": 10.0,
+            "upper": 27.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -24242,8 +24242,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 19.0,
-            "upper": 30.0
+            "lower": 10.0,
+            "upper": 27.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -24259,8 +24259,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 2.2,
-            "upper": 3.2
+            "lower": 2.0,
+            "upper": 7.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -24271,8 +24271,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 2.2,
-            "upper": 3.2
+            "lower": 2.0,
+            "upper": 7.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -24284,7 +24284,7 @@
           "to_kst": "2026-11-16T21:00:00+09:00",
           "hours": 8,
           "full_day": false,
-          "max_pop_pct": 30,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": false,
@@ -24304,7 +24304,7 @@
             "upper": null
           },
           "precip_includes_snow": false,
-          "forecast_rain": false,
+          "forecast_rain": true,
           "forecast_snow": false,
           "forecast_mixed": false
         },
@@ -24313,12 +24313,12 @@
           "to_kst": "2026-11-17T00:00:00+09:00",
           "hours": 1,
           "full_day": false,
-          "max_pop_pct": 30,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 0.0,
-            "upper": 0.0
+            "lower": 1.0,
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -24329,11 +24329,11 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 0.0,
-            "upper": 0.0
+            "lower": 1.0,
+            "upper": 1.0
           },
           "precip_includes_snow": false,
-          "forecast_rain": false,
+          "forecast_rain": true,
           "forecast_snow": false,
           "forecast_mixed": false
         }
@@ -24346,9 +24346,9 @@
       "ny": 99,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -24384,7 +24384,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 19.0,
-            "upper": 29.0
+            "upper": 27.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -24396,7 +24396,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 19.0,
-            "upper": 29.0
+            "upper": 27.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -24499,9 +24499,9 @@
       "ny": 102,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -24537,7 +24537,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 6.0,
-            "upper": 23.0
+            "upper": 22.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -24549,7 +24549,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 6.0,
-            "upper": 23.0
+            "upper": 22.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -24652,9 +24652,9 @@
       "ny": 97,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 60,
           "precip_mm": {
@@ -24690,7 +24690,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 9.0,
-            "upper": 24.0
+            "upper": 22.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -24702,7 +24702,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 9.0,
-            "upper": 24.0
+            "upper": 22.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -24805,9 +24805,9 @@
       "ny": 112,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -24958,16 +24958,16 @@
       "ny": 100,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 1.0
+            "upper": 3.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -24979,7 +24979,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 1.0
+            "upper": 3.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -24996,7 +24996,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 12.0,
-            "upper": 24.0
+            "upper": 23.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -25008,7 +25008,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 12.0,
-            "upper": 24.0
+            "upper": 23.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -25111,9 +25111,9 @@
       "ny": 110,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -25264,9 +25264,9 @@
       "ny": 110,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -25417,9 +25417,9 @@
       "ny": 110,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -25570,9 +25570,9 @@
       "ny": 112,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -25723,9 +25723,9 @@
       "ny": 118,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -25876,9 +25876,9 @@
       "ny": 106,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -26029,9 +26029,9 @@
       "ny": 107,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -26182,9 +26182,9 @@
       "ny": 107,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -26335,9 +26335,9 @@
       "ny": 106,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -26488,9 +26488,9 @@
       "ny": 114,
       "days": {
         "2026-11-13": {
-          "from_kst": "2026-11-13T02:00:00+09:00",
+          "from_kst": "2026-11-13T11:00:00+09:00",
           "to_kst": "2026-11-13T23:00:00+09:00",
-          "hours": 22,
+          "hours": 13,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
