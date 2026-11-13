@@ -121,6 +121,7 @@ def status_md(result):
        "- 점검 시각(KST): **"+result["generated_at_kst"]+"**",
        "- 기상청 단기 API: **자동 연결** (성공·실제 수치는 [latest.json](latest.json)에서 확인)",
        "- 기상청 중기예보·특보: 이 GitHub 수집에는 미포함, ChatGPT 예약에서 최신 공식 본문 별도 확인",
+       ("- ECMWF: 최근 성공자료를 재사용했습니다 (신규 조회 실패, 이전 성공 수집시각을 반드시 확인)" if result.get("fallback_recent_success") else "- ECMWF: 이번 실행의 실제 신규 수집 결과"),
        "",
        "## ECMWF 공개 예측모델 — 최신 한국 도시 수치 확인에 성공한 모델만 표시",
        "",
@@ -128,7 +129,7 @@ def status_md(result):
        "|---|---:|---|"]
     verified=0
     for model,v in result["models"].items():
-        if v["status"]!="verified" or v["cities_succeeded"]<=0:continue
+        if v["status"] not in ("verified","verified_cached_recent") or v["cities_succeeded"]<=0:continue
         verified+=1
         lines.append("| "+model+" | "+str(v["cities_succeeded"])+"/"+str(v["cities_requested"])+
             " | 실제 한국 수치 확인 |")
@@ -141,10 +142,35 @@ def status_md(result):
 
 def main():
     ROOT.joinpath("data").mkdir(exist_ok=True)
-    result=collect(dt.datetime.now(KST))
+    now=dt.datetime.now(KST)
+    result=collect(now)
+    last_good=ROOT/"data/ecmwf_last_verified.json"
+    verified=any(v.get("status")=="verified" and v.get("cities_succeeded",0)>0
+                 for v in result.get("models",{}).values())
+    if verified:
+        last_good.write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    elif last_good.is_file():
+        # Never invent forecast values: reuse only actual successful past API data,
+        # with its original collection timestamp, for a STRICT maximum of 3 hours.
+        try:
+            old=json.loads(last_good.read_text(encoding="utf-8"))
+            age=(now-dt.datetime.fromisoformat(old["generated_at_kst"])).total_seconds()
+            if 0<=age<=3*3600 and any(
+                v.get("status")=="verified" and v.get("cities_succeeded",0)>0
+                for v in old.get("models",{}).values()):
+                old["fallback_recent_success"]=True
+                old["last_attempt_at_kst"]=now.isoformat()
+                old["failed_latest_attempt"]=True
+                for v in old["models"].values():
+                    if v.get("status")=="verified":
+                        v["status"]="verified_cached_recent"
+                result=old
+        except (ValueError,KeyError,TypeError,OSError):
+            pass
     ROOT.joinpath("data/ecmwf_regional.json").write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     ROOT.joinpath("data/source_status.md").write_text(status_md(result),encoding="utf-8")
-    print("ECMWF verified models:",",".join(k for k,v in result["models"].items() if v["status"]=="verified") or "none")
+    print("ECMWF verified models:",",".join(k for k,v in result["models"].items() if v["status"] in ("verified","verified_cached_recent")) or "none",
+          "cached_recent=",bool(result.get("fallback_recent_success")))
 
 if __name__=="__main__":
     main()
