@@ -11,8 +11,13 @@ on:
       - "assets/**"
       - ".github/workflows/update_kma.yml"
   schedule:
-    # KST 00:12/00:22,06:12/06:22,12:12/12:22,18:12/18:22 (redundant to reduce delayed runs)
-    - cron: '12,22 3,9,15,21 * * *'
+    # Three independent slots per 6h alert cycle, before ChatGPT's :30 alert.
+    # UTC 02/08/14/20:50 => KST 05/11/17/23:50;
+    # UTC 03/09/15/21:10,20 => KST 00/06/12/18:10,20.
+    # The earliest 17:50 run can capture the new 17:00 KMA forecast.
+    # GitHub schedule runs are best-effort: some may be delayed or dropped.
+    - cron: '50 2,8,14,20 * * *'
+    - cron: '10,20 3,9,15,21 * * *'
 
 permissions:
   contents: write
