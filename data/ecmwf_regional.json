@@ -5,7 +5,7 @@
   "models": {
     "IFS": {
       "model_id": "ecmwf_ifs",
-      "status": "verified",
+      "status": "verified_cached_recent",
       "cities_succeeded": 7,
       "cities_requested": 7,
       "records": [
@@ -427,7 +427,7 @@
     },
     "AIFS Single": {
       "model_id": "ecmwf_aifs025_single",
-      "status": "verified",
+      "status": "verified_cached_recent",
       "cities_succeeded": 7,
       "cities_requested": 7,
       "records": [
@@ -847,5 +847,8 @@
       ],
       "errors": []
     }
-  }
+  },
+  "fallback_recent_success": true,
+  "last_attempt_at_kst": "2026-11-14T06:26:36.847232+09:00",
+  "failed_latest_attempt": true
 }
