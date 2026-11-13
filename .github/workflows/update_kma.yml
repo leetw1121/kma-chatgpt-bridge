@@ -77,7 +77,7 @@ jobs:
             data/precipitation_only.md data/precipitation_only.csv
             data/city_precipitation.md data/city_precipitation.csv
             data/rain_snow_latest.pdf data/pdf_manifest.json
-            data/ecmwf_regional.json data/source_status.md
+            data/ecmwf_regional.json data/ecmwf_last_verified.json data/source_status.md
           )
           git add "${DATA_FILES[@]}"
           if git diff --cached --quiet; then
