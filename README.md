@@ -38,6 +38,15 @@
 
 참고: 2026년 실제 행정구역 명칭을 보장하려면 반드시 최신 기상청 파일을 사용하세요. 새로 발표된 지도는 같은 파일명으로 교체 업로드할 수 있습니다. 자동 수집은 여전히 예보의 **구 전체 평균/최대**가 아닌 **구 대표 5km 격자**를 의미합니다.
 
+## 예약 실행 신뢰성 / 독립 예비 스케줄러
+
+GitHub 예약 실행이 아예 생성되지 않는 사례가 2026-11-14에 확인됐습니다. 같은 GitHub cron의 반복 횟수를 늘리는 것만으로는 독립적인 복구가 되지 않습니다.
+
+- **완료:** Cloudflare Workers Cron 예비 트리거 코드와 최신 기상청 발표본/PDF 검증 코드 등록. Node 테스트는 별도 GitHub Actions에서 성공.
+- **미완료:** Cloudflare 계정에 Worker 실제 배포 및 저장소 한정 Actions:write 인증 Secret 등록. **아직 독립 예비 스케줄러는 가동되지 않습니다.**
+- 설정 안내: [Cloudflare 독립 백업 스케줄러 설치 방법](backup-scheduler/cloudflare-worker/README.md).
+- 적용 후 Cloudflare Cron이 최신 PDF를 먼저 검사하고, 누락됐을 때만 GitHub `workflow_dispatch`로 수집을 시작합니다. 기존 GitHub 예약과 ChatGPT 30분 알림은 유지합니다.
+
 ## GitHub 자동화 실행이 지연되거나 실패하는 경우
 
 GitHub는 예약 실행을 지연 또는 일부 생략할 수 있다고 안내합니다: https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule . 따라서 ChatGPT는 공개 데이터의 **실제 완료시각·발표시각·조회 성공 지점수**를 확인하고 오래된 데이터는 최신 예보로 쓰지 않습니다.
