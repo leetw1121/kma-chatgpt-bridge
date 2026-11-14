@@ -1,5 +1,5 @@
 {
-  "generated_at_kst": "2026-11-15T00:14:49.669130+09:00",
+  "generated_at_kst": "2026-11-15T06:14:12.675981+09:00",
   "source": "Open-Meteo ECMWF IFS/AIFS open data",
   "sample_scope": "7 approximate city-centre points; NOT all 174 KMA regions or same grids",
   "models": {
@@ -12,31 +12,31 @@
       "errors": [
         {
           "city": "부산",
-          "error": "URLError"
-        },
-        {
-          "city": "서울",
-          "error": "URLError"
+          "error": "HTTPError"
         },
         {
           "city": "대전",
-          "error": "URLError"
+          "error": "HTTPError"
+        },
+        {
+          "city": "서울",
+          "error": "HTTPError"
         },
         {
           "city": "광주",
-          "error": "URLError"
-        },
-        {
-          "city": "울산",
-          "error": "URLError"
-        },
-        {
-          "city": "서귀포",
-          "error": "URLError"
+          "error": "HTTPError"
         },
         {
           "city": "강릉",
-          "error": "URLError"
+          "error": "HTTPError"
+        },
+        {
+          "city": "서귀포",
+          "error": "HTTPError"
+        },
+        {
+          "city": "울산",
+          "error": "HTTPError"
         }
       ]
     },
@@ -48,32 +48,32 @@
       "records": [],
       "errors": [
         {
-          "city": "대전",
-          "error": "URLError"
-        },
-        {
-          "city": "부산",
-          "error": "URLError"
-        },
-        {
           "city": "서울",
-          "error": "URLError"
+          "error": "HTTPError"
         },
         {
           "city": "광주",
-          "error": "URLError"
+          "error": "HTTPError"
         },
         {
-          "city": "서귀포",
-          "error": "URLError"
+          "city": "부산",
+          "error": "HTTPError"
+        },
+        {
+          "city": "대전",
+          "error": "HTTPError"
         },
         {
           "city": "울산",
-          "error": "URLError"
+          "error": "HTTPError"
         },
         {
           "city": "강릉",
-          "error": "URLError"
+          "error": "HTTPError"
+        },
+        {
+          "city": "서귀포",
+          "error": "HTTPError"
         }
       ]
     }
