@@ -1,0 +1,24 @@
+name: Test independent weather backup scheduler
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "backup-scheduler/**"
+      - ".github/workflows/test_backup_scheduler.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+      - name: Verify backup issue clock and PDF freshness
+        run: node --test backup-scheduler/cloudflare-worker/worker.test.mjs
