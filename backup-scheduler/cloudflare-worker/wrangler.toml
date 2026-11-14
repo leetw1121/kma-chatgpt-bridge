@@ -1,0 +1,12 @@
+name = "kma-forecast-backup"
+main = "worker.mjs"
+compatibility_date = "2026-11-12"
+
+# UTC 15:12 / 21:12 / 03:12 / 09:12
+# = KST 00:12 / 06:12 / 12:12 / 18:12
+# Independent of GitHub Actions' built-in cron scheduler.
+[triggers]
+crons = ["12 3,9,15,21 * * *"]
+
+# GITHUB_ACTIONS_TOKEN MUST be stored in Cloudflare Variables and Secrets.
+# Never put a real token in wrangler.toml or commit it to the repository.
