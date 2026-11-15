@@ -2,14 +2,14 @@
   "pdf_file": "data/rain_snow_latest.pdf",
   "scope": "city_only",
   "source": "KMA getVilageFcst, optional independently verified ECMWF IFS/AIFS",
-  "source_issue_at_kst": "2026-11-15T11:00:00+09:00",
-  "source_generated_at_kst": "2026-11-15T12:14:00.373808+09:00",
-  "model_generated_at_kst": "2026-11-15T12:14:00.522984+09:00",
-  "pdf_generated_at_utc": "2026-11-15T03:15:21.705031+00:00",
+  "source_issue_at_kst": "2026-11-15T17:00:00+09:00",
+  "source_generated_at_kst": "2026-11-15T18:14:21.287431+09:00",
+  "model_generated_at_kst": "2026-11-15T18:14:21.453402+09:00",
+  "pdf_generated_at_utc": "2026-11-15T09:14:49.968924+00:00",
   "regions_checked": 174,
   "regions_succeeded": 174,
-  "kma_city_date_rows": 179,
+  "kma_city_date_rows": 214,
   "kma_city_names": 85,
-  "ecmwf_models_included": false,
-  "pdf_size_bytes": 108064
+  "ecmwf_models_included": true,
+  "pdf_size_bytes": 116530
 }
