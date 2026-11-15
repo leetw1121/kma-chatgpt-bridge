@@ -1,5 +1,5 @@
 {
-  "generated_at_kst": "2026-11-16T00:14:13.793901+09:00",
+  "generated_at_kst": "2026-11-16T04:57:37.430578+09:00",
   "source": "Open-Meteo ECMWF IFS/AIFS open data",
   "sample_scope": "7 approximate city-centre points; NOT all 174 KMA regions or same grids",
   "models": {
@@ -18,20 +18,20 @@
           "timezone": "Asia/Seoul",
           "days": {
             "2026-11-16": {
-              "forecast_hours": 23,
-              "precip_mm": 23.9,
+              "forecast_hours": 19,
+              "precip_mm": 10.7,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-17": {
               "forecast_hours": 24,
-              "precip_mm": 4.1,
+              "precip_mm": 2.4,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-18": {
               "forecast_hours": 24,
-              "precip_mm": 0.2,
+              "precip_mm": 0.0,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
@@ -55,6 +55,12 @@
             },
             "2026-11-22": {
               "forecast_hours": 24,
+              "precip_mm": 0.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-23": {
+              "forecast_hours": 4,
               "precip_mm": 0.0,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
@@ -71,43 +77,49 @@
           "timezone": "Asia/Seoul",
           "days": {
             "2026-11-16": {
-              "forecast_hours": 23,
+              "forecast_hours": 19,
               "precip_mm": 0.0,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-17": {
               "forecast_hours": 24,
-              "precip_mm": 3.0,
+              "precip_mm": 0.2,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-18": {
               "forecast_hours": 24,
-              "precip_mm": 2.0,
+              "precip_mm": 1.6,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-19": {
               "forecast_hours": 24,
-              "precip_mm": 3.1,
+              "precip_mm": 2.0,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-20": {
               "forecast_hours": 24,
-              "precip_mm": 1.4,
+              "precip_mm": 1.8,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-21": {
               "forecast_hours": 24,
-              "precip_mm": 0.3,
+              "precip_mm": 0.1,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-22": {
               "forecast_hours": 24,
+              "precip_mm": 0.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-23": {
+              "forecast_hours": 4,
               "precip_mm": 0.0,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
@@ -124,33 +136,33 @@
           "timezone": "Asia/Seoul",
           "days": {
             "2026-11-16": {
-              "forecast_hours": 23,
+              "forecast_hours": 19,
               "precip_mm": 0.0,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-17": {
               "forecast_hours": 24,
-              "precip_mm": 2.9,
+              "precip_mm": 2.6,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-18": {
               "forecast_hours": 24,
-              "precip_mm": 0.5,
+              "precip_mm": 0.6,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-19": {
               "forecast_hours": 24,
-              "precip_mm": 0.2,
+              "precip_mm": 0.4,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-20": {
               "forecast_hours": 24,
-              "precip_mm": 0.4,
-              "snowfall_cm": 0.0,
+              "precip_mm": 0.8,
+              "snowfall_cm": 0.1,
               "snowfall_valid": true
             },
             "2026-11-21": {
@@ -161,6 +173,12 @@
             },
             "2026-11-22": {
               "forecast_hours": 24,
+              "precip_mm": 0.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-23": {
+              "forecast_hours": 4,
               "precip_mm": 0.0,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
@@ -177,20 +195,20 @@
           "timezone": "Asia/Seoul",
           "days": {
             "2026-11-16": {
-              "forecast_hours": 23,
-              "precip_mm": 0.4,
+              "forecast_hours": 19,
+              "precip_mm": 0.8,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-17": {
               "forecast_hours": 24,
-              "precip_mm": 0.2,
+              "precip_mm": 0.9,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-18": {
               "forecast_hours": 24,
-              "precip_mm": 0.0,
+              "precip_mm": 0.4,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
@@ -214,6 +232,12 @@
             },
             "2026-11-22": {
               "forecast_hours": 24,
+              "precip_mm": 0.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-23": {
+              "forecast_hours": 4,
               "precip_mm": 0.0,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
@@ -230,20 +254,20 @@
           "timezone": "Asia/Seoul",
           "days": {
             "2026-11-16": {
-              "forecast_hours": 23,
-              "precip_mm": 0.9,
+              "forecast_hours": 19,
+              "precip_mm": 2.0,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-17": {
               "forecast_hours": 24,
-              "precip_mm": 5.6,
+              "precip_mm": 10.5,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-18": {
               "forecast_hours": 24,
-              "precip_mm": 0.8,
+              "precip_mm": 1.2,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
@@ -255,18 +279,24 @@
             },
             "2026-11-20": {
               "forecast_hours": 24,
-              "precip_mm": 3.9,
+              "precip_mm": 3.0,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-21": {
               "forecast_hours": 24,
-              "precip_mm": 0.6,
+              "precip_mm": 1.2,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-22": {
               "forecast_hours": 24,
+              "precip_mm": 0.6,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-23": {
+              "forecast_hours": 4,
               "precip_mm": 0.0,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
@@ -283,20 +313,20 @@
           "timezone": "Asia/Seoul",
           "days": {
             "2026-11-16": {
-              "forecast_hours": 23,
+              "forecast_hours": 19,
               "precip_mm": 0.0,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-17": {
               "forecast_hours": 24,
-              "precip_mm": 7.1,
+              "precip_mm": 6.5,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-18": {
               "forecast_hours": 24,
-              "precip_mm": 0.1,
+              "precip_mm": 1.0,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
@@ -320,6 +350,12 @@
             },
             "2026-11-22": {
               "forecast_hours": 24,
+              "precip_mm": 0.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-23": {
+              "forecast_hours": 4,
               "precip_mm": 0.0,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
@@ -336,20 +372,20 @@
           "timezone": "Asia/Seoul",
           "days": {
             "2026-11-16": {
-              "forecast_hours": 23,
-              "precip_mm": 1.8,
+              "forecast_hours": 19,
+              "precip_mm": 1.6,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-17": {
               "forecast_hours": 24,
-              "precip_mm": 0.1,
+              "precip_mm": 2.3,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-18": {
               "forecast_hours": 24,
-              "precip_mm": 0.0,
+              "precip_mm": 1.4,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
@@ -373,6 +409,12 @@
             },
             "2026-11-22": {
               "forecast_hours": 24,
+              "precip_mm": 0.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-23": {
+              "forecast_hours": 4,
               "precip_mm": 0.0,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
@@ -398,20 +440,20 @@
           "timezone": "Asia/Seoul",
           "days": {
             "2026-11-16": {
-              "forecast_hours": 23,
-              "precip_mm": 18.4,
+              "forecast_hours": 19,
+              "precip_mm": 13.0,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-17": {
               "forecast_hours": 24,
-              "precip_mm": 9.4,
+              "precip_mm": 5.0,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-18": {
               "forecast_hours": 24,
-              "precip_mm": 0.4,
+              "precip_mm": 0.6,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
@@ -435,6 +477,12 @@
             },
             "2026-11-22": {
               "forecast_hours": 24,
+              "precip_mm": 0.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-23": {
+              "forecast_hours": 4,
               "precip_mm": 0.0,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
@@ -451,7 +499,7 @@
           "timezone": "Asia/Seoul",
           "days": {
             "2026-11-16": {
-              "forecast_hours": 23,
+              "forecast_hours": 19,
               "precip_mm": 0.0,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
@@ -464,30 +512,36 @@
             },
             "2026-11-18": {
               "forecast_hours": 24,
-              "precip_mm": 2.6,
+              "precip_mm": 3.0,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-19": {
               "forecast_hours": 24,
-              "precip_mm": 5.0,
+              "precip_mm": 4.6,
               "snowfall_cm": 0.7,
               "snowfall_valid": true
             },
             "2026-11-20": {
               "forecast_hours": 24,
-              "precip_mm": 4.0,
+              "precip_mm": 3.4,
               "snowfall_cm": 0.6,
               "snowfall_valid": true
             },
             "2026-11-21": {
               "forecast_hours": 24,
-              "precip_mm": 1.4,
+              "precip_mm": 2.0,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-22": {
               "forecast_hours": 24,
+              "precip_mm": 0.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-23": {
+              "forecast_hours": 4,
               "precip_mm": 0.0,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
@@ -504,7 +558,7 @@
           "timezone": "Asia/Seoul",
           "days": {
             "2026-11-16": {
-              "forecast_hours": 23,
+              "forecast_hours": 19,
               "precip_mm": 0.0,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
@@ -517,13 +571,13 @@
             },
             "2026-11-18": {
               "forecast_hours": 24,
-              "precip_mm": 1.6,
+              "precip_mm": 2.8,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-19": {
               "forecast_hours": 24,
-              "precip_mm": 1.2,
+              "precip_mm": 1.4,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
@@ -535,12 +589,18 @@
             },
             "2026-11-21": {
               "forecast_hours": 24,
-              "precip_mm": 0.4,
+              "precip_mm": 1.4,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-22": {
               "forecast_hours": 24,
+              "precip_mm": 0.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-23": {
+              "forecast_hours": 4,
               "precip_mm": 0.0,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
@@ -557,14 +617,14 @@
           "timezone": "Asia/Seoul",
           "days": {
             "2026-11-16": {
-              "forecast_hours": 23,
+              "forecast_hours": 19,
               "precip_mm": 1.4,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-17": {
               "forecast_hours": 24,
-              "precip_mm": 1.0,
+              "precip_mm": 0.4,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
@@ -576,7 +636,7 @@
             },
             "2026-11-19": {
               "forecast_hours": 24,
-              "precip_mm": 0.6,
+              "precip_mm": 0.0,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
@@ -594,6 +654,12 @@
             },
             "2026-11-22": {
               "forecast_hours": 24,
+              "precip_mm": 0.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-23": {
+              "forecast_hours": 4,
               "precip_mm": 0.0,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
@@ -610,43 +676,49 @@
           "timezone": "Asia/Seoul",
           "days": {
             "2026-11-16": {
-              "forecast_hours": 23,
-              "precip_mm": 2.6,
+              "forecast_hours": 19,
+              "precip_mm": 2.8,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-17": {
               "forecast_hours": 24,
-              "precip_mm": 9.6,
+              "precip_mm": 10.0,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-18": {
               "forecast_hours": 24,
-              "precip_mm": 2.0,
+              "precip_mm": 2.6,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-19": {
               "forecast_hours": 24,
-              "precip_mm": 7.6,
+              "precip_mm": 5.0,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-20": {
               "forecast_hours": 24,
-              "precip_mm": 3.6,
+              "precip_mm": 3.2,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-21": {
               "forecast_hours": 24,
-              "precip_mm": 2.2,
+              "precip_mm": 2.8,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-22": {
               "forecast_hours": 24,
+              "precip_mm": 0.6,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-23": {
+              "forecast_hours": 4,
               "precip_mm": 0.0,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
@@ -663,7 +735,7 @@
           "timezone": "Asia/Seoul",
           "days": {
             "2026-11-16": {
-              "forecast_hours": 23,
+              "forecast_hours": 19,
               "precip_mm": 0.2,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
@@ -676,30 +748,36 @@
             },
             "2026-11-18": {
               "forecast_hours": 24,
-              "precip_mm": 0.0,
+              "precip_mm": 1.2,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-19": {
               "forecast_hours": 24,
-              "precip_mm": 0.6,
+              "precip_mm": 0.0,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-20": {
               "forecast_hours": 24,
-              "precip_mm": 0.0,
+              "precip_mm": 0.2,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-21": {
               "forecast_hours": 24,
-              "precip_mm": 0.0,
+              "precip_mm": 0.4,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
             "2026-11-22": {
               "forecast_hours": 24,
+              "precip_mm": 0.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-23": {
+              "forecast_hours": 4,
               "precip_mm": 0.0,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
@@ -716,8 +794,8 @@
           "timezone": "Asia/Seoul",
           "days": {
             "2026-11-16": {
-              "forecast_hours": 23,
-              "precip_mm": 1.4,
+              "forecast_hours": 19,
+              "precip_mm": 2.6,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
             },
@@ -753,6 +831,12 @@
             },
             "2026-11-22": {
               "forecast_hours": 24,
+              "precip_mm": 0.0,
+              "snowfall_cm": 0.0,
+              "snowfall_valid": true
+            },
+            "2026-11-23": {
+              "forecast_hours": 4,
               "precip_mm": 0.0,
               "snowfall_cm": 0.0,
               "snowfall_valid": true
