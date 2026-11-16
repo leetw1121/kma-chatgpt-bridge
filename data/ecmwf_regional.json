@@ -1,5 +1,5 @@
 {
-  "generated_at_kst": "2026-11-17T00:14:15.552901+09:00",
+  "generated_at_kst": "2026-11-17T06:14:10.114351+09:00",
   "source": "Open-Meteo ECMWF IFS/AIFS open data",
   "sample_scope": "7 approximate city-centre points; NOT all 174 KMA regions or same grids",
   "models": {
@@ -11,6 +11,14 @@
       "records": [],
       "errors": [
         {
+          "city": "서울",
+          "error": "URLError"
+        },
+        {
+          "city": "대전",
+          "error": "URLError"
+        },
+        {
           "city": "광주",
           "error": "URLError"
         },
@@ -19,23 +27,15 @@
           "error": "URLError"
         },
         {
-          "city": "대전",
-          "error": "URLError"
-        },
-        {
-          "city": "서울",
-          "error": "URLError"
-        },
-        {
-          "city": "울산",
-          "error": "URLError"
-        },
-        {
           "city": "서귀포",
           "error": "URLError"
         },
         {
           "city": "강릉",
+          "error": "URLError"
+        },
+        {
+          "city": "울산",
           "error": "URLError"
         }
       ]
@@ -56,15 +56,11 @@
           "error": "URLError"
         },
         {
-          "city": "광주",
-          "error": "URLError"
-        },
-        {
           "city": "부산",
           "error": "URLError"
         },
         {
-          "city": "울산",
+          "city": "광주",
           "error": "URLError"
         },
         {
@@ -73,6 +69,10 @@
         },
         {
           "city": "강릉",
+          "error": "URLError"
+        },
+        {
+          "city": "울산",
           "error": "URLError"
         }
       ]
