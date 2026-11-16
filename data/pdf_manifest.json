@@ -3,13 +3,13 @@
   "scope": "city_only",
   "source": "KMA getVilageFcst, optional independently verified ECMWF IFS/AIFS",
   "source_issue_at_kst": "2026-11-16T17:00:00+09:00",
-  "source_generated_at_kst": "2026-11-16T18:14:23.814025+09:00",
-  "model_generated_at_kst": "2026-11-16T18:14:23.974481+09:00",
-  "pdf_generated_at_utc": "2026-11-16T09:15:41.117833+00:00",
+  "source_generated_at_kst": "2026-11-16T19:42:05.276306+09:00",
+  "model_generated_at_kst": "2026-11-16T19:42:05.438874+09:00",
+  "pdf_generated_at_utc": "2026-11-16T10:42:29.144962+00:00",
   "regions_checked": 174,
   "regions_succeeded": 174,
   "kma_city_date_rows": 217,
   "kma_city_names": 84,
-  "ecmwf_models_included": false,
-  "pdf_size_bytes": 115989
+  "ecmwf_models_included": true,
+  "pdf_size_bytes": 120627
 }
