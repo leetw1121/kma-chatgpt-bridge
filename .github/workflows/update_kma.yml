@@ -82,6 +82,11 @@ jobs:
           python scripts/create_city_pdf.py
           test -s data/rain_snow_latest.pdf
           test "$(head -c 5 data/rain_snow_latest.pdf)" = "%PDF-"
+      - name: Verify PDF and publish deterministic reminder readiness
+        if: steps.freshness.outputs.needed == 'true'
+        run: |
+          python scripts/create_alert_status.py
+          test -s data/alert_status.json
       - name: Safely publish PDF and forecast data even when code changed
         if: steps.freshness.outputs.needed == 'true'
         shell: bash
@@ -93,7 +98,7 @@ jobs:
             data/latest.json data/summary.md data/all_regions.md data/all_regions.csv
             data/precipitation_only.md data/precipitation_only.csv
             data/city_precipitation.md data/city_precipitation.csv
-            data/rain_snow_latest.pdf data/pdf_manifest.json
+            data/rain_snow_latest.pdf data/pdf_manifest.json data/alert_status.json
             data/ecmwf_regional.json data/ecmwf_last_verified.json data/source_status.md
           )
           git add "${DATA_FILES[@]}"
