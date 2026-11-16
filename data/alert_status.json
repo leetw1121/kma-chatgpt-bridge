@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "pdf_ready": true,
+  "ready_for_alert_slot_kst": "2026-11-16T18:30:00+09:00",
+  "expected_kma_issue_hour_kst": 17,
+  "source_issue_at_kst": "2026-11-16T17:00:00+09:00",
+  "source_generated_at_kst": "2026-11-16T19:44:31.124026+09:00",
+  "pdf_generated_at_kst": "2026-11-16T19:45:44.287832+09:00",
+  "pdf_size_bytes": 115969,
+  "regions_succeeded": 174,
+  "regions_checked": 174,
+  "checks_passed": true
+}
