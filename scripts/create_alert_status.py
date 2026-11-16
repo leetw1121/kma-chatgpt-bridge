@@ -59,8 +59,13 @@ def compute_status(forecast,manifest,pdf_path,now=None):
                   and pdf_path.stat().st_size==manifest.get("pdf_size_bytes")
                   and pdf_path.open("rb").read(5)==b"%PDF-",
     }
-    report["checks_passed"]=all(checks.values())
-    report["pdf_ready"]=all(checks.values())
+    # Intermediate official 02/08/14/20 issues are valid KMA products,
+    # but insufficient for the NEXT reminder, which requires 05/11/17/23.
+    # They must not cause the otherwise healthy collection job to fail.
+    structure_ok=all(value for key,value in checks.items()
+                     if key!="kma_issue_matches_alert")
+    report["checks_passed"]=structure_ok
+    report["pdf_ready"]=structure_ok and checks["kma_issue_matches_alert"]
     if report["pdf_ready"]:
         report["ready_for_alert_slot_kst"]=slot.isoformat()
     else:
