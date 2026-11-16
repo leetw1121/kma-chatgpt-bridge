@@ -1,0 +1,82 @@
+#!/usr/bin/env python3
+"""Publish one tiny deterministic PDF status for each scheduled ChatGPT reminder.
+
+Only official KMA issue hours 23,05,11,17 can satisfy the next matching
+00:30/06:30/12:30/18:30 reminder; intermediate issues 02/08/14/20 cannot
+be advertised as the latest for a reminder. No network access needed.
+"""
+import datetime as dt
+import json
+from pathlib import Path
+from zoneinfo import ZoneInfo
+
+ROOT=Path(__file__).resolve().parents[1]
+KST=ZoneInfo("Asia/Seoul")
+PDF=ROOT/"data/rain_snow_latest.pdf"
+STATUS=ROOT/"data/alert_status.json"
+
+def slot_for_issue(issue):
+    issue=issue.astimezone(KST)
+    h=issue.hour
+    if h in (20,23):
+        return dt.datetime.combine(issue.date()+dt.timedelta(days=1),
+                                   dt.time(0,30,tzinfo=KST)),23
+    if h in (2,5):
+        return dt.datetime.combine(issue.date(),dt.time(6,30,tzinfo=KST)),5
+    if h in (8,11):
+        return dt.datetime.combine(issue.date(),dt.time(12,30,tzinfo=KST)),11
+    if h in (14,17):
+        return dt.datetime.combine(issue.date(),dt.time(18,30,tzinfo=KST)),17
+    raise ValueError("UNRECOGNIZED_KMA_ISSUE_HOUR")
+
+def compute_status(forecast,manifest,pdf_path,now=None):
+    now=now or dt.datetime.now(KST)
+    issue=dt.datetime.fromisoformat(forecast["issue_at_kst"]).astimezone(KST)
+    generated=dt.datetime.fromisoformat(forecast["generated_at_kst"]).astimezone(KST)
+    pdf_time=dt.datetime.fromisoformat(manifest["pdf_generated_at_utc"]).astimezone(KST)
+    slot,expected_hour=slot_for_issue(issue)
+    report={
+        "schema_version":1,
+        "pdf_ready":False,
+        "ready_for_alert_slot_kst":None,
+        "expected_kma_issue_hour_kst":expected_hour,
+        "source_issue_at_kst":issue.isoformat(),
+        "source_generated_at_kst":generated.isoformat(),
+        "pdf_generated_at_kst":pdf_time.isoformat(),
+        "pdf_size_bytes":manifest.get("pdf_size_bytes"),
+        "regions_succeeded":forecast.get("locations_succeeded"),
+        "regions_checked":forecast.get("locations_checked"),
+    }
+    checks={
+      "kma_issue_matches_alert":issue.hour==expected_hour and issue.minute==0,
+      "correct_pdf_scope":manifest.get("scope")=="city_only",
+      "pdf_matches_source":manifest.get("source_issue_at_kst")==forecast["issue_at_kst"]
+                             and manifest.get("source_generated_at_kst")==forecast["generated_at_kst"],
+      "times_ordered":issue<=generated<=pdf_time<=now+dt.timedelta(minutes=3),
+      "all_regions":forecast.get("locations_checked",0)>=100
+                    and forecast.get("locations_succeeded")==forecast.get("locations_checked"),
+      "valid_pdf":pdf_path.is_file() and pdf_path.stat().st_size>=1000
+                  and pdf_path.stat().st_size==manifest.get("pdf_size_bytes")
+                  and pdf_path.open("rb").read(5)==b"%PDF-",
+    }
+    report["checks_passed"]=all(checks.values())
+    report["pdf_ready"]=all(checks.values())
+    if report["pdf_ready"]:
+        report["ready_for_alert_slot_kst"]=slot.isoformat()
+    else:
+        report["reason"]=",".join(key for key,val in checks.items() if not val)
+    return report
+
+def main():
+    forecast=json.loads((ROOT/"data/latest.json").read_text(encoding="utf-8"))
+    manifest=json.loads((ROOT/"data/pdf_manifest.json").read_text(encoding="utf-8"))
+    status=compute_status(forecast,manifest,PDF)
+    STATUS.write_text(json.dumps(status,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    print("PDF reminder status:",status["pdf_ready"],
+          "slot:",status["ready_for_alert_slot_kst"],
+          "issue:",status["source_issue_at_kst"])
+    if not status["checks_passed"]:
+        raise SystemExit("PDF_STATUS_INVALID: "+status.get("reason","unknown"))
+
+if __name__=="__main__":
+    main()
