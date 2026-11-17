@@ -37,7 +37,7 @@ class ECMWFModelTests(unittest.TestCase):
         import urllib.error
         error=urllib.error.URLError(TimeoutError("_ssl.c:1001: The handshake operation timed out"))
         result=classify_error(error)
-        self.assertEqual(result["reason"],"NETWORK_TIMEOUT")
+        self.assertEqual(result["reason"],"TLS_HANDSHAKE_TIMEOUT")
         self.assertEqual(result["reason_type"],"TimeoutError")
 
     def test_transient_tls_timeout_retries_then_recovers(self):
@@ -63,7 +63,7 @@ class ECMWFModelTests(unittest.TestCase):
             self.assertEqual(model["cities_attempted"],1)
             self.assertEqual(model["cities_succeeded"],0)
             self.assertEqual(sum(x["reason"]=="PREFLIGHT_FAILED" for x in model["errors"]),6)
-            self.assertEqual(model["errors"][0]["reason"],"NETWORK_TIMEOUT")
+            self.assertEqual(model["errors"][0]["reason"],"TLS_HANDSHAKE_TIMEOUT")
 
     def test_preflight_success_keeps_seven_cities(self):
         now=dt.datetime(2026,11,17,11,0,tzinfo=ZoneInfo("Asia/Seoul"))
