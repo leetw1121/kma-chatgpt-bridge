@@ -63,7 +63,7 @@ def classify_error(exc):
     reason=exc.reason if isinstance(exc,urllib.error.URLError) else exc
     if isinstance(reason,socket.gaierror):
         category="DNS_RESOLUTION"
-    elif "handshake operation timed out" in str(reason).lower():
+    elif "handshake" in str(reason).lower() and "timed out" in str(reason).lower():
         category="TLS_HANDSHAKE_TIMEOUT"
     elif isinstance(reason,(TimeoutError,socket.timeout)) or "timed out" in str(reason).lower():
         category="NETWORK_TIMEOUT"
