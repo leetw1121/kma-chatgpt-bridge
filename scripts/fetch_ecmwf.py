@@ -209,8 +209,9 @@ def collect(now,cities=None):
                 errors.extend(failures)
                 # If a batch response omitted/broke a subset, retry only
                 # those cities individually, within the time budget.
-                for failed in failures:
-                    if time.monotonic()-started>MAX_COLLECTION_SECONDS:
+                for failed in failures[:2]:
+                    if (time.monotonic()-started>MAX_COLLECTION_SECONDS or
+                        time.monotonic()-model_started>MAX_MODEL_SECONDS):
                         break
                     if failed["reason"]=="API_HTTP_STATUS":
                         continue
