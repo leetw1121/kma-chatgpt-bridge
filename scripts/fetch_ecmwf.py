@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Optional independent ECMWF IFS / AIFS checks via Open-Meteo.
 
-Uses city-centre approximate coordinates ONLY for regional cross-check, never as
-an official KMA district-grid value. Failure does not block official KMA feed.
+Uses one model reference point per KMA city-level group, never an official
+KMA district-grid forecast. Failure must not block official KMA PDF updates.
 """
 import concurrent.futures
 import datetime as dt
@@ -15,19 +15,11 @@ import urllib.request
 import urllib.error
 from pathlib import Path
 from zoneinfo import ZoneInfo
+from ecmwf_city_locations import build_city_locations
 
 ROOT=Path(__file__).resolve().parents[1]
 KST=ZoneInfo("Asia/Seoul")
 URL="https://api.open-meteo.com/v1/forecast"
-CITIES={
-    "서울":(37.5665,126.9780),
-    "대전":(36.3504,127.3845),
-    "광주":(35.1595,126.8526),
-    "부산":(35.1796,129.0756),
-    "울산":(35.5384,129.3114),
-    "서귀포":(33.2541,126.5601),
-    "강릉":(37.7519,128.8761),
-}
 MODELS={"IFS":"ecmwf_ifs","AIFS Single":"ecmwf_aifs025_single"}
 
 def request_json(params, max_attempts=3, timeout=18):
@@ -80,17 +72,8 @@ def classify_error(exc):
             "errno":getattr(reason,"errno",None)}
 
 
-def fetch_one(model,city,latitude,longitude,now):
-    query={"latitude":latitude,"longitude":longitude,"hourly":"precipitation,snowfall",
-           "models":model,"timezone":"Asia/Seoul","forecast_hours":168}
-    try:
-        payload=request_json(query)
-    except urllib.error.HTTPError as exc:
-        if exc.code!=400:
-            raise
-        # AIFS products may not expose snowfall; retry precipitation only.
-        query["hourly"]="precipitation"
-        payload=request_json(query)
+def decode_model_location(payload,city,latitude,longitude,now):
+    """Validate actual hourly values separately for each city in a batched response."""
     hourly=payload.get("hourly")
     if not isinstance(hourly,dict):
         raise ValueError("MISSING_HOURLY")
@@ -141,61 +124,143 @@ def fetch_one(model,city,latitude,longitude,now):
             "actual_grid_lat":payload.get("latitude"),"actual_grid_lon":payload.get("longitude"),
             "timezone":payload.get("timezone"),"days":byday,"hours_valid":valid}
 
-def collect(now):
-    out={"generated_at_kst":now.isoformat(),"source":"Open-Meteo ECMWF IFS/AIFS open data",
-         "sample_scope":"7 approximate city-centre points; NOT all 174 KMA regions or same grids",
-         "models":{}}
-    for name,model_id in MODELS.items():
-        ok=[]
-        errors=[]
-        candidates=list(CITIES.items())
-        # One bounded probe before fanning out. If the model endpoint is
-        # completely unreachable, do not launch six identical failing calls.
-        (first_city,(lat,lon))=candidates[0]
+def fetch_group(model_id,candidates,now):
+    """Fetch up to 10 coordinate pairs with one API request.
+    
+    Open-Meteo returns an ordered JSON list for multiple locations; never
+    attribute a location's values to another when result counts differ.
+    """
+    query={"latitude":",".join(str(coords[0]) for _,coords in candidates),
+           "longitude":",".join(str(coords[1]) for _,coords in candidates),
+           "hourly":"precipitation,snowfall","models":model_id,
+           "timezone":"Asia/Seoul","forecast_hours":168}
+    try:
+        payload=request_json(query,max_attempts=2,timeout=12)
+    except urllib.error.HTTPError as exc:
+        if exc.code!=400:
+            raise
+        query["hourly"]="precipitation"
+        payload=request_json(query,max_attempts=2,timeout=12)
+    if len(candidates)==1 and isinstance(payload,dict):
+        payload=[payload]
+    if not isinstance(payload,list) or len(payload)!=len(candidates):
+        raise ValueError("BATCH_RESPONSE_COUNT_MISMATCH")
+    succeeded=[]
+    errors=[]
+    for (city,(lat,lon)),data in zip(candidates,payload):
         try:
-            ok.append(fetch_one(model_id,first_city,lat,lon,now))
-            remaining=candidates[1:]
+            succeeded.append(decode_model_location(data,city,lat,lon,now))
         except Exception as exc:
-            errors.append({"city":first_city,**classify_error(exc)})
-            remaining=[]
-            # Untested cities are NOT incorrectly counted as failed requests.
-            for city,_ in candidates[1:]:
-                errors.append({"city":city,"error":"NOT_REQUESTED",
-                               "reason":"PREFLIGHT_FAILED"})
-        if remaining:
-            with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
-                futures={pool.submit(fetch_one,model_id,city,lat,lon,now):city
-                         for city,(lat,lon) in remaining}
-                for future in concurrent.futures.as_completed(futures):
-                    city=futures[future]
+            errors.append({"city":city,**classify_error(exc)})
+    return succeeded,errors
+
+def fetch_one(model,city,latitude,longitude,now):
+    query={"latitude":latitude,"longitude":longitude,"hourly":"precipitation,snowfall",
+           "models":model,"timezone":"Asia/Seoul","forecast_hours":168}
+    try:
+        payload=request_json(query)
+    except urllib.error.HTTPError as exc:
+        if exc.code!=400:
+            raise
+        # AIFS products may not expose snowfall; retry precipitation only.
+        query["hourly"]="precipitation"
+        payload=request_json(query)
+    return decode_model_location(payload,city,latitude,longitude,now)
+
+BATCH_SIZE=10
+MAX_COLLECTION_SECONDS=160
+
+def collect(now,cities=None):
+    """Try every city in small multi-location batches, keeping partial successes.
+
+    A per-run wall-clock budget prevents intermittent Open-Meteo TLS stalls
+    from delaying the official KMA PDF past its reminder window.
+    """
+    cities=build_city_locations() if cities is None else cities
+    if not cities:
+        raise ValueError("NO_ECMWF_CITY_POINTS")
+    started=time.monotonic()
+    out={"generated_at_kst":now.isoformat(),
+         "source":"Open-Meteo ECMWF IFS/AIFS open data",
+         "sample_scope":f"{len(cities)} KMA city groups represented by approximate inverse-DFS grid points; not official city centres, not the 174 district grids",
+         "location_method":"mean of DISTINCT KMA 5km gu/grid representative cell centres within each city label",
+         "cities_targeted":len(cities),"models":{}}
+    all_candidates=sorted(cities.items())
+    for name,model_id in MODELS.items():
+        good=[]
+        errors=[]
+        attempted=0
+        batches_attempted=0
+        for i in range(0,len(all_candidates),BATCH_SIZE):
+            chunk=all_candidates[i:i+BATCH_SIZE]
+            if time.monotonic()-started>MAX_COLLECTION_SECONDS:
+                errors.extend({"city":city,"error":"NOT_REQUESTED",
+                               "reason":"GLOBAL_TIME_BUDGET_EXCEEDED"}
+                              for city,_ in chunk)
+                continue
+            attempted+=len(chunk)
+            batches_attempted+=1
+            try:
+                successes,failures=fetch_group(model_id,chunk,now)
+                good.extend(successes)
+                errors.extend(failures)
+                # If a batch response omitted/broke a subset, retry only
+                # those cities individually, within the time budget.
+                for failed in failures:
+                    if time.monotonic()-started>MAX_COLLECTION_SECONDS:
+                        break
+                    if failed["reason"]=="API_HTTP_STATUS":
+                        continue
+                    city=failed["city"]
                     try:
-                        ok.append(future.result())
-                    except Exception as exc:
-                        errors.append({"city":city,**classify_error(exc)})
-        ok.sort(key=lambda item:item["city"])
-        attempted=sum(v["error"]!="NOT_REQUESTED" for v in errors)+len(ok)
-        out["models"][name]={"model_id":model_id,
-            "status":"verified" if ok else "unavailable",
-            "cities_succeeded":len(ok),"cities_requested":len(CITIES),
-            "cities_attempted":attempted,
-            "records":ok,"errors":errors}
-        failures={}
+                        lat,lon=cities[city]
+                        replacement=fetch_one(model_id,city,lat,lon,now)
+                        good.append(replacement)
+                        errors=[e for e in errors if e is not failed]
+                    except Exception:
+                        pass
+            except Exception as exc:
+                diagnostic=classify_error(exc)
+                errors.extend({"city":city,**diagnostic} for city,_ in chunk)
+                # A malformed batch must not stop any other city groups.
+                # Do not multiply a TLS outage into ten single-city timeouts.
+                if isinstance(exc,(ValueError,TypeError)) and len(chunk)>1:
+                    for city,(lat,lon) in chunk:
+                        if time.monotonic()-started>MAX_COLLECTION_SECONDS:
+                            break
+                        try:
+                            good.append(fetch_one(model_id,city,lat,lon,now))
+                            errors=[e for e in errors if e["city"]!=city]
+                        except Exception:
+                            pass
+        # Confirm each city appears once even after retried rows.
+        unique={item["city"]:item for item in good}
+        good=[unique[k] for k in sorted(unique)]
+        issues={}
         for err in errors:
-            failures[err["reason"]]=failures.get(err["reason"],0)+1
-        print("ECMWF",name,"success",len(ok),"/",len(CITIES),
-              "attempted",attempted,"diagnostics",failures,flush=True)
+            issues[err["reason"]]=issues.get(err["reason"],0)+1
+        out["models"][name]={"model_id":model_id,
+            "status":"verified" if good else "unavailable",
+            "cities_succeeded":len(good),"cities_requested":len(cities),
+            "cities_attempted":attempted,
+            "batches_attempted":batches_attempted,
+            "records":good,"errors":errors}
+        print("ECMWF",name,"success",len(good),"/",len(cities),
+              "attempted",attempted,"batches",batches_attempted,
+              "diagnostics",issues,flush=True)
     return out
+
 
 def status_md(result):
     lines=["# 최신 기상자료 제공사 연결·검증 상태","",
        "- 점검 시각(KST): **"+result["generated_at_kst"]+"**",
        "- 기상청 단기 API: **자동 연결** (성공·실제 수치는 [latest.json](latest.json)에서 확인)",
-       "- 기상청 중기예보·특보: 이 GitHub 수집에는 미포함, ChatGPT 예약에서 최신 공식 본문 별도 확인",
+       "- 기상청 중기예보·특보: 이 GitHub 수집에는 미포함; 공식 중기 수치가 없으면 임의의 시별 정량값을 생성하지 않음",
        ("- ECMWF: 최근 성공자료를 재사용했습니다 (신규 조회 실패, 이전 성공 수집시각을 반드시 확인)" if result.get("fallback_recent_success") else "- ECMWF: 이번 실행의 실제 신규 수집 결과"),
        "",
        "## ECMWF 공개 예측모델 — 최신 한국 도시 수치 확인에 성공한 모델만 표시",
        "",
-       "| 모델 | 한국 도시 중심좌표 실제 조회 | 처리 |",
+       "| 모델 | 한국 시 단위 근사 대표좌표 실제 조회 | 처리 |",
        "|---|---:|---|"]
     verified=0
     for model,v in result["models"].items():
@@ -220,7 +285,7 @@ def status_md(result):
                 "개 도시, 원인 "+summary+
                 (" (첫 요청 연결 불가로 남은 도시 생략)" if any(
                     e.get("error")=="NOT_REQUESTED" for e in info.get("errors",[])) else ""))
-    lines += ["","**주의:** ECMWF 모델은 기상청 API와 다른 격자·해상도에서 계산한 *결정론적 예보*입니다. 두 모델의 수치가 일치해도 적중률이 검증된 것은 아니며, 모델 강수량을 확률로 바꿀 수 없습니다.",
+    lines += ["","**좌표 주의:** 시 명칭별 참고 지점은 기상청 격자 대표점의 역변환·평균으로 만든 근사 위치이며 행정구역 전체 평균이나 공식 시 중심점이 아닙니다.", "**주의:** ECMWF 모델은 기상청 API와 다른 격자·해상도에서 계산한 *결정론적 예보*입니다. 두 모델의 수치가 일치해도 적중률이 검증된 것은 아니며, 모델 강수량을 확률로 바꿀 수 없습니다.",
        "현재 자동 조회에 연결하지 않은 예보 제공사는 표와 알림에서 제외합니다. 모델별 검증 성공은 [ecmwf_regional.json](ecmwf_regional.json)을 함께 확인하세요.",
        ""]
     return "\n".join(lines)
