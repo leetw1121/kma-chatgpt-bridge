@@ -168,7 +168,8 @@ def fetch_one(model,city,latitude,longitude,now):
     return decode_model_location(payload,city,latitude,longitude,now)
 
 BATCH_SIZE=10
-MAX_COLLECTION_SECONDS=160
+MAX_COLLECTION_SECONDS=165
+MAX_MODEL_SECONDS=78
 
 def collect(now,cities=None):
     """Try every city in small multi-location batches, keeping partial successes.
@@ -187,13 +188,15 @@ def collect(now,cities=None):
          "cities_targeted":len(cities),"models":{}}
     all_candidates=sorted(cities.items())
     for name,model_id in MODELS.items():
+        model_started=time.monotonic()
         good=[]
         errors=[]
         attempted=0
         batches_attempted=0
         for i in range(0,len(all_candidates),BATCH_SIZE):
             chunk=all_candidates[i:i+BATCH_SIZE]
-            if time.monotonic()-started>MAX_COLLECTION_SECONDS:
+            if (time.monotonic()-started>MAX_COLLECTION_SECONDS or
+                time.monotonic()-model_started>MAX_MODEL_SECONDS):
                 errors.extend({"city":city,"error":"NOT_REQUESTED",
                                "reason":"GLOBAL_TIME_BUDGET_EXCEEDED"}
                               for city,_ in chunk)
@@ -226,7 +229,8 @@ def collect(now,cities=None):
                 # Do not multiply a TLS outage into ten single-city timeouts.
                 if isinstance(exc,(ValueError,TypeError)) and len(chunk)>1:
                     for city,(lat,lon) in chunk:
-                        if time.monotonic()-started>MAX_COLLECTION_SECONDS:
+                        if (time.monotonic()-started>MAX_COLLECTION_SECONDS or
+                            time.monotonic()-model_started>MAX_MODEL_SECONDS):
                             break
                         try:
                             good.append(fetch_one(model_id,city,lat,lon,now))
