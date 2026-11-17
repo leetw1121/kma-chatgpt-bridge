@@ -105,7 +105,10 @@ def model_section(kma,model,st):
         return [],False
     story=[PageBreak(),P("7일 비·눈 참고: ECMWF IFS · AIFS",st["title"]),
       P("기상청 단기예보 이후의 전망을 보완하는 별도 모델입니다. Open-Meteo가 제공한 실제 ECMWF 모델 수치를 사용합니다.",st["small"]),
-      P("모델 지점은 한국 7개 도시 중심의 참고 좌표입니다. 기상청 구·시 대표 격자와 일치하지 않으며 174개 시의 예보가 아닙니다.",st["small"]),
+      P("모델 지점: 전국 시 단위 "+str((model or {}).get("cities_targeted",
+        max((v.get("cities_requested",0) for v in (model or {}).get("models",{}).values()),default=0)))+
+        "개 지역 중 실제 수집에 성공한 근사 대표좌표입니다. 구·시 격자 역변환으로 생성한 위치이며 "
+        "시 전체 평균이나 공식 도시 중심값이 아닙니다.",st["small"]),
       P("모델 수집: "+str((model or {}).get("generated_at_kst","조회 실패"))+
         (" | 최신 요청 실패, 최근 3시간 이내 성공본 재사용" if (model or {}).get("fallback_recent_success") else " | 이번 실행 신규 조회")+
         " | 1일 미만 시간대는 일부 기간 누적량입니다.",st["small"])]
@@ -133,11 +136,12 @@ def model_section(kma,model,st):
                 return amount
             rows.append([city,value("IFS","precip_mm"),value("AIFS Single","precip_mm"),
                          value("IFS","snowfall_cm"),value("AIFS Single","snowfall_cm")])
-        story.append(P(date+" | ECMWF 두 모델의 총강수량 내림차순",st["sec"]))
+        story.append(P(date+" | ECMWF 실제 검증된 모델 총강수량 참고",st["sec"]))
         story.append(table(["도시","IFS 강수 mm","AIFS 강수 mm","IFS 눈 cm","AIFS 눈 cm"],
                            rows,[50,34,34,28,28],st))
         story.append(Spacer(1,4))
-    story.append(P("ECMWF 총강수량은 눈을 포함하는 수분량으로 비 강수만을 뜻하지 않습니다. 강수량은 기상청과 상호 대체하거나 평균하지 않습니다.",st["small"]))
+    story.append(P("Open-Meteo.com 제공 ECMWF 모델 참고 (CC BY 4.0). 총강수량은 눈을 포함하는 수분량으로 "
+       "비 강수만을 뜻하지 않습니다. 기상청과 상호 대체하거나 평균하지 않습니다.",st["small"]))
     return story,True
 
 def create(kma,model,filename):
