@@ -69,3 +69,15 @@ if __name__=="__main__":
         if model:values["models"]=model
         request(label,base+"?"+urllib.parse.urlencode(values))
     request("control_github","https://api.github.com/zen")
+    # Reproduce the original collector payload with exactly the same variables,
+    # 168-hour horizon and model identifiers. Check if heavier responses time out.
+    full=dict(params)
+    full["forecast_hours"]=168
+    full["hourly"]="precipitation,snowfall"
+    for model in ("ecmwf_ifs","ecmwf_aifs025_single"):
+        v=dict(full);v["models"]=model
+        request("full_168h_"+model,base+"?"+urllib.parse.urlencode(v))
+    # Also compare rain-only 168-hour response to detect expensive snowfall path.
+    v=dict(full);v["models"]="ecmwf_ifs";v["hourly"]="precipitation"
+    request("full_168h_ifs_precip_only",base+"?"+urllib.parse.urlencode(v))
+
