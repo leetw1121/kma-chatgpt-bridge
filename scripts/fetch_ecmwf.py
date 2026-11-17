@@ -63,6 +63,8 @@ def classify_error(exc):
     reason=exc.reason if isinstance(exc,urllib.error.URLError) else exc
     if isinstance(reason,socket.gaierror):
         category="DNS_RESOLUTION"
+    elif "handshake operation timed out" in str(reason).lower():
+        category="TLS_HANDSHAKE_TIMEOUT"
     elif isinstance(reason,(TimeoutError,socket.timeout)) or "timed out" in str(reason).lower():
         category="NETWORK_TIMEOUT"
     elif isinstance(reason,ssl.SSLError):
@@ -203,6 +205,21 @@ def status_md(result):
             " | 실제 한국 수치 확인 |")
     if not verified:
         lines.append("| 확인된 독립 모델 없음 | — | 최신 수치 미확보 · 비교 생략 |")
+    # Record why a model failed, without printing sensitive URLs or response bodies.
+    for model,info in result["models"].items():
+        failed=[err for err in info.get("errors",[])
+                if err.get("error")!="NOT_REQUESTED"]
+        if failed:
+            causes={}
+            for item in failed:
+                reason=item.get("reason","UNKNOWN_ERROR")
+                causes[reason]=causes.get(reason,0)+1
+            summary=", ".join(k+" "+str(v)+"건" for k,v in sorted(causes.items()))
+            lines.append("- "+model+" 실패 진단: 요청 "+
+                str(info.get("cities_attempted",len(failed)))+
+                "개 도시, 원인 "+summary+
+                (" (첫 요청 연결 불가로 남은 도시 생략)" if any(
+                    e.get("error")=="NOT_REQUESTED" for e in info.get("errors",[])) else ""))
     lines += ["","**주의:** ECMWF 모델은 기상청 API와 다른 격자·해상도에서 계산한 *결정론적 예보*입니다. 두 모델의 수치가 일치해도 적중률이 검증된 것은 아니며, 모델 강수량을 확률로 바꿀 수 없습니다.",
        "현재 자동 조회에 연결하지 않은 예보 제공사는 표와 알림에서 제외합니다. 모델별 검증 성공은 [ecmwf_regional.json](ecmwf_regional.json)을 함께 확인하세요.",
        ""]
