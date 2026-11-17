@@ -7,6 +7,9 @@ an official KMA district-grid value. Failure does not block official KMA feed.
 import concurrent.futures
 import datetime as dt
 import json
+import socket
+import ssl
+import time
 import urllib.parse
 import urllib.request
 import urllib.error
@@ -27,23 +30,65 @@ CITIES={
 }
 MODELS={"IFS":"ecmwf_ifs","AIFS Single":"ecmwf_aifs025_single"}
 
+def request_json(params, max_attempts=3, timeout=18):
+    """Retry timeouts and transient HTTP 429/5xx; never retry unsupported 400s."""
+    req=urllib.request.Request(URL+"?"+urllib.parse.urlencode(params),
+        headers={"User-Agent":"KMA-ChatGPT-Bridge/2.0","Accept":"application/json"})
+    for attempt in range(max_attempts):
+        try:
+            with urllib.request.urlopen(req,timeout=timeout) as resp:
+                return json.loads(resp.read(350000).decode("utf-8"))
+        except urllib.error.HTTPError as exc:
+            retryable=exc.code in (408,425,429,500,502,503,504)
+            if not retryable or attempt+1==max_attempts:
+                raise
+            retry_after=exc.headers.get("Retry-After","") if exc.headers else ""
+            try:
+                delay=min(8,max(1,int(retry_after)))
+            except (ValueError,TypeError):
+                delay=min(8,2**attempt)
+        except (urllib.error.URLError, TimeoutError, ConnectionError, ssl.SSLError):
+            if attempt+1==max_attempts:
+                raise
+            delay=min(8,2**attempt)
+        time.sleep(delay)
+    raise RuntimeError("UNREACHABLE_RETRY_LOOP")
+
+
+def classify_error(exc):
+    """Structured public diagnostics without URLs, tokens or response bodies."""
+    if isinstance(exc,urllib.error.HTTPError):
+        return {"error":"HTTP_"+str(exc.code),"reason":"API_HTTP_STATUS",
+                "status_code":exc.code}
+    reason=exc.reason if isinstance(exc,urllib.error.URLError) else exc
+    if isinstance(reason,socket.gaierror):
+        category="DNS_RESOLUTION"
+    elif isinstance(reason,(TimeoutError,socket.timeout)) or "timed out" in str(reason).lower():
+        category="NETWORK_TIMEOUT"
+    elif isinstance(reason,ssl.SSLError):
+        category="TLS_CONNECTION"
+    elif isinstance(reason,ConnectionRefusedError):
+        category="CONNECTION_REFUSED"
+    elif isinstance(reason,ConnectionResetError):
+        category="CONNECTION_RESET"
+    else:
+        category="NETWORK_OR_RESPONSE_ERROR"
+    return {"error":type(exc).__name__,"reason":category,
+            "reason_type":type(reason).__name__,
+            "errno":getattr(reason,"errno",None)}
+
+
 def fetch_one(model,city,latitude,longitude,now):
     query={"latitude":latitude,"longitude":longitude,"hourly":"precipitation,snowfall",
            "models":model,"timezone":"Asia/Seoul","forecast_hours":168}
-    req=urllib.request.Request(URL+"?"+urllib.parse.urlencode(query),
-       headers={"User-Agent":"KMA-ChatGPT-Bridge/1.0","Accept":"application/json"})
     try:
-        with urllib.request.urlopen(req,timeout=12) as resp:
-            payload=json.loads(resp.read(350000).decode("utf-8"))
+        payload=request_json(query)
     except urllib.error.HTTPError as exc:
-        if exc.code!=400:raise
-        # Some AIFS model products lack snowfall. Retry precipitation alone,
-        # never assume an unsupported snow field is zero.
+        if exc.code!=400:
+            raise
+        # AIFS products may not expose snowfall; retry precipitation only.
         query["hourly"]="precipitation"
-        req=urllib.request.Request(URL+"?"+urllib.parse.urlencode(query),
-           headers={"User-Agent":"KMA-ChatGPT-Bridge/1.0","Accept":"application/json"})
-        with urllib.request.urlopen(req,timeout=12) as resp:
-            payload=json.loads(resp.read(350000).decode("utf-8"))
+        payload=request_json(query)
     hourly=payload.get("hourly")
     if not isinstance(hourly,dict):
         raise ValueError("MISSING_HOURLY")
@@ -99,21 +144,44 @@ def collect(now):
          "sample_scope":"7 approximate city-centre points; NOT all 174 KMA regions or same grids",
          "models":{}}
     for name,model_id in MODELS.items():
-        ok=[];errors=[]
-        with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
-            futures={pool.submit(fetch_one,model_id,city,lat,lon,now):city
-                     for city,(lat,lon) in CITIES.items()}
-            for future in concurrent.futures.as_completed(futures):
-                city=futures[future]
-                try:
-                    ok.append(future.result())
-                except Exception as exc:
-                    # No URLs, tokens, or response bodies in public error details.
-                    errors.append({"city":city,"error":type(exc).__name__})
+        ok=[]
+        errors=[]
+        candidates=list(CITIES.items())
+        # One bounded probe before fanning out. If the model endpoint is
+        # completely unreachable, do not launch six identical failing calls.
+        (first_city,(lat,lon))=candidates[0]
+        try:
+            ok.append(fetch_one(model_id,first_city,lat,lon,now))
+            remaining=candidates[1:]
+        except Exception as exc:
+            errors.append({"city":first_city,**classify_error(exc)})
+            remaining=[]
+            # Untested cities are NOT incorrectly counted as failed requests.
+            for city,_ in candidates[1:]:
+                errors.append({"city":city,"error":"NOT_REQUESTED",
+                               "reason":"PREFLIGHT_FAILED"})
+        if remaining:
+            with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
+                futures={pool.submit(fetch_one,model_id,city,lat,lon,now):city
+                         for city,(lat,lon) in remaining}
+                for future in concurrent.futures.as_completed(futures):
+                    city=futures[future]
+                    try:
+                        ok.append(future.result())
+                    except Exception as exc:
+                        errors.append({"city":city,**classify_error(exc)})
         ok.sort(key=lambda item:item["city"])
-        out["models"][name]={"model_id":model_id,"status":"verified" if ok else "unavailable",
-                             "cities_succeeded":len(ok),"cities_requested":len(CITIES),
-                             "records":ok,"errors":errors}
+        attempted=sum(v["error"]!="NOT_REQUESTED" for v in errors)+len(ok)
+        out["models"][name]={"model_id":model_id,
+            "status":"verified" if ok else "unavailable",
+            "cities_succeeded":len(ok),"cities_requested":len(CITIES),
+            "cities_attempted":attempted,
+            "records":ok,"errors":errors}
+        failures={}
+        for err in errors:
+            failures[err["reason"]]=failures.get(err["reason"],0)+1
+        print("ECMWF",name,"success",len(ok),"/",len(CITIES),
+              "attempted",attempted,"diagnostics",failures,flush=True)
     return out
 
 def status_md(result):
