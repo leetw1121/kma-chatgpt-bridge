@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""City-level precipitation PDF: ranked KMA days plus real 7-day IFS/AIFS city samples."""
+"""City-level KMA rain/snow PDF, optional VERIFIED 7-day ECMWF appendix only."""
 import datetime as dt
 import json
 from collections import defaultdict
@@ -16,6 +16,7 @@ from reportlab.platypus import (BaseDocTemplate, Frame, PageTemplate, Paragraph,
                                Spacer, Table, TableStyle, PageBreak)
 
 from city_forecast import group_rows, rank, fmt, ROOT
+from ecmwf_report_gate import usable_model_rows
 
 OUTPUT=ROOT/"data/rain_snow_latest.pdf"
 INK=colors.HexColor("#143147")
@@ -52,7 +53,10 @@ def page(canvas,doc):
     canvas.line(18*mm,17*mm,w-18*mm,17*mm)
     canvas.setFillColor(SECONDARY)
     canvas.setFont("Ko",7.5)
-    canvas.drawString(18*mm,12.5*mm,"기상청 공식 예보 + ECMWF 모델 참고 | 시 단위")
+    canvas.drawString(18*mm,12.5*mm,
+        "기상청 단기예보 + ECMWF 모델 참고 | 시 단위"
+        if getattr(doc,"has_ecmwf_appendix",False)
+        else "기상청 공식 단기예보 | 시 단위")
     canvas.drawRightString(w-18*mm,12.5*mm,str(doc.page)+"쪽")
     canvas.restoreState()
 
@@ -94,36 +98,17 @@ def kma_city_tables(data,st):
     if not dates:story.append(P("정량 단기예보에서 비·눈 예상 도시가 없습니다.",st["note"]))
     return story,records
 
-def verified_model_rows(kma,model):
-    """Only include model series actually fetched with fresh, compatible timestamps."""
-    try:
-        kt=dt.datetime.fromisoformat(kma["generated_at_kst"])
-        mt=dt.datetime.fromisoformat(model["generated_at_kst"])
-        if abs((mt-kt).total_seconds())>10800:return {},False
-    except (KeyError,ValueError,TypeError):
-        return {},False
-    out=defaultdict(dict)
-    good=False
-    for model_name,record in (model.get("models") or {}).items():
-        if record.get("status") not in ("verified","verified_cached_recent") or not record.get("cities_succeeded"):continue
-        good=True
-        for item in record.get("records",[]):
-            for date,day in item.get("days",{}).items():
-                if day.get("forecast_hours",0)>0:
-                    out[(date,item["city"])][model_name]=day
-    return out,good
-
 def model_section(kma,model,st):
-    lookup,good=verified_model_rows(kma,model or {})
+    lookup,good=usable_model_rows(kma,model)
+    # No successful rain/snow forecast rows => NO ECMWF title, empty page or disclaimer.
+    if not good:
+        return [],False
     story=[PageBreak(),P("7일 비·눈 참고: ECMWF IFS · AIFS",st["title"]),
       P("기상청 단기예보 이후의 전망을 보완하는 별도 모델입니다. Open-Meteo가 제공한 실제 ECMWF 모델 수치를 사용합니다.",st["small"]),
       P("모델 지점은 한국 7개 도시 중심의 참고 좌표입니다. 기상청 구·시 대표 격자와 일치하지 않으며 174개 시의 예보가 아닙니다.",st["small"]),
       P("모델 수집: "+str((model or {}).get("generated_at_kst","조회 실패"))+
         (" | 최신 요청 실패, 최근 3시간 이내 성공본 재사용" if (model or {}).get("fallback_recent_success") else " | 이번 실행 신규 조회")+
         " | 1일 미만 시간대는 일부 기간 누적량입니다.",st["small"])]
-    if not good:
-        story.append(P("실제 최신 수치를 확인한 ECMWF 모델이 없으므로 비교표를 싣지 않았습니다.",st["note"]))
-        return story,False
     dates=sorted({day for (day,_) in lookup})
     for date in dates:
         todays=[(city,series) for (d,city),series in lookup.items() if d==date]
@@ -160,12 +145,12 @@ def create(kma,model,filename):
     st=styles()
     filename.parent.mkdir(exist_ok=True,parents=True)
     doc=BaseDocTemplate(str(filename),pagesize=A4,leftMargin=18*mm,rightMargin=18*mm,
-        topMargin=19*mm,bottomMargin=24*mm,title="전국 시 단위 7일 비 눈 예보",author="KMA-ECMWF Bridge")
+        topMargin=19*mm,bottomMargin=24*mm,title="전국 시 단위 비·눈 예보",author="KMA-ECMWF Bridge")
     frame=Frame(doc.leftMargin,doc.bottomMargin,doc.width,doc.height,
                 leftPadding=0,rightPadding=0,topPadding=0,bottomPadding=0)
     doc.addPageTemplates(PageTemplate(id="normal",frames=frame,onPage=page))
     story=[
-        P("전국 시 단위 7일 비·눈 예보",st["title"]),
+        P("전국 시 단위 비·눈 예보",st["title"]),
         P("날짜별 비·눈이 예보된 도시만 · 강수량/신적설량 많은 순",st["sub"]),
         P("기상청 발표: "+kma["issue_at_kst"]+" | 수집: "+kma["generated_at_kst"],st["sub"]),
         P("원본 기상청 격자 조회 "+str(kma["locations_succeeded"])+"/"+
@@ -175,15 +160,17 @@ def create(kma,model,filename):
           "강수량을 더하거나 시 전체의 실제 최대 강수량으로 주장하지 않습니다.",st["small"]),
         P("예보량 **상한값이 큰 순의 참고 정렬**입니다. 범위가 겹치면 우열은 확정되지 않습니다. "
           "총강수량(mm)은 눈을 포함하며, 신적설(cm)은 별도로 표시합니다.",st["small"]),
-        P("기상청 공식 단기 API의 제공 기간 이후는 지역별 mm/cm 미제공입니다. "
-          "기상청 공식 7일 중기예보는 예약 알림에서 권역별로 따로 알려드립니다.",st["small"]),
+        P("기상청 단기 API에서 실제 제공하는 날짜만 수록합니다. 7일 전체의 시별 정량 예보가 아니며, "
+          "장기 기간의 미제공 강수량·신적설량을 생성하지 않습니다.",st["small"]),
     ]
     kma_story,records=kma_city_tables(kma,st)
     story.extend(kma_story)
     if model is not None:
         append,verified=model_section(kma,model,st)
         story.extend(append)
-    else:verified=False
+    else:
+        verified=False
+    doc.has_ecmwf_appendix=verified
     doc.build(story)
     if filename.stat().st_size<1000 or filename.read_bytes()[:5]!=b"%PDF-":
         raise RuntimeError("Invalid PDF header or empty output")
@@ -199,10 +186,12 @@ def main():
     stats=create(data,model,OUTPUT)
     manifest={
         "pdf_file":"data/rain_snow_latest.pdf","scope":"city_only",
-        "source":"KMA getVilageFcst, optional independently verified ECMWF IFS/AIFS",
+        "source":("KMA getVilageFcst + verified ECMWF IFS/AIFS"
+                  if stats["ecmwf_models_included"] else "KMA getVilageFcst only"),
         "source_issue_at_kst":data["issue_at_kst"],
         "source_generated_at_kst":data["generated_at_kst"],
-        "model_generated_at_kst":model.get("generated_at_kst") if model else None,
+        "model_generated_at_kst":(
+            model.get("generated_at_kst") if model and stats["ecmwf_models_included"] else None),
         "pdf_generated_at_utc":dt.datetime.now(dt.timezone.utc).isoformat(),
         "regions_checked":data["locations_checked"],
         "regions_succeeded":data["locations_succeeded"],
