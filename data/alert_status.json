@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
   "pdf_ready": true,
-  "ready_for_alert_slot_kst": "2026-11-18T00:30:00+09:00",
-  "expected_kma_issue_hour_kst": 23,
-  "source_issue_at_kst": "2026-11-17T23:00:00+09:00",
-  "source_generated_at_kst": "2026-11-18T00:14:56.936641+09:00",
-  "pdf_generated_at_kst": "2026-11-18T00:15:17.506884+09:00",
-  "pdf_size_bytes": 135617,
+  "ready_for_alert_slot_kst": "2026-11-18T06:30:00+09:00",
+  "expected_kma_issue_hour_kst": 5,
+  "source_issue_at_kst": "2026-11-18T05:00:00+09:00",
+  "source_generated_at_kst": "2026-11-18T06:15:04.324176+09:00",
+  "pdf_generated_at_kst": "2026-11-18T06:15:31.178711+09:00",
+  "pdf_size_bytes": 135141,
   "regions_succeeded": 174,
   "regions_checked": 174,
   "checks_passed": true
