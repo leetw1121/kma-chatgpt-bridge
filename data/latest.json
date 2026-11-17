@@ -1,9 +1,9 @@
 {
   "schema_version": "1.2",
   "source": "KMA getVilageFcst",
-  "generated_at_kst": "2026-11-17T11:16:54.468095+09:00",
-  "collection_started_at_kst": "2026-11-17T11:14:40.822484+09:00",
-  "issue_at_kst": "2026-11-17T08:00:00+09:00",
+  "generated_at_kst": "2026-11-17T11:24:50.643882+09:00",
+  "collection_started_at_kst": "2026-11-17T11:22:39.973371+09:00",
+  "issue_at_kst": "2026-11-17T11:00:00+09:00",
   "coverage_note": "Only returned KMA short-range forecast hours; not 168h of district totals.",
   "ranking_note": "Representative grids only. Duplicate districts share the same forecast; intervals can overlap.",
   "locations_checked": 174,
@@ -210,7 +210,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 2.0
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -222,7 +222,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 2.0
+            "upper": 1.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -363,7 +363,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 2.0
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -375,7 +375,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 2.0
+            "upper": 1.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -515,8 +515,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 2.0,
-            "upper": 2.0
+            "lower": 1.0,
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -527,8 +527,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 2.0,
-            "upper": 2.0
+            "lower": 1.0,
+            "upper": 1.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -669,7 +669,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 2.0
+            "upper": 6.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -681,7 +681,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 2.0
+            "upper": 6.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -822,7 +822,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 4.0
+            "upper": 2.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -834,7 +834,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 4.0
+            "upper": 2.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -975,24 +975,25 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 2.0
+            "upper": 4.0
           },
           "snow_cm": {
             "unit": "cm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 0.0
+            "upper": 0.5
           },
           "rain_mm": {
             "unit": "mm",
-            "comparable": true,
-            "lower": 1.0,
-            "upper": 2.0
+            "comparable": false,
+            "lower": null,
+            "upper": null,
+            "reason": "mixed_or_snow_precipitation"
           },
-          "precip_includes_snow": false,
+          "precip_includes_snow": true,
           "forecast_rain": true,
-          "forecast_snow": false,
-          "forecast_mixed": false
+          "forecast_snow": true,
+          "forecast_mixed": true
         },
         "2026-11-19": {
           "from_kst": "2026-11-19T00:00:00+09:00",
@@ -1893,7 +1894,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 4.0
+            "upper": 5.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -1905,7 +1906,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 4.0
+            "upper": 5.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -3729,7 +3730,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -3741,7 +3742,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -3882,7 +3883,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -3894,7 +3895,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -4035,7 +4036,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -4047,7 +4048,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -4188,7 +4189,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 4.0
+            "upper": 5.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -4200,7 +4201,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 4.0
+            "upper": 5.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -4465,7 +4466,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 5.0,
-            "upper": 8.0
+            "upper": 9.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -4477,7 +4478,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 5.0,
-            "upper": 8.0
+            "upper": 9.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -4800,7 +4801,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -4812,7 +4813,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -5412,7 +5413,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 3.0
+            "upper": 4.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -5424,7 +5425,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 3.0
+            "upper": 4.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -5565,7 +5566,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -5577,7 +5578,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -5718,7 +5719,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -5730,7 +5731,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -5871,7 +5872,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -5883,7 +5884,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -6024,7 +6025,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -6036,7 +6037,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -6483,7 +6484,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 3.0
+            "upper": 4.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -6495,7 +6496,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 3.0
+            "upper": 4.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -6789,7 +6790,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -6801,7 +6802,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -6942,7 +6943,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 3.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -6954,7 +6955,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 3.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -7248,7 +7249,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -7260,7 +7261,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -7401,7 +7402,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -7413,7 +7414,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -7554,7 +7555,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -7566,7 +7567,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -7707,7 +7708,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -7719,7 +7720,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -7855,12 +7856,12 @@
           "to_kst": "2026-11-18T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 60,
+          "max_pop_pct": 30,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 1.0
+            "upper": 0.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -7872,10 +7873,10 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 1.0
+            "upper": 0.0
           },
           "precip_includes_snow": false,
-          "forecast_rain": true,
+          "forecast_rain": false,
           "forecast_snow": false,
           "forecast_mixed": false
         },
@@ -8008,12 +8009,12 @@
           "to_kst": "2026-11-18T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 60,
+          "max_pop_pct": 30,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 1.0
+            "upper": 0.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -8025,10 +8026,10 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 1.0
+            "upper": 0.0
           },
           "precip_includes_snow": false,
-          "forecast_rain": true,
+          "forecast_rain": false,
           "forecast_snow": false,
           "forecast_mixed": false
         },
@@ -8166,7 +8167,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 1.0
+            "upper": 2.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -8178,7 +8179,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 1.0
+            "upper": 2.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -8467,12 +8468,12 @@
           "to_kst": "2026-11-18T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 60,
+          "max_pop_pct": 30,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 1.0
+            "upper": 0.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -8484,10 +8485,10 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 1.0
+            "upper": 0.0
           },
           "precip_includes_snow": false,
-          "forecast_rain": true,
+          "forecast_rain": false,
           "forecast_snow": false,
           "forecast_mixed": false
         },
@@ -8620,12 +8621,12 @@
           "to_kst": "2026-11-18T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 30,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 0.0
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -8637,10 +8638,10 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 0.0
+            "upper": 1.0
           },
           "precip_includes_snow": false,
-          "forecast_rain": false,
+          "forecast_rain": true,
           "forecast_snow": false,
           "forecast_mixed": false
         },
@@ -9232,12 +9233,12 @@
           "to_kst": "2026-11-18T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 30,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 0.0
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -9249,10 +9250,10 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 0.0
+            "upper": 1.0
           },
           "precip_includes_snow": false,
-          "forecast_rain": false,
+          "forecast_rain": true,
           "forecast_snow": false,
           "forecast_mixed": false
         },
@@ -9538,12 +9539,12 @@
           "to_kst": "2026-11-18T23:00:00+09:00",
           "hours": 24,
           "full_day": true,
-          "max_pop_pct": 60,
+          "max_pop_pct": 30,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 1.0
+            "upper": 0.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -9555,10 +9556,10 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 1.0
+            "upper": 0.0
           },
           "precip_includes_snow": false,
-          "forecast_rain": true,
+          "forecast_rain": false,
           "forecast_snow": false,
           "forecast_mixed": false
         },
@@ -10155,7 +10156,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 2.0
+            "upper": 5.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -10167,7 +10168,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 2.0
+            "upper": 5.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -10614,7 +10615,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 2.0
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -10626,7 +10627,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 2.0
+            "upper": 1.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -10767,7 +10768,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 3.0
+            "upper": 2.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -10779,7 +10780,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 3.0
+            "upper": 2.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -11192,12 +11193,12 @@
           "to_kst": "2026-11-17T23:00:00+09:00",
           "hours": 12,
           "full_day": false,
-          "max_pop_pct": 30,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 0.0
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -11209,10 +11210,10 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 0.0
+            "upper": 1.0
           },
           "precip_includes_snow": false,
-          "forecast_rain": false,
+          "forecast_rain": true,
           "forecast_snow": false,
           "forecast_mixed": false
         },
@@ -12450,7 +12451,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 4.0
+            "upper": 6.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -12462,7 +12463,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 4.0
+            "upper": 6.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -12479,13 +12480,13 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 1.0
+            "upper": 5.0
           },
           "snow_cm": {
             "unit": "cm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 0.0
+            "upper": 2.5
           },
           "rain_mm": {
             "unit": "mm",
@@ -12495,9 +12496,9 @@
             "reason": "mixed_or_snow_precipitation"
           },
           "precip_includes_snow": true,
-          "forecast_rain": true,
+          "forecast_rain": false,
           "forecast_snow": true,
-          "forecast_mixed": true
+          "forecast_mixed": false
         },
         "2026-11-20": {
           "from_kst": "2026-11-20T00:00:00+09:00",
@@ -12605,7 +12606,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 4.0
+            "upper": 6.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -12617,7 +12618,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 4.0
+            "upper": 6.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -12634,13 +12635,13 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 1.0
+            "upper": 5.0
           },
           "snow_cm": {
             "unit": "cm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 0.0
+            "upper": 2.5
           },
           "rain_mm": {
             "unit": "mm",
@@ -12650,9 +12651,9 @@
             "reason": "mixed_or_snow_precipitation"
           },
           "precip_includes_snow": true,
-          "forecast_rain": true,
+          "forecast_rain": false,
           "forecast_snow": true,
-          "forecast_mixed": true
+          "forecast_mixed": false
         },
         "2026-11-20": {
           "from_kst": "2026-11-20T00:00:00+09:00",
@@ -12760,7 +12761,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -12772,7 +12773,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -12795,7 +12796,7 @@
             "unit": "cm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 0.0
+            "upper": 0.5
           },
           "rain_mm": {
             "unit": "mm",
@@ -12805,9 +12806,9 @@
             "reason": "mixed_or_snow_precipitation"
           },
           "precip_includes_snow": true,
-          "forecast_rain": true,
+          "forecast_rain": false,
           "forecast_snow": true,
-          "forecast_mixed": true
+          "forecast_mixed": false
         },
         "2026-11-20": {
           "from_kst": "2026-11-20T00:00:00+09:00",
@@ -12944,13 +12945,13 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 1.0
+            "upper": 4.0
           },
           "snow_cm": {
             "unit": "cm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 0.0
+            "upper": 2.0
           },
           "rain_mm": {
             "unit": "mm",
@@ -12960,9 +12961,9 @@
             "reason": "mixed_or_snow_precipitation"
           },
           "precip_includes_snow": true,
-          "forecast_rain": true,
+          "forecast_rain": false,
           "forecast_snow": true,
-          "forecast_mixed": true
+          "forecast_mixed": false
         },
         "2026-11-20": {
           "from_kst": "2026-11-20T00:00:00+09:00",
@@ -13070,7 +13071,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 4.0
+            "upper": 6.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -13082,7 +13083,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 4.0
+            "upper": 6.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -13099,13 +13100,13 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 1.0
+            "upper": 5.0
           },
           "snow_cm": {
             "unit": "cm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 0.0
+            "upper": 2.5
           },
           "rain_mm": {
             "unit": "mm",
@@ -13115,9 +13116,9 @@
             "reason": "mixed_or_snow_precipitation"
           },
           "precip_includes_snow": true,
-          "forecast_rain": true,
+          "forecast_rain": false,
           "forecast_snow": true,
-          "forecast_mixed": true
+          "forecast_mixed": false
         },
         "2026-11-20": {
           "from_kst": "2026-11-20T00:00:00+09:00",
@@ -13225,7 +13226,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 2.0
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -13237,7 +13238,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 2.0
+            "upper": 1.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -13378,7 +13379,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 2.0
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -13390,7 +13391,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 2.0
+            "upper": 1.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -13531,7 +13532,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 2.0
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -13543,7 +13544,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 2.0
+            "upper": 1.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -13684,7 +13685,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 2.0
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -13696,7 +13697,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 2.0
+            "upper": 1.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -13837,7 +13838,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 2.0
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -13849,7 +13850,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 2.0
+            "upper": 1.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -13990,7 +13991,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 2.0
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -14002,7 +14003,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 2.0
+            "upper": 1.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -14143,7 +14144,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 2.0
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -14155,7 +14156,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 2.0
+            "upper": 1.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -14296,7 +14297,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 2.0
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -14308,7 +14309,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 2.0
+            "upper": 1.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -14449,7 +14450,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 2.0,
-            "upper": 3.0
+            "upper": 2.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -14461,7 +14462,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 2.0,
-            "upper": 3.0
+            "upper": 2.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -14602,7 +14603,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 2.0
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -14614,7 +14615,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 2.0
+            "upper": 1.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -14755,7 +14756,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 2.0
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -14767,7 +14768,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 2.0
+            "upper": 1.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -14908,7 +14909,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 2.0
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -14920,7 +14921,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 2.0
+            "upper": 1.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -15061,7 +15062,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 2.0,
-            "upper": 3.0
+            "upper": 2.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -15073,7 +15074,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 2.0,
-            "upper": 3.0
+            "upper": 2.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -15214,7 +15215,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 2.0
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -15226,7 +15227,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 2.0
+            "upper": 1.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -15367,7 +15368,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 2.0
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -15379,7 +15380,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 2.0
+            "upper": 1.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -19374,13 +19375,13 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 1.0
+            "upper": 5.0
           },
           "snow_cm": {
             "unit": "cm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 0.0
+            "upper": 2.0
           },
           "rain_mm": {
             "unit": "mm",
@@ -19420,9 +19421,9 @@
             "reason": "mixed_or_snow_precipitation"
           },
           "precip_includes_snow": true,
-          "forecast_rain": true,
+          "forecast_rain": false,
           "forecast_snow": true,
-          "forecast_mixed": true
+          "forecast_mixed": false
         },
         "2026-11-21": {
           "from_kst": "2026-11-21T00:00:00+09:00",
@@ -20542,7 +20543,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 8.0,
-            "upper": 10.0
+            "upper": 11.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -20554,7 +20555,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 8.0,
-            "upper": 10.0
+            "upper": 11.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -20695,7 +20696,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 7.0,
-            "upper": 10.0
+            "upper": 11.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -20707,7 +20708,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 7.0,
-            "upper": 10.0
+            "upper": 11.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -20848,7 +20849,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 8.0,
-            "upper": 10.0
+            "upper": 11.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -20860,7 +20861,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 8.0,
-            "upper": 10.0
+            "upper": 11.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -21001,7 +21002,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 7.0,
-            "upper": 10.0
+            "upper": 11.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -21013,7 +21014,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 7.0,
-            "upper": 10.0
+            "upper": 11.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -21460,7 +21461,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 4.0
+            "upper": 6.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -21472,7 +21473,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 4.0
+            "upper": 6.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -21489,7 +21490,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 6.0
+            "upper": 5.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -21501,7 +21502,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 6.0
+            "upper": 5.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -21609,12 +21610,12 @@
           "to_kst": "2026-11-17T23:00:00+09:00",
           "hours": 12,
           "full_day": false,
-          "max_pop_pct": 30,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 0.0
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -21626,10 +21627,10 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 0.0
+            "upper": 1.0
           },
           "precip_includes_snow": false,
-          "forecast_rain": false,
+          "forecast_rain": true,
           "forecast_snow": false,
           "forecast_mixed": false
         },
@@ -21768,7 +21769,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 2.0
+            "upper": 7.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -21780,7 +21781,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 2.0
+            "upper": 7.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -21797,7 +21798,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 4.0
+            "upper": 3.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -21809,7 +21810,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 4.0
+            "upper": 3.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -21923,7 +21924,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 1.0
+            "upper": 5.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -21935,7 +21936,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 1.0
+            "upper": 5.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -21952,7 +21953,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 4.0
+            "upper": 5.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -21964,7 +21965,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 4.0
+            "upper": 5.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -22072,12 +22073,12 @@
           "to_kst": "2026-11-17T23:00:00+09:00",
           "hours": 12,
           "full_day": false,
-          "max_pop_pct": 30,
+          "max_pop_pct": 60,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 0.0
+            "upper": 5.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -22089,10 +22090,10 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 0.0
+            "upper": 5.0
           },
           "precip_includes_snow": false,
-          "forecast_rain": false,
+          "forecast_rain": true,
           "forecast_snow": false,
           "forecast_mixed": false
         },
@@ -22232,7 +22233,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 7.0
+            "upper": 9.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -22244,7 +22245,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 7.0
+            "upper": 9.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -22261,7 +22262,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 3.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -22273,7 +22274,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 3.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -22290,7 +22291,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 24.0
+            "upper": 23.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -22302,7 +22303,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 24.0
+            "upper": 23.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -22385,7 +22386,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 2.0
+            "upper": 6.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -22397,7 +22398,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 2.0
+            "upper": 6.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -22539,7 +22540,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 1.0
+            "upper": 5.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -22551,7 +22552,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 1.0
+            "upper": 5.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -22568,7 +22569,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -22580,7 +22581,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -22722,7 +22723,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 2.0
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -22734,7 +22735,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 2.0
+            "upper": 1.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -23000,7 +23001,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 8.0
+            "upper": 11.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -23012,7 +23013,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 8.0
+            "upper": 11.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -23058,7 +23059,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 16.0
+            "upper": 19.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -23155,7 +23156,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 8.0
+            "upper": 10.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -23167,7 +23168,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 8.0
+            "upper": 10.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -23213,7 +23214,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 13.0
+            "upper": 15.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -23310,7 +23311,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 3.0
+            "upper": 5.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -23322,7 +23323,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 3.0
+            "upper": 5.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -23339,7 +23340,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -23351,7 +23352,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -23465,7 +23466,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 7.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -23477,7 +23478,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 7.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -23523,7 +23524,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 4.0
+            "upper": 10.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -23649,7 +23650,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -23661,7 +23662,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -23678,7 +23679,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 2.0
+            "upper": 7.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -23804,7 +23805,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -23816,7 +23817,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -23833,7 +23834,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 2.0
+            "upper": 7.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -23930,7 +23931,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 4.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -23942,7 +23943,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 4.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -23959,7 +23960,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 2.0,
-            "upper": 7.0
+            "upper": 9.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -23971,7 +23972,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 2.0,
-            "upper": 7.0
+            "upper": 9.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -24085,8 +24086,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 5.0,
-            "upper": 5.0
+            "lower": 14.0,
+            "upper": 15.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -24097,8 +24098,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 5.0,
-            "upper": 5.0
+            "lower": 14.0,
+            "upper": 15.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -24115,7 +24116,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 7.0
+            "upper": 14.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -24127,7 +24128,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 7.0
+            "upper": 14.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -24238,8 +24239,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.0,
-            "upper": 9.0
+            "lower": 20.0,
+            "upper": 25.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -24250,8 +24251,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 6.0,
-            "upper": 9.0
+            "lower": 20.0,
+            "upper": 25.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -24267,8 +24268,8 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 1.0,
-            "upper": 12.0
+            "lower": 4.0,
+            "upper": 17.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -24279,8 +24280,8 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 1.0,
-            "upper": 12.0
+            "lower": 4.0,
+            "upper": 17.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -24297,7 +24298,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 24.0
+            "upper": 23.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -24309,7 +24310,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 24.0
+            "upper": 23.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -24421,7 +24422,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -24433,7 +24434,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 6.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -24456,7 +24457,7 @@
             "unit": "cm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 0.0
+            "upper": 0.5
           },
           "rain_mm": {
             "unit": "mm",
@@ -24466,9 +24467,9 @@
             "reason": "mixed_or_snow_precipitation"
           },
           "precip_includes_snow": true,
-          "forecast_rain": true,
+          "forecast_rain": false,
           "forecast_snow": true,
-          "forecast_mixed": true
+          "forecast_mixed": false
         },
         "2026-11-20": {
           "from_kst": "2026-11-20T00:00:00+09:00",
@@ -24496,9 +24497,9 @@
             "reason": "mixed_or_snow_precipitation"
           },
           "precip_includes_snow": true,
-          "forecast_rain": true,
+          "forecast_rain": false,
           "forecast_snow": true,
-          "forecast_mixed": true
+          "forecast_mixed": false
         },
         "2026-11-21": {
           "from_kst": "2026-11-21T00:00:00+09:00",
@@ -24611,7 +24612,7 @@
             "unit": "cm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 0.0
+            "upper": 0.5
           },
           "rain_mm": {
             "unit": "mm",
@@ -24621,9 +24622,9 @@
             "reason": "mixed_or_snow_precipitation"
           },
           "precip_includes_snow": true,
-          "forecast_rain": true,
+          "forecast_rain": false,
           "forecast_snow": true,
-          "forecast_mixed": true
+          "forecast_mixed": false
         },
         "2026-11-20": {
           "from_kst": "2026-11-20T00:00:00+09:00",
@@ -24702,7 +24703,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 4.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -24714,7 +24715,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 4.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -24731,7 +24732,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 6.0
+            "upper": 5.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -24743,7 +24744,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 6.0
+            "upper": 5.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -24886,7 +24887,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -24898,7 +24899,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 6.0
+            "upper": 7.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -25070,7 +25071,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 3.0
+            "upper": 9.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -25196,7 +25197,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 3.0,
-            "upper": 7.0
+            "upper": 8.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -25208,7 +25209,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 3.0,
-            "upper": 7.0
+            "upper": 8.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -25225,7 +25226,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 3.0
+            "upper": 5.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -25351,7 +25352,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 4.0
+            "upper": 6.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -25363,7 +25364,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 4.0
+            "upper": 6.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -25380,13 +25381,13 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 6.0
+            "upper": 10.0
           },
           "snow_cm": {
             "unit": "cm",
             "comparable": true,
-            "lower": 0.6,
-            "upper": 0.6
+            "lower": 0.0,
+            "upper": 4.0
           },
           "rain_mm": {
             "unit": "mm",
@@ -25506,7 +25507,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 7.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -25518,7 +25519,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 5.0
+            "upper": 7.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -25535,13 +25536,13 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 6.0
+            "upper": 12.0
           },
           "snow_cm": {
             "unit": "cm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 0.0
+            "upper": 5.0
           },
           "rain_mm": {
             "unit": "mm",
@@ -25661,7 +25662,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 6.0
+            "upper": 8.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -25673,7 +25674,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 6.0
+            "upper": 8.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -25814,7 +25815,7 @@
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 1.0,
+            "lower": 0.0,
             "upper": 3.0
           },
           "snow_cm": {
@@ -25826,7 +25827,7 @@
           "rain_mm": {
             "unit": "mm",
             "comparable": true,
-            "lower": 1.0,
+            "lower": 0.0,
             "upper": 3.0
           },
           "precip_includes_snow": false,
@@ -25968,7 +25969,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 4.0
+            "upper": 5.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -25980,7 +25981,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 4.0
+            "upper": 5.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -25997,13 +25998,13 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 2.0
+            "upper": 1.0
           },
           "snow_cm": {
             "unit": "cm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 0.0
+            "upper": 0.5
           },
           "rain_mm": {
             "unit": "mm",
@@ -26013,9 +26014,9 @@
             "reason": "mixed_or_snow_precipitation"
           },
           "precip_includes_snow": true,
-          "forecast_rain": true,
+          "forecast_rain": false,
           "forecast_snow": true,
-          "forecast_mixed": true
+          "forecast_mixed": false
         },
         "2026-11-20": {
           "from_kst": "2026-11-20T00:00:00+09:00",
@@ -26122,7 +26123,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 3.0
+            "upper": 4.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -26134,7 +26135,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 3.0
+            "upper": 4.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -26275,7 +26276,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 3.0
+            "upper": 4.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -26287,7 +26288,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 3.0
+            "upper": 4.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -26428,7 +26429,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 4.0
+            "upper": 5.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -26440,7 +26441,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 1.0,
-            "upper": 4.0
+            "upper": 5.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
@@ -26457,13 +26458,13 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 4.0
+            "upper": 9.0
           },
           "snow_cm": {
             "unit": "cm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 0.0
+            "upper": 4.5
           },
           "rain_mm": {
             "unit": "mm",
@@ -26473,9 +26474,9 @@
             "reason": "mixed_or_snow_precipitation"
           },
           "precip_includes_snow": true,
-          "forecast_rain": true,
+          "forecast_rain": false,
           "forecast_snow": true,
-          "forecast_mixed": true
+          "forecast_mixed": false
         },
         "2026-11-20": {
           "from_kst": "2026-11-20T00:00:00+09:00",
@@ -26583,7 +26584,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 3.0
+            "upper": 4.0
           },
           "snow_cm": {
             "unit": "cm",
@@ -26595,7 +26596,7 @@
             "unit": "mm",
             "comparable": true,
             "lower": 0.0,
-            "upper": 3.0
+            "upper": 4.0
           },
           "precip_includes_snow": false,
           "forecast_rain": true,
