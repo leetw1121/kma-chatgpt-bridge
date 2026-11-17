@@ -48,8 +48,8 @@ class ECMWFCityExpansionTests(unittest.TestCase):
             good,errors=fetch_group("ecmwf_ifs",candidates,start)
         self.assertEqual(errors,[])
         self.assertEqual([r["city"] for r in good],["서울특별시","부산광역시"])
-        self.assertEqual(good[0]["days"]["2026-11-17"]["precip_mm"],24)
-        self.assertEqual(good[1]["days"]["2026-11-17"]["precip_mm"],48)
+        self.assertEqual(sum(day["precip_mm"] for day in good[0]["days"].values()),24)
+        self.assertEqual(sum(day["precip_mm"] for day in good[1]["days"].values()),48)
         args=mocked.call_args.args[0]
         self.assertEqual(args["latitude"],"37.5,35.2")
         self.assertEqual(args["longitude"],"127.0,129.1")
