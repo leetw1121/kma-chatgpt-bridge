@@ -163,7 +163,10 @@ class RecoveryTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp:
             cache=Path(temp)/"cached.json"
             self.assertTrue(has_verified_records(successful))
-            self.assertIs(choose_recent_cache(now,successful,cache),successful)
+            saved=choose_recent_cache(now,successful,cache)
+            self.assertEqual(saved["generated_at_kst"],successful["generated_at_kst"])
+            self.assertEqual(saved["district_models"]["IFS"]["fresh_succeeded"],1)
+            self.assertEqual(saved["district_models"]["IFS"]["cached_succeeded"],0)
             self.assertTrue(cache.exists())
             cached=choose_recent_cache(later,failing,cache)
             self.assertTrue(cached["fallback_recent_success"])
