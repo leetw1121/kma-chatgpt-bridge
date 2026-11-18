@@ -80,6 +80,27 @@ jobs:
           print("PDF_DISTRICT_RENDER_PASS",m["kma_gu_date_rows"],
                 m["pdf_size_bytes"])
           PY
+      - name: Probe real Open-Meteo TLS edge (informational, no secrets)
+        run: |
+          python - <<'PY'
+          import sys
+          sys.path.insert(0,"scripts")
+          from open_meteo_transport import verified_dns_addresses
+          from fetch_ecmwf import request_json, classify_error
+          addresses=verified_dns_addresses()
+          print("Open-Meteo independently resolved public IPv4 edges:",len(addresses),flush=True)
+          try:
+              payload=request_json({
+                  "latitude":37.5665,"longitude":126.978,
+                  "hourly":"precipitation","models":"ecmwf_ifs",
+                  "forecast_hours":24,"timezone":"Asia/Seoul"},
+                  max_attempts=1,timeout=4)
+              success=bool(payload.get("hourly",{}).get("precipitation"))
+              print("OPEN_METEO_REAL_PROBE", "SUCCESS" if success else "RESPONSE_INCOMPLETE",flush=True)
+          except Exception as exc:
+              # Dependency outage must not turn unit tests into a false failure.
+              print("OPEN_METEO_REAL_PROBE_EXTERNAL_FAILURE",classify_error(exc),flush=True)
+          PY
   collect:
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-24.04
