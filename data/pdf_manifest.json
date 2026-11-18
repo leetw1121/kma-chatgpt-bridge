@@ -6,9 +6,9 @@
   "county_regions_succeeded": 82,
   "source": "KMA getVilageFcst + verified ECMWF IFS/AIFS",
   "source_issue_at_kst": "2026-11-18T23:00:00+09:00",
-  "source_generated_at_kst": "2026-11-19T00:16:08.447135+09:00",
-  "model_generated_at_kst": "2026-11-19T00:16:08.623715+09:00",
-  "pdf_generated_at_utc": "2026-11-18T15:19:46.730718+00:00",
+  "source_generated_at_kst": "2026-11-19T00:22:05.743307+09:00",
+  "model_generated_at_kst": "2026-11-19T00:22:05.927901+09:00",
+  "pdf_generated_at_utc": "2026-11-18T15:28:18.597525+00:00",
   "regions_checked": 256,
   "regions_succeeded": 256,
   "kma_city_date_rows": 134,
@@ -16,5 +16,5 @@
   "kma_gu_date_rows": 31,
   "ecmwf_gu_models_included": true,
   "ecmwf_models_included": true,
-  "pdf_size_bytes": 187995
+  "pdf_size_bytes": 187992
 }
