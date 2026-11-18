@@ -2,6 +2,13 @@ name: KMA forecast feed
 
 on:
   workflow_dispatch:
+  pull_request:
+    paths:
+      - "scripts/**"
+      - "tests/**"
+      - "locations.csv"
+      - "assets/**"
+      - ".github/workflows/update_kma.yml"
   push:
     branches: [main]
     paths:
@@ -26,7 +33,18 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  validate_pr:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - name: Validate unchanged KMA baseline plus new gu scope
+        run: python -m unittest discover -s tests -v
   collect:
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
@@ -60,12 +78,13 @@ jobs:
           import sys
           sys.path.insert(0,"scripts")
           from fetch_kma import load_locations
-          from ecmwf_city_locations import build_city_locations
+          from ecmwf_city_locations import build_city_locations, build_district_locations
           a=load_locations()
           lev={k:sum(x["level"]==k for x in a) for k in ("gu","city","gun")}
           n=len(build_city_locations())
-          print("KMA official gu/city/gun:",lev,"ECMWF city/county:",n)
-          assert len(a)==256 and lev=={"gu":109,"city":65,"gun":82} and n==167
+          ng=len(build_district_locations())
+          print("KMA official gu/city/gun:",lev,"ECMWF city/county:",n,"districts:",ng)
+          assert len(a)==256 and lev=={"gu":109,"city":65,"gun":82} and n==167 and ng==109
           PY
       - name: Fetch official KMA forecasts
         if: steps.freshness.outputs.needed == 'true'
