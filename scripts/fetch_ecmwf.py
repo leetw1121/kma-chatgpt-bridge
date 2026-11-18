@@ -5,6 +5,7 @@ Uses one model reference point per KMA city-level group, never an official
 KMA district-grid forecast. Failure must not block official KMA PDF updates.
 """
 import concurrent.futures
+import csv
 import datetime as dt
 import json
 import socket
@@ -33,7 +34,9 @@ def request_json(params, max_attempts=2, timeout=6):
             with urllib.request.urlopen(req,timeout=timeout) as resp:
                 return json.loads(resp.read(350000).decode("utf-8"))
         except urllib.error.HTTPError as exc:
-            retryable=exc.code in (408,425,429,500,502,503,504)
+            # HTTP 429 means the provider has explicitly throttled this
+            # client. Never hammer it with an immediate retry or DNS bypass.
+            retryable=exc.code in (408,425,500,502,503,504)
             if not retryable or attempt+1==max_attempts:
                 raise
             retry_after=exc.headers.get("Retry-After","") if exc.headers else ""
@@ -61,7 +64,8 @@ def request_json(params, max_attempts=2, timeout=6):
 def classify_error(exc):
     """Structured public diagnostics without URLs, tokens or response bodies."""
     if isinstance(exc,urllib.error.HTTPError):
-        return {"error":"HTTP_"+str(exc.code),"reason":"API_HTTP_STATUS",
+        return {"error":"HTTP_"+str(exc.code),
+                "reason":"API_RATE_LIMITED" if exc.code==429 else "API_HTTP_STATUS",
                 "status_code":exc.code}
     reason=exc.reason if isinstance(exc,urllib.error.URLError) else exc
     if isinstance(reason,socket.gaierror):
@@ -188,171 +192,209 @@ _NETWORK_FAILURES={"TLS_HANDSHAKE_TIMEOUT","NETWORK_TIMEOUT","DNS_RESOLUTION",
                    "TLS_CONNECTION","CONNECTION_REFUSED","CONNECTION_RESET",
                    "NETWORK_OR_RESPONSE_ERROR"}
 
-def collect(now,cities=None,districts=None):
-    """Try every city in small multi-location batches, keeping partial successes.
+def priority_from_kma(now,path=ROOT/"data/precipitation_only.csv"):
+    """KMA forecast-positive labels guide *coverage*, never ECMWF values.
 
-    A per-run wall-clock budget prevents intermittent Open-Meteo TLS stalls
-    from delaying the official KMA PDF past its reminder window.
+    Current-day first, then future days, preserving the KMA snowfall-first
+    order. Stale or malformed CSV simply disables this optional prioritizer.
+    """
+    try:
+        ordered=[]
+        seen=set()
+        with Path(path).open(encoding="utf-8-sig",newline="") as stream:
+            reader=csv.DictReader(stream)
+            if not {"date","region"}.issubset(reader.fieldnames or []):
+                return []
+            for row in reader:
+                date=dt.date.fromisoformat(row["date"])
+                if not now.date()<=date<now.date()+dt.timedelta(days=8):
+                    continue
+                label=row["region"]
+                if label and label not in seen:
+                    ordered.append(label)
+                    seen.add(label)
+        return ordered
+    except (OSError,ValueError,KeyError,TypeError):
+        return []
+
+
+def collect(now,cities=None,districts=None,priorities=None):
+    """Independent real-model sampling, KMA-wet-first and 429-safe.
+
+    No missing model value is filled from KMA. When supplied, KMA priority
+    labels are queried across BOTH models and BOTH geographic scopes before
+    lower-priority areas. All 167+109 points remain targets. A provider 429
+    stops ALL further requests in that invocation, rather than multiplying
+    daily quota failures; future runs can complete the omitted points.
     """
     default_cities=cities is None
     cities=build_city_locations() if default_cities else cities
     districts=build_district_locations() if default_cities and districts is None else (districts or {})
     if not cities:
         raise ValueError("NO_ECMWF_CITY_POINTS")
-    started=time.monotonic()
-    out={"generated_at_kst":now.isoformat(),
-         "source":"Open-Meteo ECMWF IFS/AIFS open data",
-         "sample_scope":f"{len(cities)} city/county groups plus {len(districts)} independent gu labels; approximate inverse-DFS grid points, not administrative-area averages",
-         "location_method":"mean of DISTINCT KMA 5km gu/grid representative cell centres within each city label",
-         "district_location_method":"one inverse KMA official 5km representative grid per gu, not an area average",
-         "cities_targeted":len(cities),"districts_targeted":len(districts),
-         "models":{},"district_models":{}}
-    all_candidates=sorted(cities.items())
-    district_candidates=sorted(districts.items())
-    for name,model_id in MODELS.items():
-        model_started=time.monotonic()
-        good=[]
-        errors=[]
-        attempted=0
-        batches_attempted=0
-        failed_network_batches=0
-        circuit_open=False
-        for i in range(0,len(all_candidates),BATCH_SIZE):
-            chunk=all_candidates[i:i+BATCH_SIZE]
-            if circuit_open:
-                errors.extend({"city":city,"error":"NOT_REQUESTED",
-                               "reason":"NETWORK_CIRCUIT_OPEN"} for city,_ in chunk)
-                continue
-            if (time.monotonic()-started>MAX_COLLECTION_SECONDS or
-                time.monotonic()-model_started>MAX_MODEL_SECONDS):
-                errors.extend({"city":city,"error":"NOT_REQUESTED",
-                               "reason":"GLOBAL_TIME_BUDGET_EXCEEDED"}
-                              for city,_ in chunk)
-                continue
-            attempted+=len(chunk)
-            batches_attempted+=1
-            try:
-                successes,failures=fetch_group(model_id,chunk,now)
-                good.extend(successes)
-                errors.extend(failures)
-                if successes:
-                    failed_network_batches=0
-                elif failures and all(e.get("reason") in _NETWORK_FAILURES for e in failures):
-                    failed_network_batches+=1
-                else:
-                    failed_network_batches=0
-                # If a batch response omitted/broke a subset, retry only
-                # those cities individually, within the time budget.
-                for failed in failures[:2]:
-                    if (time.monotonic()-started>MAX_COLLECTION_SECONDS or
-                        time.monotonic()-model_started>MAX_MODEL_SECONDS):
-                        break
-                    if failed["reason"]=="API_HTTP_STATUS":
-                        continue
-                    city=failed["city"]
-                    try:
-                        lat,lon=cities[city]
-                        replacement=fetch_one(model_id,city,lat,lon,now)
-                        good.append(replacement)
-                        errors=[e for e in errors if e is not failed]
-                    except Exception:
-                        pass
-            except Exception as exc:
-                diagnostic=classify_error(exc)
-                errors.extend({"city":city,**diagnostic} for city,_ in chunk)
-                if diagnostic["reason"] in _NETWORK_FAILURES:
-                    failed_network_batches+=1
-                else:
-                    failed_network_batches=0
-                # A malformed batch must not stop any other city groups.
-                # Do not multiply a TLS outage into ten single-city timeouts.
-                if isinstance(exc,(ValueError,TypeError)) and len(chunk)>1:
-                    for city,(lat,lon) in chunk:
-                        if (time.monotonic()-started>MAX_COLLECTION_SECONDS or
-                            time.monotonic()-model_started>MAX_MODEL_SECONDS):
-                            break
-                        try:
-                            good.append(fetch_one(model_id,city,lat,lon,now))
-                            errors=[e for e in errors if e["city"]!=city]
-                        except Exception:
-                            pass
-            if failed_network_batches>=MAX_NETWORK_FAILURE_BATCHES and not good:
-                circuit_open=True
-        # Confirm each city appears once even after retried rows.
-        unique={item["city"]:item for item in good}
-        good=[unique[k] for k in sorted(unique)]
-        issues={}
-        for err in errors:
-            issues[err["reason"]]=issues.get(err["reason"],0)+1
-        out["models"][name]={"model_id":model_id,
-            "status":"verified" if good else "unavailable",
-            "cities_succeeded":len(good),"cities_requested":len(cities),
-            "cities_attempted":attempted,
-            "batches_attempted":batches_attempted,"circuit_open":circuit_open,
-            "records":good,"errors":errors}
-        print("ECMWF",name,"success",len(good),"/",len(cities),
-              "attempted",attempted,"batches",batches_attempted,
-              "diagnostics",issues,flush=True)
-        # Supplement existing 167 city/county locations with gu only AFTER
-        # completing that model's baseline requests. A bad district batch
-        # cannot remove working city/county forecasts or block the KMA PDF.
-        district_started=time.monotonic()
-        district_good=[]
-        district_errors=[]
-        district_attempted=0
-        district_batches=0
-        district_network_failures=0
-        district_circuit=False
-        for j in range(0,len(district_candidates),BATCH_SIZE):
-            chunk=district_candidates[j:j+BATCH_SIZE]
-            if district_circuit:
-                district_errors.extend({"city":label,"error":"NOT_REQUESTED",
-                                        "reason":"NETWORK_CIRCUIT_OPEN"}
-                                       for label,_ in chunk)
-                continue
-            if (time.monotonic()-started>MAX_COLLECTION_SECONDS or
-                time.monotonic()-district_started>MAX_DISTRICT_SECONDS):
-                district_errors.extend({"city":label,"error":"NOT_REQUESTED",
-                                        "reason":"DISTRICT_TIME_BUDGET_EXCEEDED"}
-                                       for label,_ in chunk)
-                continue
-            district_attempted+=len(chunk)
-            district_batches+=1
-            try:
-                successes,failures=fetch_group(model_id,chunk,now)
-                district_good.extend(successes)
-                district_errors.extend(failures)
-                if successes:
-                    district_network_failures=0
-                elif failures and all(x.get("reason") in _NETWORK_FAILURES for x in failures):
-                    district_network_failures+=1
-                else:
-                    district_network_failures=0
-            except Exception as exc:
-                detail=classify_error(exc)
-                district_errors.extend({"city":label,**detail} for label,_ in chunk)
-                if detail["reason"] in _NETWORK_FAILURES:
-                    district_network_failures+=1
-                else:
-                    district_network_failures=0
-            if (district_network_failures >=
-                (1 if circuit_open else MAX_NETWORK_FAILURE_BATCHES) and
-                not district_good):
-                district_circuit=True
-        # The legacy 'models' payload and 167-target counts stay unchanged.
-        distinct={row["city"]:row for row in district_good}
-        out["district_models"][name]={
-            "model_id":model_id,"status":"verified" if distinct else "unavailable",
-            "cities_requested":len(districts),"cities_attempted":district_attempted,
-            "cities_succeeded":len(distinct),"batches_attempted":district_batches,
-            "circuit_open":district_circuit,"records":[distinct[k] for k in sorted(distinct)],
-            "errors":district_errors}
-        print("ECMWF gu",name,"success",len(distinct),"/",len(districts),
-              "attempted",district_attempted,"batches",district_batches,flush=True)
-    recover_missing_after_service_restored(out,now,all_candidates,
-                                           district_candidates,started)
-    return out
+    if priorities is None:
+        priorities=priority_from_kma(now) if default_cities else []
+    prioritised=list(dict.fromkeys(priorities))
+    scopes={"models":dict(cities),"district_models":dict(districts)}
+    ordered={key:sorted(items.items()) for key,items in scopes.items()}
+    selected={}
+    remaining={}
+    for scope,points in ordered.items():
+        lookup=dict(points)
+        selected[scope]=[(label,lookup[label]) for label in prioritised if label in lookup]
+        selected_names={label for label,_ in selected[scope]}
+        remaining[scope]=[(label,coords) for label,coords in points if label not in selected_names]
 
+    def batches(points):
+        return [points[i:i+BATCH_SIZE] for i in range(0,len(points),BATCH_SIZE)]
+
+    schedule=[]
+    priority_batches={scope:batches(points) for scope,points in selected.items()}
+    for i in range(max((len(x) for x in priority_batches.values()),default=0)):
+        for name in MODELS:
+            for scope in ("models","district_models"):
+                if i<len(priority_batches[scope]):
+                    schedule.append((name,scope,priority_batches[scope][i]))
+    for name in MODELS:
+        for scope in ("models","district_models"):
+            schedule.extend((name,scope,chunk) for chunk in batches(remaining[scope]))
+
+    started=time.monotonic()
+    out={
+        "generated_at_kst":now.isoformat(),
+        "source":"Open-Meteo ECMWF IFS/AIFS open data",
+        "sample_scope":f"{len(cities)} city/county groups plus {len(districts)} independent gu labels; approximate inverse-DFS grid points, not administrative-area averages",
+        "location_method":"mean of DISTINCT KMA 5km gu/grid representative cell centres within each city label",
+        "district_location_method":"one inverse KMA official 5km representative grid per gu, not an area average",
+        "cities_targeted":len(cities),"districts_targeted":len(districts),
+        "kma_wet_priority_city_count":len(selected["models"]),
+        "kma_wet_priority_gu_count":len(selected["district_models"]),
+        "rate_limited":False,"models":{},"district_models":{},
+    }
+    state={}
+    for name in MODELS:
+        for scope in scopes:
+            state[name,scope]={"records":{},"errors":{},"attempted":set(),
+                               "batches":0,"network_errors":0,"circuit":False,
+                               "started":None}
+    rate_limited=False
+    retry_after=None
+
+    for name,scope,chunk in schedule:
+        st=state[name,scope]
+        if st["started"] is None:
+            st["started"]=time.monotonic()
+        if rate_limited:
+            reason="RATE_LIMITED_COOLDOWN"
+        elif st["circuit"]:
+            reason="NETWORK_CIRCUIT_OPEN"
+        elif time.monotonic()-started>=MAX_COLLECTION_SECONDS:
+            reason="GLOBAL_TIME_BUDGET_EXCEEDED"
+        elif (time.monotonic()-st["started"]>=
+              (MAX_MODEL_SECONDS if scope=="models" else MAX_DISTRICT_SECONDS)):
+            reason=("MODEL_TIME_BUDGET_EXCEEDED" if scope=="models" else
+                    "DISTRICT_TIME_BUDGET_EXCEEDED")
+        else:
+            reason=None
+        if reason is not None:
+            for label,_ in chunk:
+                st["errors"].setdefault(label,{"city":label,"error":"NOT_REQUESTED",
+                                                "reason":reason})
+            continue
+        st["batches"]+=1
+        st["attempted"].update(label for label,_ in chunk)
+        try:
+            successes,failures=fetch_group(MODELS[name],chunk,now)
+            for item in successes:
+                st["records"][item["city"]]=item
+                st["errors"].pop(item["city"],None)
+            for error in failures:
+                st["errors"][error["city"]]=error
+            if successes:
+                st["network_errors"]=0
+            elif failures and all(err.get("reason") in _NETWORK_FAILURES
+                                  for err in failures):
+                st["network_errors"]+=1
+            else:
+                st["network_errors"]=0
+            if any(err.get("reason")=="API_RATE_LIMITED" for err in failures):
+                rate_limited=True
+            # Retry a small number of malformed individual locations, but
+            # never re-request a 429 or repeat an entire failed HTTP batch.
+            for error in failures[:2]:
+                if rate_limited or error.get("reason")=="API_HTTP_STATUS":
+                    continue
+                if (time.monotonic()-started>=MAX_COLLECTION_SECONDS or
+                    time.monotonic()-st["started"]>=MAX_MODEL_SECONDS):
+                    break
+                label=error["city"]
+                try:
+                    lat,lon=scopes[scope][label]
+                    item=fetch_one(MODELS[name],label,lat,lon,now)
+                    st["records"][label]=item
+                    st["errors"].pop(label,None)
+                except Exception as exc:
+                    diag=classify_error(exc)
+                    st["errors"][label]={"city":label,**diag}
+                    if diag["reason"]=="API_RATE_LIMITED":
+                        rate_limited=True
+                        break
+        except Exception as exc:
+            diag=classify_error(exc)
+            for label,_ in chunk:
+                st["errors"][label]={"city":label,**diag}
+            if diag["reason"]=="API_RATE_LIMITED":
+                rate_limited=True
+                try:
+                    raw=exc.headers.get("Retry-After") if exc.headers else None
+                    if raw is not None:retry_after=min(3600,max(0,int(raw)))
+                except (TypeError,ValueError):
+                    retry_after=None
+            elif diag["reason"] in _NETWORK_FAILURES:
+                st["network_errors"]+=1
+            else:
+                st["network_errors"]=0
+            if isinstance(exc,(ValueError,TypeError)) and len(chunk)>1:
+                for label,(lat,lon) in chunk[:2]:
+                    if time.monotonic()-started>=MAX_COLLECTION_SECONDS:
+                        break
+                    try:
+                        item=fetch_one(MODELS[name],label,lat,lon,now)
+                        st["records"][label]=item
+                        st["errors"].pop(label,None)
+                    except Exception as sub_exc:
+                        diag2=classify_error(sub_exc)
+                        st["errors"][label]={"city":label,**diag2}
+                        if diag2["reason"]=="API_RATE_LIMITED":
+                            rate_limited=True
+                            break
+        if st["network_errors"]>=MAX_NETWORK_FAILURE_BATCHES and not st["records"]:
+            st["circuit"]=True
+
+    for name,model_id in MODELS.items():
+        for scope,points in scopes.items():
+            st=state[name,scope]
+            records=[st["records"][label] for label in sorted(st["records"])]
+            errors=[st["errors"][label] for label in sorted(st["errors"])]
+            out[scope][name]={
+                "model_id":model_id,
+                "status":"verified" if records else "unavailable",
+                "cities_requested":len(points),
+                "cities_attempted":len(st["attempted"]),
+                "cities_succeeded":len(records),
+                "batches_attempted":st["batches"],
+                "circuit_open":st["circuit"],
+                "records":records,"errors":errors}
+            print("ECMWF",scope,name,"success",len(records),"/",len(points),
+                  "attempted",len(st["attempted"]),"batches",st["batches"],
+                  "429",rate_limited,flush=True)
+    out["rate_limited"]=rate_limited
+    if retry_after is not None:
+        out["retry_after_seconds"]=retry_after
+    if not rate_limited:
+        recover_missing_after_service_restored(out,now,ordered["models"],
+                                               ordered["district_models"],started)
+    return out
 
 MAX_RECOVERY_SECONDS=55
 
