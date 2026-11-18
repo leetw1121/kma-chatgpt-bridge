@@ -65,6 +65,24 @@ class FreshnessTests(unittest.TestCase):
         self.assertEqual(needs_ecmwf_retry(self.now,self.root),
                          (False,"all_models_complete"))
 
+    def test_full_coverage_from_old_cache_still_requests_recovery(self):
+        cached={"generated_at_kst":"2026-11-14T11:00:00+09:00",
+                "last_attempt_at_kst":"2026-11-14T12:10:00+09:00",
+                "fallback_recent_success":True,"cities_targeted":167,
+                "districts_targeted":109}
+        cached["models"]={name:{"status":"verified_cached_recent",
+                                "cities_requested":167,"cities_succeeded":167}
+                          for name in ("IFS","AIFS Single")}
+        cached["district_models"]={name:{"status":"verified_cached_recent",
+                                         "cities_requested":109,"cities_succeeded":109}
+                                   for name in ("IFS","AIFS Single")}
+        (self.directory/"ecmwf_regional.json").write_text(
+            json.dumps(cached),encoding="utf8")
+        self.assertEqual(needs_ecmwf_retry(self.now,self.root),
+                         (True,"cached_model_needs_fresh_sample"))
+        self.assertEqual(needs_refresh(self.now,self.root),
+                         (False,"already_current"))
+
     def test_older_issue_must_refresh(self):
         self.forecast["issue_at_kst"]="2026-11-14T05:00:00+09:00"
         self.write()
