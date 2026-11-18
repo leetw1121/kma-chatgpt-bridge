@@ -43,6 +43,43 @@ jobs:
           python-version: '3.11'
       - name: Validate unchanged KMA baseline plus new gu scope
         run: python -m unittest discover -s tests -v
+      - name: Render example PDF with a real-data KMA source and a synthetic test-only gu model
+        run: |
+          python -m pip install --quiet "reportlab>=4.0,<5"
+          if [ ! -f /usr/share/fonts/truetype/nanum/NanumGothic.ttf ]; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq fonts-nanum
+          fi
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path("data")
+          kma=json.loads((root/"latest.json").read_text(encoding="utf-8"))
+          model=json.loads((root/"ecmwf_regional.json").read_text(encoding="utf-8"))
+          model["generated_at_kst"]=kma["generated_at_kst"]
+          date=kma["issue_at_kst"][:10]
+          model["district_models"]={
+            "IFS":{"status":"verified","cities_requested":109,
+                   "cities_succeeded":1,"records":[{
+                     "city":"서울특별시 강남구",
+                     "days":{date:{"forecast_hours":24,"precip_mm":1.2,
+                                   "snowfall_cm":0.0,"snowfall_valid":True}}
+                   }]}}
+          (root/"ecmwf_regional.json").write_text(
+              json.dumps(model,ensure_ascii=False),encoding="utf-8")
+          PY
+          python scripts/create_city_pdf.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          m=json.loads(Path("data/pdf_manifest.json").read_text(encoding="utf-8"))
+          assert m["scope"]=="city_only",m
+          assert m["coverage_scope"]=="city_district_county",m
+          assert m["ecmwf_gu_models_included"],m
+          assert Path("data/rain_snow_latest.pdf").read_bytes()[:5]==b"%PDF-"
+          print("PDF_DISTRICT_RENDER_PASS",m["kma_gu_date_rows"],
+                m["pdf_size_bytes"])
+          PY
   collect:
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-24.04
