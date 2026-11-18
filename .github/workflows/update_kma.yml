@@ -80,16 +80,21 @@ jobs:
           assert m["scope"]=="city_only",m
           assert m["coverage_scope"]=="city_district_county",m
           assert m["ecmwf_gu_models_included"],m
-          assert m["pdf_layout_version"]=="unified_kma_ecmwf_v1",m
+          assert m["pdf_layout_version"]=="unified_kma_ecmwf_v1_coverage_audit",m
           assert m["kma_unified_date_rows"]>=m["kma_gu_date_rows"],m
           assert m["ecmwf_unified_date_rows"]>=1,m
+          assert m["ecmwf_kma_coverage_rows"]==m["kma_unified_date_rows"],m
           assert Path("data/rain_snow_latest.pdf").read_bytes()[:5]==b"%PDF-"
           print("PDF_UNIFIED_LAYOUT_PASS",
                 "kma_rows",m["kma_unified_date_rows"],
                 "ecmwf_rows",m["ecmwf_unified_date_rows"],
                 "bytes",m["pdf_size_bytes"])
           PY
+      # Pull-request tests must remain offline. Probing the free API on every
+      # PR/commit caused needless requests and contributed to HTTP 429.
+      # Live provider validation runs only in the controlled main workflow.
       - name: Probe real Open-Meteo TLS edge (informational, no secrets)
+        if: github.event_name != 'pull_request'
         run: |
           python - <<'PY'
           import sys
@@ -164,6 +169,12 @@ jobs:
       - name: Check independent ECMWF IFS / AIFS model availability
         if: steps.freshness.outputs.needed == 'true' || steps.freshness.outputs.ecmwf_retry == 'true'
         run: python scripts/fetch_ecmwf.py
+      - name: Audit KMA wet-region ECMWF coverage and publish missing-region diagnostics
+        if: steps.freshness.outputs.needed == 'true' || steps.freshness.outputs.ecmwf_retry == 'true'
+        run: |
+          python scripts/ecmwf_coverage_audit.py
+          test -s data/ecmwf_kma_coverage.md
+          test -s data/ecmwf_kma_coverage.csv
       - name: Generate date-sorted city/county rain/snow summary
         if: steps.freshness.outputs.needed == 'true' || steps.freshness.outputs.ecmwf_retry == 'true'
         run: |
@@ -201,6 +212,7 @@ jobs:
             data/city_precipitation.md data/city_precipitation.csv
             data/rain_snow_latest.pdf data/pdf_manifest.json data/alert_status.json
             data/ecmwf_regional.json data/ecmwf_last_verified.json data/source_status.md
+            data/ecmwf_kma_coverage.md data/ecmwf_kma_coverage.csv
           )
           git add "${DATA_FILES[@]}"
           if git diff --cached --quiet; then
