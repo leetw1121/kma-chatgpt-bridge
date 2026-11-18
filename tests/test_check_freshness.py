@@ -7,7 +7,7 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/"scripts"))
-from check_freshness import needs_refresh, needs_ecmwf_retry
+from check_freshness import needs_refresh, needs_ecmwf_retry, decide_run
 from fetch_kma import KST
 
 class FreshnessTests(unittest.TestCase):
@@ -82,6 +82,60 @@ class FreshnessTests(unittest.TestCase):
                          (True,"cached_model_needs_fresh_sample"))
         self.assertEqual(needs_refresh(self.now,self.root),
                          (False,"already_current"))
+
+    def test_push_on_current_issue_rebuilds_report_without_any_provider_calls(self):
+        plan=decide_run(self.now,"push",self.root)
+        self.assertFalse(plan["needed"])
+        self.assertTrue(plan["render_only"])
+        self.assertFalse(plan["ecmwf_fetch"])
+        self.assertFalse(plan["ecmwf_retry"])
+
+    def test_schedule_with_missing_model_only_retries_ecmwf(self):
+        plan=decide_run(self.now,"schedule",self.root)
+        self.assertFalse(plan["needed"])
+        self.assertFalse(plan["render_only"])
+        self.assertTrue(plan["ecmwf_retry"])
+        self.assertTrue(plan["ecmwf_fetch"])
+
+    def test_manual_preserves_kma_refresh_but_honors_model_cooldown(self):
+        result={"generated_at_kst":"2026-11-14T12:14:00+09:00",
+                "rate_limited":True,
+                "last_attempt_at_kst":"2026-11-14T12:14:00+09:00",
+                "cities_targeted":167,"districts_targeted":109,
+                "models":{},"district_models":{}}
+        (self.directory/"ecmwf_regional.json").write_text(
+            json.dumps(result),encoding="utf8")
+        plan=decide_run(self.now,"workflow_dispatch",self.root)
+        self.assertTrue(plan["needed"])
+        self.assertFalse(plan["ecmwf_fetch"])
+        self.assertEqual(plan["ecmwf_reason"],"provider_429_cooldown")
+
+    def test_new_kma_issue_still_refreshes_while_429_blocks_model(self):
+        self.forecast["issue_at_kst"]="2026-11-14T05:00:00+09:00"
+        self.write()
+        result={"generated_at_kst":"2026-11-14T12:15:00+09:00",
+                "rate_limited":True,
+                "last_attempt_at_kst":"2026-11-14T12:15:00+09:00",
+                "cities_targeted":167,"districts_targeted":109,
+                "models":{},"district_models":{}}
+        (self.directory/"ecmwf_regional.json").write_text(
+            json.dumps(result),encoding="utf8")
+        plan=decide_run(self.now,"schedule",self.root)
+        self.assertTrue(plan["needed"])
+        self.assertFalse(plan["ecmwf_fetch"])
+
+    def test_complete_but_older_than_three_hours_is_not_current_model(self):
+        valid={"generated_at_kst":"2026-11-14T08:00:00+09:00",
+               "last_attempt_at_kst":"2026-11-14T08:00:00+09:00",
+               "cities_targeted":167,"districts_targeted":109,
+               "models":{k:{"cities_requested":167,"cities_succeeded":167}
+                         for k in ("IFS","AIFS Single")},
+               "district_models":{k:{"cities_requested":109,"cities_succeeded":109}
+                                  for k in ("IFS","AIFS Single")}}
+        (self.directory/"ecmwf_regional.json").write_text(
+            json.dumps(valid),encoding="utf8")
+        self.assertEqual(needs_ecmwf_retry(self.now,self.root),
+                         (True,"model_data_stale"))
 
     def test_older_issue_must_refresh(self):
         self.forecast["issue_at_kst"]="2026-11-14T05:00:00+09:00"
