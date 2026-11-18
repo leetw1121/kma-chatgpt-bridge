@@ -67,20 +67,34 @@ def rows(data):
                 "slots":day["hours"],"period":("24시간" if day.get("full_day") else "일부 시각"),
                 "nx":place["nx"],"ny":place["ny"],
                 "shared_grid":len(shared[(place["nx"],place["ny"])])>1,
+                # Keep numeric bounds for consistent nationwide ranking;
+                # formatted text is NOT safe to parse or order lexically.
                 "sort_lower":(day.get("precip_mm",{}) or {}).get("lower"),
+                "sort_upper":(day.get("precip_mm",{}) or {}).get("upper"),
                 "sort_snow":(day.get("snow_cm",{}) or {}).get("lower"),
+                "sort_snow_upper":(day.get("snow_cm",{}) or {}).get("upper"),
             })
-    # All rain/snow forecast locations retained, sorted within each date/group.
-    result.sort(key=lambda r:(r["date"], r["level"]!="gu",
-                -(r["sort_snow"] or 0) if r["forecast"]=="눈" else -(r["sort_lower"] or 0),
-                r["region"]))
+    # ONE table per date, combining gu/city/gun. Descending PCP upper-bound
+    # reference (fallback: lower when unbounded), then snow upper-bound.
+    # Overlapping intervals are NOT a mathematically definitive ranking.
+    result.sort(key=unified_kma_sort_key)
     return result
+
+
+def unified_kma_sort_key(r):
+    def value(upper,lower):
+        number=upper if isinstance(upper,(float,int)) else lower
+        return number if isinstance(number,(float,int)) else None
+    rain=value(r.get("sort_upper"),r.get("sort_lower"))
+    snow=value(r.get("sort_snow_upper"),r.get("sort_snow"))
+    return (r["date"],
+            rain is None,-rain if rain is not None else 0,
+            snow is None,-snow if snow is not None else 0,
+            r["region"])
 
 
 def render(data):
     events=rows(data)
-    counts=defaultdict(lambda:{"gu":0,"city":0,"gun":0})
-    for x in events:counts[x["date"]][x["level"]]+=1
     lines=[
         "# 🌧️❄️ 전국 비·눈 예상지역 전체 목록",
         "",
@@ -91,6 +105,7 @@ def render(data):
         "- 비·눈 예상 지역/날짜 행: **"+str(len(events))+"건** (서로 다른 날짜의 같은 지역은 중복하여 나타납니다)",
         "- 구·시·군의 **대표 격자** 예보입니다. 같은 격자 공유 지역은 동일한 수치이고, 구 전체 평균·최대값을 뜻하지 않습니다.",
         "- 기상청 PCP는 비·눈의 총강수량(mm), SNO는 신적설(cm)입니다. POP는 해당 기간 중 시각별 최대 확률로서 하루 전체 확률이 아닙니다.",
+        "- 표는 날짜별 **시·구·군 통합**, 총강수량 상한 큰 순 → 신적설 상한 큰 순의 **참고 정렬**입니다. 상한이 없는 '이상' 범위는 확인된 하한으로 정렬합니다.",
         "- 강수량의 숫자 범위가 겹치면 정확한 순위를 확정할 수 없습니다. 일부 시간대는 하루 24시간 강수량과 비교할 수 없습니다.",
         "- 공식 단기예보가 제공하지 않는 날짜의 지역별 정량값은 지어내지 않으며, 7일 중기 전망은 별도의 기상청 중기예보를 확인해야 합니다.",
         "",
@@ -98,16 +113,16 @@ def render(data):
         "",
     ]
     groups=defaultdict(list)
-    for x in events:groups[(x["date"],x["level"])].append(x)
-    for (date,level),values in sorted(groups.items()):
-        head={"gu":"구(區)","city":"시(市)","gun":"군(郡)"}.get(level,"기타")
-        lines += ["### "+date+" · "+head+" · "+str(len(values))+"곳","",
-            "| 지역 | 비·눈 형태 | 총강수(mm) | 비 강수(mm) | 신적설(cm) | 최고 시각별 POP | 예보 시간 |",
-            "|---|---|---:|---:|---:|---:|---|"]
+    for x in events:groups[x["date"]].append(x)
+    for date,values in sorted(groups.items()):
+        lines += ["### "+date+" · 시·구·군 통합 · "+str(len(values))+"곳","",
+            "| 지역 | 구분 | 비·눈 형태 | 총강수(mm) | 신적설(cm) | 최고 시각별 POP | 예보 시간 |",
+            "|---|---|---|---:|---:|---:|---|"]
         for x in values:
             name=x["region"]+(" (공유 격자)" if x["shared_grid"] else "")
             times=x["from_kst"][11:16]+"~"+x["to_kst"][11:16]+" ("+str(x["slots"])+"개 시각, "+x["period"]+")"
-            lines.append("| "+name+" | "+x["forecast"]+" | "+x["precipitation"]+" | "+x["rain"]+" | "+x["snow"]+" | "+x["max_hourly_pop"]+" | "+times+" |")
+            label={"gu":"구","city":"시","gun":"군"}.get(x["level"],"기타")
+            lines.append("| "+name+" | "+label+" | "+x["forecast"]+" | "+x["precipitation"]+" | "+x["snow"]+" | "+x["max_hourly_pop"]+" | "+times+" |")
         lines.append("")
     if not events:
         lines += ["현재 최신 KMA 단기 API에 **실제 강수나 눈 예보가 확인된 지역이 없습니다.** 중기/특보는 별도 확인이 필요합니다.",""]

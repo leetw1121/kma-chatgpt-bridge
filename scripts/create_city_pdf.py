@@ -15,9 +15,9 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import (BaseDocTemplate, Frame, PageTemplate, Paragraph,
                                Spacer, Table, TableStyle, PageBreak)
 
-from city_forecast import group_rows, rank, fmt, ROOT
+from city_forecast import group_rows, ROOT
 from create_precip_report import rows as precipitation_rows
-from ecmwf_report_gate import usable_model_rows
+from ecmwf_report_gate import combined_model_rows
 
 OUTPUT=ROOT/"data/rain_snow_latest.pdf"
 INK=colors.HexColor("#143147")
@@ -77,103 +77,84 @@ def table(headers,values,widths,st):
     ]))
     return t
 
-def kma_city_tables(data,st):
-    records=group_rows(data)
-    dates=sorted({r["date"] for r in records})
-    story=[]
-    for date in dates:
-        subset=[r for r in records if r["date"]==date]
-        for kind,label,metric,unit in (("rain","비 · 총강수량","precip","mm"),
-                                        ("snow","눈 · 신적설","snow_cm","cm")):
-            ranked=rank(subset,kind)
-            if not ranked:continue
-            story.append(P(date+" | "+label+" | "+str(len(ranked))+"개 시·군",st["sec"]))
-            rows=[]
-            for i,r in enumerate(ranked,1):
-                pop=str(r["max_pop"])+"%" if r["max_pop"] is not None else "미발표"
-                period=r["from_kst"][11:16]+"-"+r["to_kst"][11:16]+("" if r["full_day"] else " 일부")
-                method="구 격자 "+str(r["grid_count"])+"곳 중 최대" if r["gu_count"] else r["method"]
-                rows.append([str(i),r["city"],fmt(r[metric],unit),pop,period+" / "+method])
-            story.append(table(["참고","시·군","예보량","최대 POP","기간 / 근거"],rows,[12,54,32,22,54],st))
-            story.append(Spacer(1,4))
-    if not dates:story.append(P("정량 단기예보에서 비·눈 예상 시·군이 없습니다.",st["note"]))
-    return story,records
-
-def kma_gu_tables(kma,st):
-    """Show each verified KMA gu forecast separately, retaining city summaries."""
-    district_rows=[r for r in precipitation_rows(kma) if r["level"]=="gu"]
-    if not district_rows:
-        return [],0
-    groups=defaultdict(list)
-    for r in district_rows:
-        groups[r["date"]].append(r)
-    story=[PageBreak(),P("기상청 구(區)별 비·눈 상세",st["title"]),
-           P("기상청 공식 구 대표 5km 격자 예보입니다. 시별 요약에서 합쳐진 구도 개별 표기합니다. 비·눈이 예보되지 않은 구는 표시하지 않습니다.",st["small"]),
-           P("동일 격자를 공유하는 구는 같은 예보를 갖습니다. 구 전체 평균이나 구 안의 최대값이 아닙니다.",st["small"])]
-    for date,day_rows in sorted(groups.items()):
-        story.append(P(date+" | 기상청 구별 비·눈 "+str(len(day_rows))+"건",st["sec"]))
+def kma_unified_tables(data,st,records=None):
+    """One date-sorted KMA view: gu, city and county; PCP and SNO together."""
+    records=precipitation_rows(data) if records is None else records
+    if not records:
+        return [P("이번 단기예보에서 비·눈 예상 시·구·군이 확인되지 않았습니다.",st["note"])]
+    by_date=defaultdict(list)
+    for r in records:
+        by_date[r["date"]].append(r)
+    story=[P("기상청 시·구·군별 비·눈 통합",st["title"]),
+           P("기상청 공식 구·시·군 대표 격자. 날짜별 총강수량 상한 기준 내림차순, 신적설량은 동률 기준입니다.",st["small"])]
+    for date,day_rows in sorted(by_date.items()):
+        story.append(P(date+" | 시·구·군 통합 비·눈 "+str(len(day_rows))+"건",st["sec"]))
         values=[]
         for r in day_rows:
             period=r["from_kst"][11:16]+"-"+r["to_kst"][11:16]
             if r["period"]!="24시간":
                 period+=" 일부"
-            name=r["region"]+(" (동일격자)" if r["shared_grid"] else "")
-            values.append([name,r["forecast"],r["precipitation"],r["snow"],
-                           r["max_hourly_pop"],period])
-        story.append(table(["구 지역","형태","총강수 mm","신적설 cm","최대 POP","예보시간"],
-                           values,[55,22,29,25,20,23],st))
-        story.append(Spacer(1,4))
-    return story,len(district_rows)
+            level={"gu":"구","city":"시","gun":"군"}.get(r["level"],"?")
+            region=r["region"]+(" (동일격자)" if r["shared_grid"] else "")
+            values.append([region,level,r["forecast"],r["precipitation"],
+                           r["snow"],r["max_hourly_pop"],period])
+        story.append(table(
+            ["지역","구분","형태","총강수 mm","신적설 cm","최대 POP","예보시간"],
+            values,[48,12,22,30,25,16,21],st))
+        story.append(Spacer(1,5))
+    return story
 
-def model_section(kma,model,st,scope="city"):
-    lookup,good=usable_model_rows(kma,model,scope=scope)
-    # No successful rain/snow forecast rows => NO ECMWF title, empty page or disclaimer.
-    if not good:
-        return [],False
-    detail=scope=="district"
-    unit="구" if detail else "시·군"
-    total_key="districts_targeted" if detail else "cities_targeted"
-    story=[PageBreak(),P("7일 "+unit+"별 비·눈 참고: ECMWF IFS · AIFS",st["title"]),
-      P("기상청 단기예보 이후의 전망을 보완하는 별도 모델입니다. Open-Meteo가 제공한 실제 ECMWF 모델 수치를 사용합니다.",st["small"]),
-      P("모델 지점: 전국 "+unit+" 단위 "+str((model or {}).get(total_key,
-        max((v.get("cities_requested",0) for v in
-             (model or {}).get("district_models" if detail else "models",{}).values()),default=0)))+
-        "개 대상 중 실제 조회에 성공한 근사 격자 참고점입니다. 기상청 공식 격자에서 위경도를 역변환했으며 "
-        "행정구역 전체 평균 또는 공식 중심점이 아닙니다.",st["small"]),
-      P("모델 수집: "+str((model or {}).get("generated_at_kst","조회 실패"))+
-        (" | 최신 요청 실패, 최근 3시간 이내 성공본 재사용" if (model or {}).get("fallback_recent_success") else " | 이번 실행 신규 조회")+
-        " | 1일 미만 시간대는 일부 기간 누적량입니다.",st["small"])]
-    dates=sorted({day for (day,_) in lookup})
-    for date in dates:
-        todays=[(city,series) for (d,city),series in lookup.items() if d==date]
-        selected=[(city,series) for city,series in todays
-                  if any((v.get("precip_mm") or 0)>0 or (v.get("snowfall_cm") or 0)>0
-                         for v in series.values())]
-        if not selected:continue
-        def amount(series,which):
-            v=series.get(which)
-            return (v.get("precip_mm") or 0) if v else 0
-        selected.sort(key=lambda x:(-max(amount(x[1],"IFS"),amount(x[1],"AIFS Single")),x[0]))
-        rows=[]
-        for city,series in selected:
-            def value(model_name,field):
-                if model_name not in series:return "미제공"
-                d=series[model_name]
-                v=d.get(field)
-                if field=="snowfall_cm" and not d.get("snowfall_valid"):return "미제공"
-                if v is None:return "미제공"
-                amount=f"{v:g}" if isinstance(v,(int,float)) else str(v)
-                if d.get("forecast_hours",0)<24:amount+=" ·일부"
-                return amount
-            rows.append([city,value("IFS","precip_mm"),value("AIFS Single","precip_mm"),
-                         value("IFS","snowfall_cm"),value("AIFS Single","snowfall_cm")])
-        story.append(P(date+" | ECMWF "+unit+"별 검증된 모델 총강수량 참고",st["sec"]))
-        story.append(table([unit,"IFS 강수 mm","AIFS 강수 mm","IFS 눈 cm","AIFS 눈 cm"],
-                           rows,[50,34,34,28,28],st))
-        story.append(Spacer(1,4))
-    story.append(P("Open-Meteo.com 제공 ECMWF 모델 참고 (CC BY 4.0). 총강수량은 눈을 포함하는 수분량으로 "
-       "비 강수만을 뜻하지 않습니다. 기상청과 상호 대체하거나 평균하지 않습니다.",st["small"]))
-    return story,True
+
+def model_section(kma,model,st):
+    """One ECMWF table per date with city/county AND gu in the same ranking."""
+    rows,has_city,has_gu=combined_model_rows(kma,model)
+    stats={"rows":len(rows),"city":bool(has_city),"district":bool(has_gu)}
+    if not rows:
+        return [],stats
+    story=[
+      PageBreak(),P("7일 비·눈 참고: ECMWF IFS · AIFS",st["title"]),
+      P("전국 시·구·군 통합 참고. IFS와 AIFS 각각의 총강수량·신적설을 같은 지역 행에 표시합니다.",st["small"]),
+      P("대상: 기존 시·군 "+str(model.get("cities_targeted",0))+
+        "개 + 구 "+str(model.get("districts_targeted",0))+
+        "개 참고 지점. 실제 조회 성공한 모델값만 사용하며 구가 없는 곳과 구별 지점은 서로 다른 참고 좌표입니다.",st["small"]),
+      P("정렬: IFS/AIFS의 총강수량 중 큰 값을 기준으로 내림차순, 동률은 신적설량 기준. "
+        "모델 수치 합산·평균이 아니고 실제 많은 순위를 확정하는 비교도 아닙니다.",st["small"]),
+      P("모델 수집: "+str(model.get("generated_at_kst","미확인"))+
+        (" | 최근 3시간 이내 성공본 사용" if model.get("fallback_recent_success") else " | 신규 수집")+
+        " | 24시간보다 짧은 기간은 '일부' 표시",st["small"])]
+    by_date=defaultdict(list)
+    for row in rows:
+        by_date[row["date"]].append(row)
+    def value(series,name,field):
+        day=series.get(name)
+        if not isinstance(day,dict):
+            return "미제공"
+        number=day.get(field)
+        if (field=="snowfall_cm" and not day.get("snowfall_valid")) or (
+            not isinstance(number,(int,float)) or isinstance(number,bool) or number<0):
+            return "미제공"
+        amount=f"{number:g}"
+        if day.get("forecast_hours",0)<24:
+            amount+=" 일부"
+        return amount
+    for date,selected in sorted(by_date.items()):
+        story.append(P(date+" | ECMWF 시·구·군 비·눈 "+str(len(selected))+"곳",st["sec"]))
+        values=[]
+        for row in selected:
+            series=row["series"]
+            scope="구" if row["scope"]=="gu" else "시·군"
+            values.append([
+                row["region"],scope,
+                value(series,"IFS","precip_mm"),value(series,"IFS","snowfall_cm"),
+                value(series,"AIFS Single","precip_mm"),value(series,"AIFS Single","snowfall_cm")])
+        story.append(table(
+            ["지역","구분","IFS 강수 mm","IFS 눈 cm","AIFS 강수 mm","AIFS 눈 cm"],
+            values,[58,16,29,22,29,20],st))
+        story.append(Spacer(1,5))
+    story.append(P("Open-Meteo.com 제공 ECMWF 모델 참고 (CC BY 4.0). 총강수량은 비·눈을 합한 물의 양(mm)이며 "
+        "신적설(cm)과 단위가 다릅니다. 기상청 공식 격자값·행정구역 전체 평균과 같지 않습니다. "
+        "실제 제공되지 않은 수치는 0이 아닌 '미제공'으로 표시합니다.",st["small"]))
+    return story,stats
 
 def create(kma,model,filename):
     fonts()
@@ -186,40 +167,38 @@ def create(kma,model,filename):
     doc.addPageTemplates(PageTemplate(id="normal",frames=frame,onPage=page))
     story=[
         P("전국 시·구·군 단위 비·눈 예보",st["title"]),
-        P("날짜별 시·군 요약 + 구별 상세 · 실제 비·눈 예보 지역만",st["sub"]),
+        P("시·구·군 통합 · 지역마다 총강수량과 신적설량 함께 표시",st["sub"]),
         P("기상청 발표: "+kma["issue_at_kst"]+" | 수집: "+kma["generated_at_kst"],st["sub"]),
         P("원본 기상청 격자 조회 "+str(kma["locations_succeeded"])+"/"+
            str(kma["locations_checked"])+"개 구·시·군 (고유 격자 "+
-           str(kma.get("unique_grids_succeeded","-"))+"개). 시·군 요약과 구별 상세를 모두 제공합니다.",st["note"]),
-        P("주의: 구가 있는 도시는 구 대표 격자 예보 중 최대 범위를 도시의 참고값으로 사용합니다. "
-          "강수량을 더하거나 시 전체의 실제 최대 강수량으로 주장하지 않습니다.",st["small"]),
-        P("예보량 **상한값이 큰 순의 참고 정렬**입니다. 범위가 겹치면 우열은 확정되지 않습니다. "
-          "총강수량(mm)은 눈을 포함하며, 신적설(cm)은 별도로 표시합니다.",st["small"]),
-        P("기상청 단기 API에서 실제 제공하는 날짜만 수록합니다. 7일 전체의 시·군별 정량 예보가 아니며, "
-          "장기 기간의 미제공 강수량·신적설량을 생성하지 않습니다.",st["small"]),
+           str(kma.get("unique_grids_succeeded","-"))+"개). 시·구·군은 날짜별 하나의 표에서 함께 표시합니다.",st["note"]),
+        P("기상청 각 구·시·군의 공식 대표 격자 예보만 표시합니다. 같은 격자를 공유하는 지역은 같은 값을 가지며, "
+          "시 전체의 평균·최대값이나 지역별 합산값이 아닙니다.",st["small"]),
+        P("총강수량(mm) 상한 큰 순, 신적설(cm) 상한은 동률 기준으로 정렬합니다. "
+          "상한이 없는 '이상' 범위는 확인된 하한으로 정렬하며, 범위가 겹치면 우열은 확정되지 않습니다. "
+          "총강수량은 눈을 포함하는 수분량으로 신적설(cm)과 단위가 다릅니다.",st["small"]),
+        P("기상청 공식 단기 API에서 실제 제공하는 날짜만 수록합니다. 7일 전체의 시·구·군별 정량값을 "
+          "생성하지 않습니다. 비·눈이 예보되지 않은 지역은 표에서 제외합니다.",st["small"]),
     ]
-    kma_story,records=kma_city_tables(kma,st)
-    story.extend(kma_story)
-    gu_story,gu_count=kma_gu_tables(kma,st)
-    story.extend(gu_story)
+    kma_records=precipitation_rows(kma)
+    story.extend(kma_unified_tables(kma,st,records=kma_records))
+    city_records=group_rows(kma)  # legacy manifest metrics only
+    model_stats={"rows":0,"city":False,"district":False}
     if model is not None:
-        append,city_verified=model_section(kma,model,st)
-        story.extend(append)
-        extra,district_verified=model_section(kma,model,st,scope="district")
-        story.extend(extra)
-        verified=city_verified or district_verified
-    else:
-        verified=False
-        city_verified=False
-        district_verified=False
+        appendix,model_stats=model_section(kma,model,st)
+        story.extend(appendix)
+    verified=model_stats["city"] or model_stats["district"]
     doc.has_ecmwf_appendix=verified
     doc.build(story)
     if filename.stat().st_size<1000 or filename.read_bytes()[:5]!=b"%PDF-":
         raise RuntimeError("Invalid PDF header or empty output")
-    return {"kma_city_date_rows":len(records),
-            "kma_city_names":len({x["city"] for x in records}),
-            "kma_gu_date_rows":gu_count,
-            "ecmwf_gu_models_included":bool(district_verified),
+    return {"kma_city_date_rows":len(city_records),
+            "kma_city_names":len({x["city"] for x in city_records}),
+            "kma_gu_date_rows":sum(r["level"]=="gu" for r in kma_records),
+            "kma_unified_date_rows":len(kma_records),
+            "ecmwf_unified_date_rows":model_stats["rows"],
+            "pdf_layout_version":"unified_kma_ecmwf_v1",
+            "ecmwf_gu_models_included":model_stats["district"],
             "ecmwf_models_included":bool(verified),
             "pdf_size_bytes":filename.stat().st_size}
 

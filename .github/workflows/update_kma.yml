@@ -80,9 +80,14 @@ jobs:
           assert m["scope"]=="city_only",m
           assert m["coverage_scope"]=="city_district_county",m
           assert m["ecmwf_gu_models_included"],m
+          assert m["pdf_layout_version"]=="unified_kma_ecmwf_v1",m
+          assert m["kma_unified_date_rows"]>=m["kma_gu_date_rows"],m
+          assert m["ecmwf_unified_date_rows"]>=1,m
           assert Path("data/rain_snow_latest.pdf").read_bytes()[:5]==b"%PDF-"
-          print("PDF_DISTRICT_RENDER_PASS",m["kma_gu_date_rows"],
-                m["pdf_size_bytes"])
+          print("PDF_UNIFIED_LAYOUT_PASS",
+                "kma_rows",m["kma_unified_date_rows"],
+                "ecmwf_rows",m["ecmwf_unified_date_rows"],
+                "bytes",m["pdf_size_bytes"])
           PY
       - name: Probe real Open-Meteo TLS edge (informational, no secrets)
         run: |
