@@ -73,6 +73,10 @@ def needs_ecmwf_retry(now,root=ROOT):
         if (result.get("cities_targeted")!=167 or
             result.get("districts_targeted")!=109):
             return True,"model_region_scope_changed"
+        if result.get("fallback_recent_success"):
+            # Counts are from a past success; they do not prove that the
+            # latest network attempt worked. Keep trying after cooldown.
+            return True,"cached_model_needs_fresh_sample"
         for collection,target in (("models",167),("district_models",109)):
             for model in ("IFS","AIFS Single"):
                 entry=(result.get(collection) or {}).get(model) or {}
