@@ -41,7 +41,7 @@ def request_json(params, max_attempts=2, timeout=6):
                 delay=min(8,max(1,int(retry_after)))
             except (ValueError,TypeError):
                 delay=min(8,2**attempt)
-        except (urllib.error.URLError, TimeoutError, ConnectionError, ssl.SSLError):
+        except (urllib.error.URLError, TimeoutError, ConnectionError, ssl.SSLError) as primary_error:
             # An Open-Meteo edge may hang at TCP/TLS while another DNS A
             # record is healthy. Keep the original HTTPS hostname / SNI and
             # verify the certificate against the normal CA store.
@@ -52,7 +52,7 @@ def request_json(params, max_attempts=2, timeout=6):
             except (OSError,ValueError,UnicodeError):
                 # Alternate DNS can also fail; no fake successful payload.
                 if attempt+1==max_attempts:
-                    raise
+                    raise primary_error
                 delay=min(2,2**attempt)
         time.sleep(delay)
     raise RuntimeError("UNREACHABLE_RETRY_LOOP")
@@ -354,82 +354,99 @@ def collect(now,cities=None,districts=None):
 
 def status_md(result):
     lines=["# 최신 기상자료 제공사 연결·검증 상태","",
-       "- 점검 시각(KST): **"+result["generated_at_kst"]+"**",
-       "- 기상청 단기 API: **자동 연결** (성공·실제 수치는 [latest.json](latest.json)에서 확인)",
-       "- 기상청 중기예보·특보: 이 GitHub 수집에는 미포함; 공식 중기 수치가 없으면 임의의 시별 정량값을 생성하지 않음",
-       ("- ECMWF: 최근 성공자료를 재사용했습니다 (신규 조회 실패, 이전 성공 수집시각을 반드시 확인)" if result.get("fallback_recent_success") else "- ECMWF: 이번 실행의 실제 신규 수집 결과"),
-       "",
-       "## ECMWF 공개 예측모델 — 최신 한국 시·군 수치 확인에 성공한 모델만 표시",
-       "",
-       "| 모델 | 한국 시 단위 근사 대표좌표 실제 조회 | 처리 |",
-       "|---|---:|---|"]
-    verified=0
-    for model,v in result["models"].items():
-        if v["status"] not in ("verified","verified_cached_recent") or v["cities_succeeded"]<=0:continue
-        verified+=1
-        lines.append("| "+model+" | "+str(v["cities_succeeded"])+"/"+str(v["cities_requested"])+
-            " | 실제 한국 수치 확인 |")
-    if not verified:
-        lines.append("| 확인된 독립 모델 없음 | — | 최신 수치 미확보 · 비교 생략 |")
-    # District queries are a separate optional tier, not counted as old 167.
-    if result.get("district_models"):
-        lines += ["","## ECMWF 구(區)별 추가 수집 — 성공한 대표 지점만","",
-                  "| 모델 | 구별 근사 대표 지점 | 처리 |","|---|---:|---|"]
-        for name,v in result["district_models"].items():
-            if v.get("status") in ("verified","verified_cached_recent") and v.get("cities_succeeded",0)>0:
-                lines.append("| "+name+" | "+str(v["cities_succeeded"])+"/"+
-                             str(v["cities_requested"])+" | 실제 수치 확보 |")
-            else:
-                lines.append("| "+name+" | 0/"+str(v.get("cities_requested",0))+
-                             " | 신규 구별 자료 없음 |")
-    # Record why a model failed, without printing sensitive URLs or response bodies.
-    for model,info in result["models"].items():
-        failed=[err for err in info.get("errors",[])
-                if err.get("error")!="NOT_REQUESTED"]
-        if failed:
-            causes={}
-            for item in failed:
-                reason=item.get("reason","UNKNOWN_ERROR")
-                causes[reason]=causes.get(reason,0)+1
-            summary=", ".join(k+" "+str(v)+"건" for k,v in sorted(causes.items()))
-            lines.append("- "+model+" 실패 진단: 요청 "+
-                str(info.get("cities_attempted",len(failed)))+
-                "개 도시, 원인 "+summary+
-                (" (첫 요청 연결 불가로 남은 도시 생략)" if any(
-                    e.get("error")=="NOT_REQUESTED" for e in info.get("errors",[])) else ""))
-    lines += ["","**좌표 주의:** 시·군 참고 지점은 기상청 격자 대표점의 역변환·평균으로 만든 근사 위치이며 구는 해당 구의 대표 격자를 역변환합니다. 모두 행정구역 전체 평균이나 공식 중심점이 아닙니다.", "**주의:** ECMWF 모델은 기상청 API와 다른 격자·해상도에서 계산한 *결정론적 예보*입니다. 두 모델의 수치가 일치해도 적중률이 검증된 것은 아니며, 모델 강수량을 확률로 바꿀 수 없습니다.",
-       "현재 자동 조회에 연결하지 않은 예보 제공사는 표와 알림에서 제외합니다. 모델별 검증 성공은 [ecmwf_regional.json](ecmwf_regional.json)을 함께 확인하세요.",
-       ""]
+        "- 점검 시각(KST): **"+result["generated_at_kst"]+"**",
+        "- 기상청 단기 API: **독립 수집** (최신 결과: [latest.json](latest.json))",
+        "- 기상청 중기예보·특보: 이 수집에 미포함",
+        "- ECMWF: 구와 시·군을 독립 조회하며 실제 성공자료만 표기합니다.",
+        "",
+        "| 범위 | 모델 | 성공/대상 | 실제 시도 | 성공 상태 |",
+        "|---|---|---:|---:|---|"]
+    for scope,source in (("시·군",result.get("models") or {}),
+                         ("구",result.get("district_models") or {})):
+        for name,item in source.items():
+            count=item.get("cities_succeeded",0)
+            requested=item.get("cities_requested",0)
+            attempted=item.get("cities_attempted",0)
+            status=item.get("status","unavailable")
+            valid=status in ("verified","verified_cached_recent") and count>0
+            label=("최근 성공자료 재사용" if status=="verified_cached_recent"
+                   else "신규 수집 성공" if valid else "수치 미확보")
+            lines.append(f"| {scope} | {name} | {count}/{requested} | "
+                         f"{attempted}/{requested} | {label} |")
+            counts={}
+            for error in item.get("errors") or []:
+                reason=error.get("reason","UNKNOWN")
+                counts[reason]=counts.get(reason,0)+1
+            if counts:
+                line=", ".join(f"{k} {v}건" for k,v in sorted(counts.items()))
+                lines.append(f"- {scope} {name} 미수집 원인: {line}")
+            if item.get("circuit_open"):
+                lines.append(f"- {scope} {name}: 연속 네트워크 실패로 회로 차단 "
+                             "(추가 지역 요청 생략, 기상청 PDF 계속 생성)")
+    if result.get("fallback_recent_success"):
+        lines += ["", "- 최신 ECMWF 수집이 모두 실패하여 최근 3시간 이내 확인된 성공본만 재사용했습니다.",
+                  "- 최근 성공자료 수집: "+result["generated_at_kst"],
+                  "- 최근 실패 시도: "+result.get("last_attempt_at_kst","미확인")]
+    lines += ["",
+      "**좌표 주의:** 시·군 참고 지점은 기상청 구 격자의 역변환·평균 좌표, 구 참고 지점은 해당 구 대표 격자의 역변환 좌표입니다. 실제 ECMWF 격자·행정구역 평균과 다릅니다.",
+      "**모델 주의:** IFS와 AIFS의 수치를 확률로 바꾸거나 기상청 예보와 평균하지 않습니다. 조회 실패를 0mm로 취급하지 않습니다.",
+      "실제 수집 데이터는 [ecmwf_regional.json](ecmwf_regional.json)에서 확인하세요.",""]
     return "\n".join(lines)
+
+def has_verified_records(result):
+    """One valid original-scope OR district model is enough to save a cache."""
+    return any(item.get("status")=="verified" and
+               item.get("cities_succeeded",0)>0 and item.get("records")
+               for key in ("models","district_models")
+               for item in (result.get(key) or {}).values())
+
+def choose_recent_cache(now,result,last_good):
+    """Use only matching 167+109 scopes and original timestamps, never old 167-only data."""
+    if has_verified_records(result):
+        last_good.write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n",
+                             encoding="utf-8")
+        return result
+    if not last_good.is_file():
+        return result
+    try:
+        old=json.loads(last_good.read_text(encoding="utf-8"))
+        old_time=dt.datetime.fromisoformat(old["generated_at_kst"])
+        if old_time.tzinfo is None or now.tzinfo is None:
+            return result
+        age=(now-old_time).total_seconds()
+        if not 0<=age<=3*3600:
+            return result
+        if (old.get("cities_targeted")!=result["cities_targeted"] or
+            old.get("districts_targeted")!=result["districts_targeted"] or
+            not has_verified_records(old)):
+            return result
+        old["fallback_recent_success"]=True
+        old["last_attempt_at_kst"]=now.isoformat()
+        old["failed_latest_attempt"]=True
+        # Expose failed *new* attempt for diagnostics; retain old results
+        # and their original collection timestamp for report freshness checks.
+        old["latest_attempt_failures"]={
+            scope:{name:{"attempted":v.get("cities_attempted",0),
+                         "error_counts":{
+                             reason:sum(e.get("reason")==reason for e in v.get("errors",[]))
+                             for reason in sorted({e.get("reason","UNKNOWN")
+                                                   for e in v.get("errors",[])})}}
+                   for name,v in (result.get(scope) or {}).items()}
+            for scope in ("models","district_models")}
+        for scope in ("models","district_models"):
+            for v in old.get(scope,{}).values():
+                if v.get("status")=="verified":
+                    v["status"]="verified_cached_recent"
+        return old
+    except (ValueError,KeyError,TypeError,OSError):
+        return result
 
 def main():
     ROOT.joinpath("data").mkdir(exist_ok=True)
     now=dt.datetime.now(KST)
     result=collect(now)
     last_good=ROOT/"data/ecmwf_last_verified.json"
-    expected_locations=len(build_city_locations())
-    verified=any(v.get("status")=="verified" and v.get("cities_succeeded",0)>0
-                 for v in result.get("models",{}).values())
-    if verified:
-        last_good.write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-    elif last_good.is_file():
-        # Never invent forecast values: reuse only actual successful past API data,
-        # with its original collection timestamp, for a STRICT maximum of 3 hours.
-        try:
-            old=json.loads(last_good.read_text(encoding="utf-8"))
-            age=(now-dt.datetime.fromisoformat(old["generated_at_kst"])).total_seconds()
-            if 0<=age<=3*3600 and old.get("cities_targeted")==expected_locations and any(
-                v.get("status")=="verified" and v.get("cities_succeeded",0)>0
-                for v in old.get("models",{}).values()):
-                old["fallback_recent_success"]=True
-                old["last_attempt_at_kst"]=now.isoformat()
-                old["failed_latest_attempt"]=True
-                for v in old["models"].values():
-                    if v.get("status")=="verified":
-                        v["status"]="verified_cached_recent"
-                result=old
-        except (ValueError,KeyError,TypeError,OSError):
-            pass
+    result=choose_recent_cache(now,result,last_good)
     ROOT.joinpath("data/ecmwf_regional.json").write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     ROOT.joinpath("data/source_status.md").write_text(status_md(result),encoding="utf-8")
     print("ECMWF verified models:",",".join(k for k,v in result["models"].items() if v["status"] in ("verified","verified_cached_recent")) or "none",
