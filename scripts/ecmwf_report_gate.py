@@ -90,7 +90,13 @@ def combined_model_rows(kma,model):
         precip=[d["precip_mm"] for d in series if numeric(d.get("precip_mm"))]
         snow=[d["snowfall_cm"] for d in row["series"].values()
               if d.get("snowfall_valid") and numeric(d.get("snowfall_cm"))]
-        return (row["date"],-max(precip,default=0),-max(snow,default=0),
-                row["region"])
+        snow_max=max(snow,default=0)
+        precip_max=max(precip,default=0)
+        # Snow-positive locations first regardless of precipitation.
+        # Among zero/missing-snow locations sort by the largest actual
+        # IFS/AIFS precipitation; missing values are never made into data.
+        return (row["date"],snow_max<=0,
+                -snow_max if snow_max>0 else 0,
+                -precip_max,row["region"])
     filtered.sort(key=key)
     return filtered,city_wet,district_wet

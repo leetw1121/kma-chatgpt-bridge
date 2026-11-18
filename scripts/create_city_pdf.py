@@ -86,7 +86,7 @@ def kma_unified_tables(data,st,records=None):
     for r in records:
         by_date[r["date"]].append(r)
     story=[P("기상청 시·구·군별 비·눈 통합",st["title"]),
-           P("기상청 공식 구·시·군 대표 격자. 날짜별 총강수량 상한 기준 내림차순, 신적설량은 동률 기준입니다.",st["small"])]
+           P("기상청 공식 구·시·군 대표 격자. 신적설량이 있는 곳은 적설량 많은 순, 적설 0 또는 미제공 지역은 강수량 많은 순입니다.",st["small"])]
     for date,day_rows in sorted(by_date.items()):
         story.append(P(date+" | 시·구·군 통합 비·눈 "+str(len(day_rows))+"건",st["sec"]))
         values=[]
@@ -117,7 +117,7 @@ def model_section(kma,model,st):
       P("대상: 기존 시·군 "+str(model.get("cities_targeted",0))+
         "개 + 구 "+str(model.get("districts_targeted",0))+
         "개 참고 지점. 실제 조회 성공한 모델값만 사용하며 구가 없는 곳과 구별 지점은 서로 다른 참고 좌표입니다.",st["small"]),
-      P("정렬: IFS/AIFS의 총강수량 중 큰 값을 기준으로 내림차순, 동률은 신적설량 기준. "
+      P("정렬: IFS/AIFS에서 적설량이 있는 지역을 우선해 많은 순, 적설 0 또는 미제공이면 총강수량 많은 순. "
         "모델 수치 합산·평균이 아니고 실제 많은 순위를 확정하는 비교도 아닙니다.",st["small"]),
       P("모델 수집: "+str(model.get("generated_at_kst","미확인"))+
         (" | 최근 3시간 이내 성공본 사용" if model.get("fallback_recent_success") else " | 신규 수집")+
@@ -174,7 +174,7 @@ def create(kma,model,filename):
            str(kma.get("unique_grids_succeeded","-"))+"개). 시·구·군은 날짜별 하나의 표에서 함께 표시합니다.",st["note"]),
         P("기상청 각 구·시·군의 공식 대표 격자 예보만 표시합니다. 같은 격자를 공유하는 지역은 같은 값을 가지며, "
           "시 전체의 평균·최대값이나 지역별 합산값이 아닙니다.",st["small"]),
-        P("총강수량(mm) 상한 큰 순, 신적설(cm) 상한은 동률 기준으로 정렬합니다. "
+        P("신적설(cm)이 0보다 큰 지역을 우선해 적설량 상한 큰 순으로 정렬합니다. 적설량이 0 또는 미제공이면 총강수량(mm) 상한 큰 순으로 정렬합니다. "
           "상한이 없는 '이상' 범위는 확인된 하한으로 정렬하며, 범위가 겹치면 우열은 확정되지 않습니다. "
           "총강수량은 눈을 포함하는 수분량으로 신적설(cm)과 단위가 다릅니다.",st["small"]),
         P("기상청 공식 단기 API에서 실제 제공하는 날짜만 수록합니다. 7일 전체의 시·구·군별 정량값을 "

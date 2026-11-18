@@ -63,16 +63,41 @@ class RainSnowOnlyTests(unittest.TestCase):
                 "unique_grids_succeeded":3,"unique_grids_checked":3}
         got=rows(sample)
         self.assertEqual([x["region"] for x in got],
-                         ["경기도 평택시","강원특별자치도 양양군",
+                         ["강원특별자치도 양양군","경기도 평택시",
                           "서울특별시 강남구"])
-        self.assertEqual(got[1]["precipitation"],"10mm")
-        self.assertEqual(got[1]["snow"],"2~7cm (범위)")
+        self.assertEqual(got[0]["precipitation"],"10mm")
+        self.assertEqual(got[0]["snow"],"2~7cm (범위)")
         self.assertEqual(got[2]["snow"],"해당 없음")
         content=render(sample)
         self.assertIn("시·구·군 통합 · 3곳",content)
         self.assertEqual(content.count("### "+date+" · 시·구·군 통합"),1)
         self.assertIn("| 총강수(mm) | 신적설(cm) |",content)
         self.assertEqual(len(as_csv(sample).splitlines()),4)
+
+    def test_snow_positive_first_then_zero_or_missing_snow_by_precip(self):
+        date="2026-11-19"
+        def place(name,level,precip,snow_upper=None,snow_missing=False):
+            obj=day(True,snow_upper is not None and snow_upper>0,precip)
+            if snow_missing:
+                obj["snow_cm"]={"comparable":False,"lower":None,"upper":None}
+            else:
+                obj["snow_cm"]={"comparable":True,"lower":0 if snow_upper is None else snow_upper,
+                                "upper":0 if snow_upper is None else snow_upper}
+            return {"name":name,"level":level,"nx":60+len(name),"ny":100+len(name),
+                    "days":{date:obj}}
+        sample={"locations":[
+            place("가-눈5", "gu",2,5),
+            place("나-눈2", "gun",1,2),
+            place("다-비99-눈없음", "city",99,snow_missing=True),
+            place("라-비30-눈0", "gu",30,0),
+            place("마-비10-눈없음", "gun",10,snow_missing=True),
+            place("바-눈2-비8", "city",8,2),
+        ]}
+        results=rows(sample)
+        self.assertEqual([x["region"] for x in results],
+            ["가-눈5","바-눈2-비8","나-눈2",
+             "다-비99-눈없음","라-비30-눈0","마-비10-눈없음"])
+        self.assertEqual(len(results),6)
 
     def test_unknown_amount_does_not_mean_snow_or_rain(self):
         blank={"precip_mm":{"comparable":False,"lower":None,"upper":None},

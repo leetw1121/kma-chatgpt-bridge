@@ -62,9 +62,9 @@ class UnifiedPDFLayoutTests(unittest.TestCase):
         headers,items,widths=log["tables"][0]
         self.assertEqual(headers,["지역","구분","형태","총강수 mm",
                                   "신적설 cm","최대 POP","예보시간"])
-        self.assertEqual([item[1] for item in items],["시","군","구"])
-        self.assertEqual([item[3] for item in items],["20mm","12mm","12mm"])
-        self.assertEqual([item[4] for item in items],["해당 없음","8cm","2cm"])
+        self.assertEqual([item[1] for item in items],["군","구","시"])
+        self.assertEqual([item[3] for item in items],["12mm","12mm","20mm"])
+        self.assertEqual([item[4] for item in items],["8cm","2cm","해당 없음"])
         self.assertEqual(sum(widths),174)
         self.assertIn("시·구·군 통합 비·눈 3건", " ".join(log["headings"]))
 
@@ -104,8 +104,8 @@ class UnifiedPDFLayoutTests(unittest.TestCase):
                                   "AIFS 강수 mm","AIFS 눈 cm"])
         self.assertEqual([x[1] for x in items],["구","시·군","시·군"])
         self.assertEqual([x[2:6] for x in items],
-                         [["11","4","10","2"],["8","0","5","0"],
-                          ["6","2","7","3"]])
+                         [["11","4","10","2"],["6","2","7","3"],
+                          ["8","0","5","0"]])
         self.assertEqual(sum(widths),174)
 
 if __name__=="__main__":
