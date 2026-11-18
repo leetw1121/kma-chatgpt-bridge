@@ -63,10 +63,10 @@ class RainSnowOnlyTests(unittest.TestCase):
                 "unique_grids_succeeded":3,"unique_grids_checked":3}
         got=rows(sample)
         self.assertEqual([x["region"] for x in got],
-                         ["경기도 평택시","강원특별자치도 양양군",
+                         ["강원특별자치도 양양군","경기도 평택시",
                           "서울특별시 강남구"])
-        self.assertEqual(got[1]["precipitation"],"10mm")
-        self.assertEqual(got[1]["snow"],"2~7cm (범위)")
+        self.assertEqual(got[0]["precipitation"],"10mm")
+        self.assertEqual(got[0]["snow"],"2~7cm (범위)")
         self.assertEqual(got[2]["snow"],"해당 없음")
         content=render(sample)
         self.assertIn("시·구·군 통합 · 3곳",content)
