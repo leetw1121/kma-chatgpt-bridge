@@ -74,9 +74,10 @@ def rows(data):
                 "sort_snow":(day.get("snow_cm",{}) or {}).get("lower"),
                 "sort_snow_upper":(day.get("snow_cm",{}) or {}).get("upper"),
             })
-    # ONE table per date, combining gu/city/gun. Descending PCP upper-bound
-    # reference (fallback: lower when unbounded), then snow upper-bound.
-    # Overlapping intervals are NOT a mathematically definitive ranking.
+    # ONE table per date, combining gu/city/gun. Positive snowfall first
+    # descending; no/zero snowfall rows follow by precipitation descending.
+    # Within equal snowfall, precipitation is the tiebreaker. This is
+    # indicative only; intervals can overlap or cover partial days.
     result.sort(key=unified_kma_sort_key)
     return result
 
@@ -87,9 +88,10 @@ def unified_kma_sort_key(r):
         return number if isinstance(number,(float,int)) else None
     rain=value(r.get("sort_upper"),r.get("sort_lower"))
     snow=value(r.get("sort_snow_upper"),r.get("sort_snow"))
-    return (r["date"],
+    has_snow=snow is not None and snow>0
+    return (r["date"], not has_snow,
+            -snow if has_snow else 0,
             rain is None,-rain if rain is not None else 0,
-            snow is None,-snow if snow is not None else 0,
             r["region"])
 
 
@@ -105,7 +107,7 @@ def render(data):
         "- 비·눈 예상 지역/날짜 행: **"+str(len(events))+"건** (서로 다른 날짜의 같은 지역은 중복하여 나타납니다)",
         "- 구·시·군의 **대표 격자** 예보입니다. 같은 격자 공유 지역은 동일한 수치이고, 구 전체 평균·최대값을 뜻하지 않습니다.",
         "- 기상청 PCP는 비·눈의 총강수량(mm), SNO는 신적설(cm)입니다. POP는 해당 기간 중 시각별 최대 확률로서 하루 전체 확률이 아닙니다.",
-        "- 표는 날짜별 **시·구·군 통합**, 총강수량 상한 큰 순 → 신적설 상한 큰 순의 **참고 정렬**입니다. 상한이 없는 '이상' 범위는 확인된 하한으로 정렬합니다.",
+        "- 표는 날짜별 **시·구·군 통합**으로 **신적설량이 0cm보다 큰 지역을 우선해 적설량 많은 순**으로 표시하고, 적설량이 0cm 또는 미제공인 지역은 **총강수량 많은 순**으로 뒤에 표시합니다. 적설량이 같으면 강수량으로 정렬합니다. 상한이 없는 '이상' 범위는 확인된 하한을 기준으로 정렬합니다.",
         "- 강수량의 숫자 범위가 겹치면 정확한 순위를 확정할 수 없습니다. 일부 시간대는 하루 24시간 강수량과 비교할 수 없습니다.",
         "- 공식 단기예보가 제공하지 않는 날짜의 지역별 정량값은 지어내지 않으며, 7일 중기 전망은 별도의 기상청 중기예보를 확인해야 합니다.",
         "",
