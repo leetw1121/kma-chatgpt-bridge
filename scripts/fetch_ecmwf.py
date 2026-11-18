@@ -6,6 +6,7 @@ KMA district-grid forecast. Failure must not block official KMA PDF updates.
 """
 import concurrent.futures
 import csv
+import copy
 import datetime as dt
 import json
 import socket
@@ -486,8 +487,10 @@ def status_md(result):
             attempted=item.get("cities_attempted",0)
             status=item.get("status","unavailable")
             valid=status in ("verified","verified_cached_recent") and count>0
-            label=("최근 성공자료 재사용" if status=="verified_cached_recent"
-                   else "신규 수집 성공" if valid else "수치 미확보")
+            fresh=item.get("fresh_succeeded",count if status=="verified" else 0)
+            cached=item.get("cached_succeeded",count if status=="verified_cached_recent" else 0)
+            label=(f"신규 {fresh} · 최근 성공본 {cached}" if valid
+                   else "수치 미확보")
             lines.append(f"| {scope} | {name} | {count}/{requested} | "
                          f"{attempted}/{requested} | {label} |")
             counts={}
@@ -503,6 +506,11 @@ def status_md(result):
             if item.get("circuit_open"):
                 lines.append(f"- {scope} {name}: 연속 네트워크 실패로 회로 차단 "
                              "(추가 지역 요청 생략, 기상청 PDF 계속 생성)")
+    if result.get("partial_recent_reuse"):
+        lines.append("- **수집 일부 실패:** 지역별 3시간 이내 성공본을 원래 수집시각과 함께 유지합니다. 0mm나 신규 수집 성공으로 표시하지 않습니다.")
+    if result.get("rate_limited"):
+        lines.append("- **HTTP 429 요청 제한:** 다른 모델과 구에도 연속 재요청하지 않고, 향후 실행에서 남은 지역을 재시도합니다.")
+    lines.append(f"- KMA 비·눈 예상 지역 우선 조회 대상으로 시·군 {result.get('kma_wet_priority_city_count',0)}, 구 {result.get('kma_wet_priority_gu_count',0)}곳 선별")
     if result.get("fallback_recent_success"):
         lines += ["", "- 최신 ECMWF 수집이 모두 실패하여 최근 3시간 이내 확인된 성공본만 재사용했습니다.",
                   "- 최근 성공자료 수집: "+result["generated_at_kst"],
@@ -514,57 +522,135 @@ def status_md(result):
     return "\n".join(lines)
 
 def has_verified_records(result):
-    """One valid original-scope OR district model is enough to save a cache."""
-    return any(item.get("status")=="verified" and
-               item.get("cities_succeeded",0)>0 and item.get("records")
+    """Actual model records, not a fabricated coverage count."""
+    return any(item.get("status") in ("verified","verified_cached_recent") and
+               item.get("records")
                for key in ("models","district_models")
                for item in (result.get(key) or {}).values())
 
+
 def choose_recent_cache(now,result,last_good):
-    """Use only matching 167+109 scopes and original timestamps, never old 167-only data."""
-    if has_verified_records(result):
-        last_good.write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n",
-                             encoding="utf-8")
-        return result
-    if not last_good.is_file():
-        return result
+    """Merge valid per-location successes; never overwrite full cache with
+    a small partial run. Every retained location keeps its ORIGINAL fetch
+    timestamp, so an outage cannot extend freshness forever.
+
+    Cached entries and real new entries stay distinguishable in the JSON/PDF.
+    The old 167-only cache remains forbidden for the 167+109 scope.
+    """
+    old=None
     try:
-        old=json.loads(last_good.read_text(encoding="utf-8"))
-        old_time=dt.datetime.fromisoformat(old["generated_at_kst"])
-        if old_time.tzinfo is None or now.tzinfo is None:
+        if last_good.is_file():
+            candidate=json.loads(last_good.read_text(encoding="utf-8"))
+            if (candidate.get("cities_targeted")==result.get("cities_targeted")
+                and candidate.get("districts_targeted")==result.get("districts_targeted")):
+                old=candidate
+    except (OSError,ValueError,KeyError,TypeError):
+        old=None
+
+    def age_valid(timestamp):
+        try:
+            moment=dt.datetime.fromisoformat(timestamp)
+            if moment.tzinfo is None or now.tzinfo is None:
+                return False
+            return 0<=(now-moment).total_seconds()<=3*3600
+        except (ValueError,TypeError,AttributeError):
+            return False
+
+    def valid_old_records(key,name):
+        if not old:
+            return []
+        model=(old.get(key) or {}).get(name) or {}
+        if model.get("status") not in ("verified","verified_cached_recent"):
+            return []
+        fallback_stamp=old.get("generated_at_kst")
+        candidates=[]
+        seen=set()
+        for record in model.get("records") or []:
+            if not isinstance(record,dict) or not record.get("city"):
+                continue
+            stamp=record.get("collected_at_kst",fallback_stamp)
+            if not age_valid(stamp) or record["city"] in seen:
+                continue
+            copy_record=copy.deepcopy(record)
+            copy_record["collected_at_kst"]=stamp
+            copy_record["cached_from_previous_run"]=True
+            candidates.append(copy_record)
+            seen.add(record["city"])
+        return candidates
+
+    fresh_count=sum(len(v.get("records") or [])
+                    for key in ("models","district_models")
+                    for v in (result.get(key) or {}).values()
+                    if v.get("status")=="verified")
+    if fresh_count==0:
+        if not old or not has_verified_records(old):
             return result
-        age=(now-old_time).total_seconds()
-        if not 0<=age<=3*3600:
+        preserved=copy.deepcopy(old)
+        preserved_count=0
+        for key in ("models","district_models"):
+            for name,item in (preserved.get(key) or {}).items():
+                records=valid_old_records(key,name)
+                item["records"]=records
+                item["cities_succeeded"]=len(records)
+                item["fresh_succeeded"]=0
+                item["cached_succeeded"]=len(records)
+                item["status"]="verified_cached_recent" if records else "unavailable"
+                preserved_count+=len(records)
+        if not preserved_count:
             return result
-        if (old.get("cities_targeted")!=result["cities_targeted"] or
-            old.get("districts_targeted")!=result["districts_targeted"] or
-            not has_verified_records(old)):
-            return result
-        old["fallback_recent_success"]=True
-        old["last_attempt_at_kst"]=now.isoformat()
-        old["failed_latest_attempt"]=True
-        # Expose failed *new* attempt for diagnostics; retain old results
-        # and their original collection timestamp for report freshness checks.
-        old["latest_attempt_failures"]={
-            scope:{name:{"attempted":v.get("cities_attempted",0),
-                         "error_counts":{
-                             reason:sum(e.get("reason")==reason for e in v.get("errors",[]))
-                             for reason in sorted({e.get("reason","UNKNOWN")
-                                                   for e in v.get("errors",[])})}}
-                   for name,v in (result.get(scope) or {}).items()}
-            for scope in ("models","district_models")}
-        for scope in ("models","district_models"):
-            for v in old.get(scope,{}).values():
-                if v.get("status")=="verified":
-                    v["status"]="verified_cached_recent"
-        return old
-    except (ValueError,KeyError,TypeError,OSError):
-        return result
+        preserved["fallback_recent_success"]=True
+        preserved["partial_recent_reuse"]=False
+        preserved["last_attempt_at_kst"]=now.isoformat()
+        preserved["failed_latest_attempt"]=True
+        preserved["rate_limited"]=result.get("rate_limited",False)
+        if "retry_after_seconds" in result:
+            preserved["retry_after_seconds"]=result["retry_after_seconds"]
+        preserved["latest_attempt_failures"]={
+            key:{name:{"attempted":v.get("cities_attempted",0),
+                       "error_counts":{
+                           reason:sum(e.get("reason")==reason for e in v.get("errors",[]))
+                           for reason in sorted({e.get("reason","UNKNOWN")
+                                                 for e in v.get("errors",[])})}}
+                 for name,v in (result.get(key) or {}).items()}
+            for key in ("models","district_models")}
+        return preserved
+
+    merged=copy.deepcopy(result)
+    cached_total=0
+    for key in ("models","district_models"):
+        for name,item in (merged.get(key) or {}).items():
+            fresh={}
+            for record in item.get("records") or []:
+                if not isinstance(record,dict) or not record.get("city"):
+                    continue
+                record["collected_at_kst"]=now.isoformat()
+                record["cached_from_previous_run"]=False
+                fresh[record["city"]]=record
+            fresh_count_scope=len(fresh)
+            for previous in valid_old_records(key,name):
+                fresh.setdefault(previous["city"],previous)
+            entries=[fresh[k] for k in sorted(fresh)]
+            cached=sum(bool(x.get("cached_from_previous_run")) for x in entries)
+            cached_total+=cached
+            item["records"]=entries
+            item["fresh_succeeded"]=fresh_count_scope
+            item["cached_succeeded"]=cached
+            item["cities_succeeded"]=len(entries)
+            item["status"]=("verified" if fresh_count_scope
+                            else "verified_cached_recent" if entries
+                            else "unavailable")
+    merged["partial_recent_reuse"]=cached_total>0
+    merged["cached_recent_succeeded"]=cached_total
+    merged["last_attempt_at_kst"]=now.isoformat()
+    last_good.parent.mkdir(parents=True,exist_ok=True)
+    last_good.write_text(json.dumps(merged,ensure_ascii=False,indent=2)+"\n",
+                         encoding="utf-8")
+    return merged
 
 def main():
     ROOT.joinpath("data").mkdir(exist_ok=True)
     now=dt.datetime.now(KST)
-    result=collect(now)
+    result=collect(now,priorities=priority_from_kma(now))
     last_good=ROOT/"data/ecmwf_last_verified.json"
     result=choose_recent_cache(now,result,last_good)
     ROOT.joinpath("data/ecmwf_regional.json").write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
