@@ -36,6 +36,17 @@ def usable_model_rows(kma, model, scope="city", include_dry=False):
         for item in record.get("records",[]):
             if not isinstance(item,dict) or not item.get("city"):
                 continue
+            # A merged model snapshot can contain 20-minute-old regions and
+            # 3-hour-old regions together. Gate each record by its original
+            # collection time, not the newer snapshot timestamp.
+            stamp=item.get("collected_at_kst",model["generated_at_kst"])
+            try:
+                observed=dt.datetime.fromisoformat(stamp)
+                if (observed.tzinfo is None or
+                    abs((source_time-observed).total_seconds())>3*3600):
+                    continue
+            except (TypeError,ValueError,AttributeError):
+                continue
             for date,day in (item.get("days") or {}).items():
                 if not isinstance(day,dict) or (day.get("forecast_hours") or 0)<=0:
                     continue

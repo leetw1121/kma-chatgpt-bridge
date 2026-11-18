@@ -18,6 +18,7 @@ from reportlab.platypus import (BaseDocTemplate, Frame, PageTemplate, Paragraph,
 from city_forecast import group_rows, ROOT
 from create_precip_report import rows as precipitation_rows
 from ecmwf_report_gate import combined_model_rows
+from ecmwf_coverage_audit import coverage_rows, daily_counts
 
 OUTPUT=ROOT/"data/rain_snow_latest.pdf"
 INK=colors.HexColor("#143147")
@@ -120,7 +121,8 @@ def model_section(kma,model,st):
       P("정렬: IFS/AIFS에서 적설량이 있는 지역을 우선해 많은 순, 적설 0 또는 미제공이면 총강수량 많은 순. "
         "모델 수치 합산·평균이 아니고 실제 많은 순위를 확정하는 비교도 아닙니다.",st["small"]),
       P("모델 수집: "+str(model.get("generated_at_kst","미확인"))+
-        (" | 최근 3시간 이내 성공본 사용" if model.get("fallback_recent_success") else " | 신규 수집")+
+        (" | 최근 성공본 일부 또는 전체 재사용" if (model.get("fallback_recent_success") or
+          model.get("partial_recent_reuse")) else " | 신규 수집")+
         " | 24시간보다 짧은 기간은 '일부' 표시",st["small"])]
     by_date=defaultdict(list)
     for row in rows:
@@ -156,6 +158,32 @@ def model_section(kma,model,st):
         "실제 제공되지 않은 수치는 0이 아닌 '미제공'으로 표시합니다.",st["small"]))
     return story,stats
 
+def kma_model_coverage_tables(kma,model,st,events):
+    """Keep EVERY KMA wet/snow region visible, with actual model availability."""
+    records=coverage_rows(kma,model,events)
+    if not records:
+        return [],{},0
+    summary=daily_counts(records)
+    story=[PageBreak(),P("기상청 비·눈 지역의 ECMWF 수집·예보 확인",st["title"]),
+           P("기상청에서 비·눈을 예보한 모든 시·구·군을 기준으로 IFS와 AIFS를 확인합니다. "
+             "ECMWF 비·눈 지역 수와 같다는 뜻이 아닙니다.",st["small"]),
+           P("무강수=실제 모델값 확인 후 0으로 예보 · 미조회/수집 제한=모델자료 없음 · "
+             "최근 성공본=원래 수집시각 3시간 이내 자료. 기상청 수치를 모델값으로 복사하지 않습니다.",st["small"])]
+    grouped=defaultdict(list)
+    for r in records:
+        grouped[r["date"]].append(r)
+    for date,values in sorted(grouped.items()):
+        c=summary[date]
+        story.append(P(
+            f"{date} | 기상청 예상 {c['kma_wet']}개 · IFS 확인 {c['IFS_checked']}/{c['kma_wet']} · "
+            f"AIFS 확인 {c['AIFS_checked']}/{c['kma_wet']}",st["sec"]))
+        items=[[x["region"],x["kma_precipitation"],x["kma_snow"],
+                x["IFS_status"],x["AIFS_status"]] for x in values]
+        story.append(table(["기상청 비·눈 지역","KMA 강수","KMA 적설",
+                            "IFS 상태","AIFS 상태"],items,[54,30,26,32,32],st))
+        story.append(Spacer(1,5))
+    return story,summary,len(records)
+
 def create(kma,model,filename):
     fonts()
     st=styles()
@@ -188,6 +216,9 @@ def create(kma,model,filename):
         appendix,model_stats=model_section(kma,model,st)
         story.extend(appendix)
     verified=model_stats["city"] or model_stats["district"]
+    audit_story,model_coverage,model_coverage_count=kma_model_coverage_tables(
+        kma,model,st,kma_records)
+    story.extend(audit_story)
     doc.has_ecmwf_appendix=verified
     doc.build(story)
     if filename.stat().st_size<1000 or filename.read_bytes()[:5]!=b"%PDF-":
@@ -197,7 +228,9 @@ def create(kma,model,filename):
             "kma_gu_date_rows":sum(r["level"]=="gu" for r in kma_records),
             "kma_unified_date_rows":len(kma_records),
             "ecmwf_unified_date_rows":model_stats["rows"],
-            "pdf_layout_version":"unified_kma_ecmwf_v1",
+            "ecmwf_kma_coverage_rows":model_coverage_count,
+            "ecmwf_kma_coverage_by_date":model_coverage,
+            "pdf_layout_version":"unified_kma_ecmwf_v1_coverage_audit",
             "ecmwf_gu_models_included":model_stats["district"],
             "ecmwf_models_included":bool(verified),
             "pdf_size_bytes":filename.stat().st_size}
