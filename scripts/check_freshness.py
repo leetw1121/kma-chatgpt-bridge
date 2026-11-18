@@ -52,14 +52,53 @@ def needs_refresh(now, root=ROOT):
     except (ValueError,KeyError,TypeError,OSError,IndexError):
         return True,"invalid_data"
 
+def needs_ecmwf_retry(now,root=ROOT):
+    """Retry external models when KMA PDF is current but ECMWF is incomplete.
+
+    Never re-fetch KMA or accept stale KMA source solely for a model retry.
+    Calls are rate-limited by the last model collection attempt (>=7 min).
+    """
+    path=root/"data/ecmwf_regional.json"
+    if not path.is_file():
+        return True,"missing_model_output"
+    try:
+        result=json.loads(path.read_text(encoding="utf-8"))
+        last_attempt=result.get("last_attempt_at_kst",result["generated_at_kst"])
+        attempted=dt.datetime.fromisoformat(last_attempt).astimezone(KST)
+        elapsed=(now-attempted).total_seconds()
+        if elapsed<0:
+            return False,"invalid_future_model_timestamp"
+        if elapsed<7*60:
+            return False,"recent_model_attempt"
+        if (result.get("cities_targeted")!=167 or
+            result.get("districts_targeted")!=109):
+            return True,"model_region_scope_changed"
+        for collection,target in (("models",167),("district_models",109)):
+            for model in ("IFS","AIFS Single"):
+                entry=(result.get(collection) or {}).get(model) or {}
+                if (entry.get("cities_requested")!=target or
+                    entry.get("cities_succeeded",0)<target):
+                    return True,"partial_ecmwf_coverage"
+        return False,"all_models_complete"
+    except (ValueError,KeyError,TypeError,OSError):
+        return True,"invalid_model_status"
+
 def main():
     if os.getenv("GITHUB_EVENT_NAME")!="schedule":
         print("needed=true")
         print("reason=manual_or_code_change")
+        print("ecmwf_retry=false")
         return
-    needed,reason=needs_refresh(dt.datetime.now(KST))
+    now=dt.datetime.now(KST)
+    needed,reason=needs_refresh(now)
+    ecmwf_retry=False
+    model_reason="full_kma_refresh_required"
+    if not needed:
+        ecmwf_retry,model_reason=needs_ecmwf_retry(now)
     print("needed="+str(needed).lower())
     print("reason="+reason)
+    print("ecmwf_retry="+str(ecmwf_retry).lower())
+    print("ecmwf_reason="+model_reason)
 
 if __name__=="__main__":
     main()

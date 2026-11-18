@@ -7,7 +7,7 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/"scripts"))
-from check_freshness import needs_refresh
+from check_freshness import needs_refresh, needs_ecmwf_retry
 from fetch_kma import KST
 
 class FreshnessTests(unittest.TestCase):
@@ -31,6 +31,39 @@ class FreshnessTests(unittest.TestCase):
 
     def test_skip_exact_current_forecast_and_pdf(self):
         self.assertEqual(needs_refresh(self.now,self.root),(False,"already_current"))
+
+    def test_ecmwf_only_recovery_when_kma_pdf_is_fresh(self):
+        self.assertFalse(needs_refresh(self.now,self.root)[0])
+        self.assertEqual(needs_ecmwf_retry(self.now,self.root),
+                         (True,"missing_model_output"))
+        incomplete={
+            "generated_at_kst":"2026-11-14T12:10:00+09:00",
+            "cities_targeted":167,"districts_targeted":109,
+            "models":{"IFS":{"cities_requested":167,"cities_succeeded":0}},
+            "district_models":{"IFS":{"cities_requested":109,"cities_succeeded":0}}}
+        path=self.directory/"ecmwf_regional.json"
+        path.write_text(json.dumps(incomplete),encoding="utf8")
+        self.assertEqual(needs_ecmwf_retry(self.now,self.root),
+                         (True,"partial_ecmwf_coverage"))
+        incomplete["last_attempt_at_kst"]="2026-11-14T12:18:00+09:00"
+        path.write_text(json.dumps(incomplete),encoding="utf8")
+        self.assertEqual(needs_ecmwf_retry(self.now,self.root),
+                         (False,"recent_model_attempt"))
+        self.assertEqual(needs_refresh(self.now,self.root),(False,"already_current"))
+
+    def test_completed_model_targets_do_not_trigger_repeat(self):
+        ready={"generated_at_kst":"2026-11-14T12:00:00+09:00",
+               "cities_targeted":167,"districts_targeted":109}
+        ready["models"]={name:{"status":"verified","cities_requested":167,
+                               "cities_succeeded":167}
+                         for name in ("IFS","AIFS Single")}
+        ready["district_models"]={name:{"status":"verified",
+                                        "cities_requested":109,"cities_succeeded":109}
+                                  for name in ("IFS","AIFS Single")}
+        (self.directory/"ecmwf_regional.json").write_text(
+            json.dumps(ready),encoding="utf8")
+        self.assertEqual(needs_ecmwf_retry(self.now,self.root),
+                         (False,"all_models_complete"))
 
     def test_older_issue_must_refresh(self):
         self.forecast["issue_at_kst"]="2026-11-14T05:00:00+09:00"
