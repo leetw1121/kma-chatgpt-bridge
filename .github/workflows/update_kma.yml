@@ -29,13 +29,15 @@ permissions:
   contents: write
 
 concurrency:
-  group: kma-forecast-feed
-  cancel-in-progress: false
+  # PR validation must never queue or cancel time-critical forecast collection.
+  group: ${{ github.event_name == 'pull_request' && format('kma-pr-{0}', github.event.pull_request.number) || 'kma-forecast-feed' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   validate_pr:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-24.04
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
