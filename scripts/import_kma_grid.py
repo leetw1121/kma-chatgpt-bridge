@@ -64,7 +64,8 @@ def region_name(province,district):
     if not province or province=="이어도": return None
     if province=="세종특별자치시" and (not district or district==province):
         return province,"city"
-    if not district or district.endswith("군"): return None
+    if not district: return None
+    if district.endswith("군"): return province+" "+district,"gun"
     if district.endswith("구"):
         match=re.match(r"^(.*?시)\s*(.+구)$",district)
         if match: return province+" "+match[1]+" "+match[2],"gu"

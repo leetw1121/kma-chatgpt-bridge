@@ -53,6 +53,20 @@ jobs:
           else
             echo "No official grid file uploaded; keeping verified representative sample."
           fi
+      - name: Validate official city and county scope
+        if: steps.freshness.outputs.needed == 'true'
+        run: |
+          python - <<'PY'
+          import sys
+          sys.path.insert(0,"scripts")
+          from fetch_kma import load_locations
+          from ecmwf_city_locations import build_city_locations
+          a=load_locations()
+          lev={k:sum(x["level"]==k for x in a) for k in ("gu","city","gun")}
+          n=len(build_city_locations())
+          print("KMA official gu/city/gun:",lev,"ECMWF city/county:",n)
+          assert len(a)==256 and lev=={"gu":109,"city":65,"gun":82} and n==167
+          PY
       - name: Fetch official KMA forecasts
         if: steps.freshness.outputs.needed == 'true'
         env:
@@ -64,13 +78,13 @@ jobs:
       - name: Check independent ECMWF IFS / AIFS model availability
         if: steps.freshness.outputs.needed == 'true'
         run: python scripts/fetch_ecmwf.py
-      - name: Generate date-sorted city-level rain/snow summary
+      - name: Generate date-sorted city/county rain/snow summary
         if: steps.freshness.outputs.needed == 'true'
         run: |
           python scripts/city_forecast.py
           test -s data/city_precipitation.md
           test -s data/city_precipitation.csv
-      - name: Generate city-only PDF with verified seven-day ECMWF appendix
+      - name: Generate city/county PDF with verified ECMWF appendix
         if: steps.freshness.outputs.needed == 'true'
         run: |
           python -m pip install --quiet "reportlab>=4.0,<5"
@@ -95,6 +109,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           DATA_FILES=(
+            locations.csv
             data/latest.json data/summary.md data/all_regions.md data/all_regions.csv
             data/precipitation_only.md data/precipitation_only.csv
             data/city_precipitation.md data/city_precipitation.csv

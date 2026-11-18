@@ -38,7 +38,7 @@ def build_city_locations(source=ROOT/"locations.csv"):
     grouped=defaultdict(set)
     with Path(source).open(encoding="utf-8-sig",newline="") as f:
         for row in csv.DictReader(f):
-            if row["level"] not in ("gu","city"):
+            if row["level"] not in ("gu","city","gun"):
                 raise ValueError("UNKNOWN_REGION_LEVEL")
             city=row["name"].rsplit(" ",1)[0] if row["level"]=="gu" else row["name"]
             grouped[city].add((int(row["nx"]),int(row["ny"])))

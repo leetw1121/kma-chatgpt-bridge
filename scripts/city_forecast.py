@@ -61,7 +61,10 @@ def group_rows(data):
         starts=[d["from_kst"] for d in days]
         ends=[d["to_kst"] for d in days]
         full=all(d.get("full_day") for d in days) and len(set(starts))==1 and len(set(ends))==1
-        label="시 대표격자" if len(records)==1 and records[0]["place"]["level"]=="city" else "시내 구 대표격자 중 최대치"
+        level=records[0]["place"]["level"]
+        label=("군 대표격자" if level=="gun" else
+               "시 대표격자" if len(records)==1 and level=="city" else
+               "시내 구 대표격자 중 최대치")
         rows.append({
             "date":date,"city":name,"rain":rain,"snow":snow,"mixed":mixed,
             "precip":total,"rain_mm":rainfall,"snow_cm":snowfall,
@@ -99,21 +102,21 @@ def fmt(v,unit):
 def city_markdown(data):
     events=group_rows(data)
     days=sorted({r["date"] for r in events})
-    lines=["# 전국 시 단위 비·눈 예보 — 강수·신적설량 내림차순","",
+    lines=["# 전국 시·군 단위 비·눈 예보 — 강수·신적설량 내림차순","",
         "- 기상청 발표: "+data["issue_at_kst"],
         "- 자동 수집: "+data["generated_at_kst"],
-        "- 원본 조회 성공: "+str(data["locations_succeeded"])+"/"+str(data["locations_checked"])+" 구·시",
+        "- 원본 조회 성공: "+str(data["locations_succeeded"])+"/"+str(data["locations_checked"])+" 구·시·군",
         "- 구는 시 단위로 합쳤습니다. 구가 있는 시는 **구별 대표 격자 중 가장 큰 정량 예보 범위**로 비교하며 시 전체 평균·합계가 아닙니다.",
         "- **참고 정렬**: 상한 기준 큰 순. 범위가 겹치면 실제 순위는 확정할 수 없습니다.",
-        "- 비·눈 예상이 없는 시는 제외하며, 기상청 단기 API가 제공하지 않는 7일 구별 정량값은 생성하지 않습니다.",""]
+        "- 비·눈 예상이 없는 시·군은 제외하며, 기상청 단기 API가 제공하지 않는 7일 구별 정량값은 생성하지 않습니다.",""]
     for day in days:
         lines+=["## "+day,""]
         for weather,label,field,unit in (("rain","비·총강수량","precip","mm"),
                                           ("snow","눈·신적설","snow_cm","cm")):
             subset=rank([r for r in events if r["date"]==day],weather)
             if not subset:continue
-            lines+=["### "+label+" · "+str(len(subset))+"개 시","",
-              "| 참고순서 | 시 | 예보량 | 최고 시각별 POP | 범위/좌표 근거 |",
+            lines+=["### "+label+" · "+str(len(subset))+"개 시·군","",
+              "| 참고순서 | 시·군 | 예보량 | 최고 시각별 POP | 범위/좌표 근거 |",
               "|---:|---|---:|---:|---|"]
             for i,row in enumerate(subset,1):
                 note=row["method"]+(" · 일부 시각" if not row["full_day"] else "")

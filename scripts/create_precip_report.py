@@ -79,7 +79,7 @@ def rows(data):
 
 def render(data):
     events=rows(data)
-    counts=defaultdict(lambda:{"gu":0,"city":0})
+    counts=defaultdict(lambda:{"gu":0,"city":0,"gun":0})
     for x in events:counts[x["date"]][x["level"]]+=1
     lines=[
         "# 🌧️❄️ 전국 비·눈 예상지역 전체 목록",
@@ -89,7 +89,7 @@ def render(data):
         "- GitHub 자동 수집 완료(KST): **"+data["generated_at_kst"]+"**",
         "- 조회 성공: **"+str(data["locations_succeeded"])+"/"+str(data["locations_checked"])+"개 지역**, 고유 격자 **"+str(data.get("unique_grids_succeeded","?"))+"/"+str(data.get("unique_grids_checked","?"))+"개**",
         "- 비·눈 예상 지역/날짜 행: **"+str(len(events))+"건** (서로 다른 날짜의 같은 지역은 중복하여 나타납니다)",
-        "- 구·시의 **대표 격자** 예보입니다. 같은 격자 공유 지역은 동일한 수치이고, 구 전체 평균·최대값을 뜻하지 않습니다.",
+        "- 구·시·군의 **대표 격자** 예보입니다. 같은 격자 공유 지역은 동일한 수치이고, 구 전체 평균·최대값을 뜻하지 않습니다.",
         "- 기상청 PCP는 비·눈의 총강수량(mm), SNO는 신적설(cm)입니다. POP는 해당 기간 중 시각별 최대 확률로서 하루 전체 확률이 아닙니다.",
         "- 강수량의 숫자 범위가 겹치면 정확한 순위를 확정할 수 없습니다. 일부 시간대는 하루 24시간 강수량과 비교할 수 없습니다.",
         "- 공식 단기예보가 제공하지 않는 날짜의 지역별 정량값은 지어내지 않으며, 7일 중기 전망은 별도의 기상청 중기예보를 확인해야 합니다.",
@@ -100,7 +100,7 @@ def render(data):
     groups=defaultdict(list)
     for x in events:groups[(x["date"],x["level"])].append(x)
     for (date,level),values in sorted(groups.items()):
-        head="구(區)" if level=="gu" else "구가 없는 시(市)"
+        head={"gu":"구(區)","city":"시(市)","gun":"군(郡)"}.get(level,"기타")
         lines += ["### "+date+" · "+head+" · "+str(len(values))+"곳","",
             "| 지역 | 비·눈 형태 | 총강수(mm) | 비 강수(mm) | 신적설(cm) | 최고 시각별 POP | 예보 시간 |",
             "|---|---|---:|---:|---:|---:|---|"]
@@ -112,8 +112,8 @@ def render(data):
     if not events:
         lines += ["현재 최신 KMA 단기 API에 **실제 강수나 눈 예보가 확인된 지역이 없습니다.** 중기/특보는 별도 확인이 필요합니다.",""]
     lines += ["## 실제 수집 성공한 예보 출처","",
-        "- **기상청 KMA 단기예보 API**: 전국 구·시 대표 격자 최신 자료",
-        "- **ECMWF IFS·AIFS**: 실제 한국 도시 데이터 조회에 성공한 모델에 한하여 [교차검증 상태](source_status.md) 확인",
+        "- **기상청 KMA 단기예보 API**: 전국 구·시·군 대표 격자 최신 자료",
+        "- **ECMWF IFS·AIFS**: 실제 한국 시·군 데이터 조회에 성공한 모델에 한하여 [교차검증 상태](source_status.md) 확인",
         "",
         "[비·눈 예상지역 CSV 전체 보기](precipitation_only.csv)",
         "",

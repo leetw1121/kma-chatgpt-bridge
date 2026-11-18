@@ -155,7 +155,7 @@ def load_locations():
     locations=[]
     for row in lines:
         nx,ny=int(row["nx"]),int(row["ny"])
-        if row["level"] not in ("gu","city") or not (1<=nx<=149 and 1<=ny<=253):
+        if row["level"] not in ("gu","city","gun") or not (1<=nx<=149 and 1<=ny<=253):
             raise ValueError("INVALID_LOCATION")
         locations.append({"name":row["name"],"level":row["level"],"nx":nx,"ny":ny})
     return locations
