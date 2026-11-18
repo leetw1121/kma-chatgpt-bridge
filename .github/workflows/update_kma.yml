@@ -116,7 +116,7 @@ jobs:
           GITHUB_EVENT_NAME: ${{ github.event_name }}
         run: python scripts/check_freshness.py >> "$GITHUB_OUTPUT"
       - name: Validate collector
-        if: steps.freshness.outputs.needed == 'true'
+        if: steps.freshness.outputs.needed == 'true' || steps.freshness.outputs.ecmwf_retry == 'true'
         run: python -m unittest discover -s tests -v
       - name: Import official nationwide KMA grid mapping (if uploaded)
         if: steps.freshness.outputs.needed == 'true'
@@ -153,16 +153,16 @@ jobs:
         if: steps.freshness.outputs.needed == 'true'
         run: python scripts/create_precip_report.py
       - name: Check independent ECMWF IFS / AIFS model availability
-        if: steps.freshness.outputs.needed == 'true'
+        if: steps.freshness.outputs.needed == 'true' || steps.freshness.outputs.ecmwf_retry == 'true'
         run: python scripts/fetch_ecmwf.py
       - name: Generate date-sorted city/county rain/snow summary
-        if: steps.freshness.outputs.needed == 'true'
+        if: steps.freshness.outputs.needed == 'true' || steps.freshness.outputs.ecmwf_retry == 'true'
         run: |
           python scripts/city_forecast.py
           test -s data/city_precipitation.md
           test -s data/city_precipitation.csv
       - name: Generate city/county PDF with verified ECMWF appendix
-        if: steps.freshness.outputs.needed == 'true'
+        if: steps.freshness.outputs.needed == 'true' || steps.freshness.outputs.ecmwf_retry == 'true'
         run: |
           python -m pip install --quiet "reportlab>=4.0,<5"
           if [ ! -f /usr/share/fonts/truetype/nanum/NanumGothic.ttf ]; then
@@ -174,12 +174,12 @@ jobs:
           test -s data/rain_snow_latest.pdf
           test "$(head -c 5 data/rain_snow_latest.pdf)" = "%PDF-"
       - name: Verify PDF and publish deterministic reminder readiness
-        if: steps.freshness.outputs.needed == 'true'
+        if: steps.freshness.outputs.needed == 'true' || steps.freshness.outputs.ecmwf_retry == 'true'
         run: |
           python scripts/create_alert_status.py
           test -s data/alert_status.json
       - name: Safely publish PDF and forecast data even when code changed
-        if: steps.freshness.outputs.needed == 'true'
+        if: steps.freshness.outputs.needed == 'true' || steps.freshness.outputs.ecmwf_retry == 'true'
         shell: bash
         run: |
           set -euo pipefail
