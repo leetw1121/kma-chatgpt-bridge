@@ -111,6 +111,32 @@ class RecoveryTests(unittest.TestCase):
             self.assertEqual(len(gu["errors"]),25)
             self.assertIn("NETWORK_CIRCUIT_OPEN",status_md(result))
 
+    def test_later_district_success_recovers_earlier_ifs_city_tls_failures(self):
+        now=dt.datetime(2026,11,18,23,0,tzinfo=KST)
+        cities={f"도시{i:02d}":(36.0,128.0) for i in range(23)}
+        districts={f"구{i:02d}":(37.0,127.0) for i in range(5)}
+        state={"failed_city_batches":0}
+        outage=urllib.error.URLError(TimeoutError("TLS handshake timed out"))
+        def fake_fetch(model,chunk,at):
+            if (model=="ecmwf_ifs" and chunk[0][0].startswith("도시") and
+                state["failed_city_batches"]<2):
+                state["failed_city_batches"]+=1
+                raise outage
+            return ([{"city":label,"days":{},"hours_valid":24}
+                     for label,_ in chunk],[])
+        with patch("fetch_ecmwf.fetch_group",side_effect=fake_fetch):
+            report=collect(now,cities=cities,districts=districts)
+        self.assertEqual(state["failed_city_batches"],2)
+        recovered=report["models"]["IFS"]
+        self.assertEqual(recovered["cities_succeeded"],23)
+        self.assertEqual(recovered["cities_attempted"],23)
+        self.assertEqual(recovered["recovery_succeeded"],23)
+        self.assertFalse(recovered["circuit_open"])
+        self.assertEqual(recovered["errors"],[])
+        self.assertEqual(report["district_models"]["IFS"]["cities_succeeded"],5)
+        self.assertEqual(report["models"]["AIFS Single"]["cities_succeeded"],23)
+        self.assertIn("재시도 복구 성공",status_md(report))
+
     def test_scope_mismatch_cannot_reuse_old_167_only_cache(self):
         now=dt.datetime(2026,11,18,23,0,tzinfo=KST)
         fresh={"generated_at_kst":now.isoformat(),"cities_targeted":167,
