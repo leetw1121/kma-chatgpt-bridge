@@ -1,15 +1,18 @@
 {
   "pdf_file": "data/rain_snow_latest.pdf",
   "scope": "city_only",
+  "coverage_scope": "city_and_county",
+  "scope_compatibility_note": "legacy city_only retained for deployed Cloudflare and ChatGPT validators",
+  "county_regions_succeeded": 82,
   "source": "KMA getVilageFcst + verified ECMWF IFS/AIFS",
-  "source_issue_at_kst": "2026-11-18T11:00:00+09:00",
-  "source_generated_at_kst": "2026-11-18T12:15:03.363951+09:00",
-  "model_generated_at_kst": "2026-11-18T12:15:03.531778+09:00",
-  "pdf_generated_at_utc": "2026-11-18T03:15:25.078101+00:00",
-  "regions_checked": 174,
-  "regions_succeeded": 174,
-  "kma_city_date_rows": 110,
-  "kma_city_names": 61,
+  "source_issue_at_kst": "2026-11-18T14:00:00+09:00",
+  "source_generated_at_kst": "2026-11-18T17:03:57.929000+09:00",
+  "model_generated_at_kst": "2026-11-18T17:03:58.105317+09:00",
+  "pdf_generated_at_utc": "2026-11-18T08:04:28.740212+00:00",
+  "regions_checked": 256,
+  "regions_succeeded": 256,
+  "kma_city_date_rows": 248,
+  "kma_city_names": 116,
   "ecmwf_models_included": true,
-  "pdf_size_bytes": 133443
+  "pdf_size_bytes": 175770
 }
