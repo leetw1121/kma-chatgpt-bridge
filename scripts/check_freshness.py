@@ -68,14 +68,21 @@ def needs_ecmwf_retry(now,root=ROOT):
         elapsed=(now-attempted).total_seconds()
         if elapsed<0:
             return False,"invalid_future_model_timestamp"
+        if result.get("rate_limited"):
+            # Respect upstream HTTP 429 instead of triggering fresh national
+            # requests every ten minutes. Retry-After takes precedence;
+            # otherwise a conservative 30-minute cooling period.
+            delay=max(30*60,result.get("retry_after_seconds",0))
+            if elapsed<delay:
+                return False,"provider_429_cooldown"
         if elapsed<7*60:
             return False,"recent_model_attempt"
         if (result.get("cities_targeted")!=167 or
             result.get("districts_targeted")!=109):
             return True,"model_region_scope_changed"
-        if result.get("fallback_recent_success"):
-            # Counts are from a past success; they do not prove that the
-            # latest network attempt worked. Keep trying after cooldown.
+        if result.get("fallback_recent_success") or result.get("partial_recent_reuse"):
+            # Cached locations are not confirmed fresh provider responses;
+            # schedule retries after the appropriate cooldown.
             return True,"cached_model_needs_fresh_sample"
         for collection,target in (("models",167),("district_models",109)):
             for model in ("IFS","AIFS Single"):
