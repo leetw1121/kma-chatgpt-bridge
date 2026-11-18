@@ -1,5 +1,5 @@
 {
-  "generated_at_kst": "2026-11-19T00:22:05.927901+09:00",
+  "generated_at_kst": "2026-11-19T00:52:37.147160+09:00",
   "source": "Open-Meteo ECMWF IFS/AIFS open data",
   "sample_scope": "167 city/county groups plus 109 independent gu labels; approximate inverse-DFS grid points, not administrative-area averages",
   "location_method": "mean of DISTINCT KMA 5km gu/grid representative cell centres within each city label",
@@ -13,7 +13,7 @@
       "cities_succeeded": 167,
       "cities_requested": 167,
       "cities_attempted": 167,
-      "batches_attempted": 19,
+      "batches_attempted": 18,
       "circuit_open": false,
       "records": [
         {
@@ -8869,8 +8869,8 @@
         }
       ],
       "errors": [],
-      "recovery_batches": 17,
-      "recovery_succeeded": 167
+      "recovery_batches": 1,
+      "recovery_succeeded": 10
     },
     "AIFS Single": {
       "model_id": "ecmwf_aifs025_single",
