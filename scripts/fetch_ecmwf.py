@@ -15,7 +15,7 @@ import urllib.request
 import urllib.error
 from pathlib import Path
 from zoneinfo import ZoneInfo
-from ecmwf_city_locations import build_city_locations
+from ecmwf_city_locations import build_city_locations, build_district_locations
 
 ROOT=Path(__file__).resolve().parents[1]
 KST=ZoneInfo("Asia/Seoul")
@@ -168,25 +168,32 @@ def fetch_one(model,city,latitude,longitude,now):
     return decode_model_location(payload,city,latitude,longitude,now)
 
 BATCH_SIZE=10
-MAX_COLLECTION_SECONDS=165
+MAX_COLLECTION_SECONDS=240
 MAX_MODEL_SECONDS=78
+# Gu queries are supplementary; do not spend the city's baseline budget on them.
+MAX_DISTRICT_SECONDS=35
 
-def collect(now,cities=None):
+def collect(now,cities=None,districts=None):
     """Try every city in small multi-location batches, keeping partial successes.
 
     A per-run wall-clock budget prevents intermittent Open-Meteo TLS stalls
     from delaying the official KMA PDF past its reminder window.
     """
-    cities=build_city_locations() if cities is None else cities
+    default_cities=cities is None
+    cities=build_city_locations() if default_cities else cities
+    districts=build_district_locations() if default_cities and districts is None else (districts or {})
     if not cities:
         raise ValueError("NO_ECMWF_CITY_POINTS")
     started=time.monotonic()
     out={"generated_at_kst":now.isoformat(),
          "source":"Open-Meteo ECMWF IFS/AIFS open data",
-         "sample_scope":f"{len(cities)} KMA city/county groups represented by approximate inverse-DFS grid points; not official city centres, not the official district grids",
+         "sample_scope":f"{len(cities)} city/county groups plus {len(districts)} independent gu labels; approximate inverse-DFS grid points, not administrative-area averages",
          "location_method":"mean of DISTINCT KMA 5km gu/grid representative cell centres within each city label",
-         "cities_targeted":len(cities),"models":{}}
+         "district_location_method":"one inverse KMA official 5km representative grid per gu, not an area average",
+         "cities_targeted":len(cities),"districts_targeted":len(districts),
+         "models":{},"district_models":{}}
     all_candidates=sorted(cities.items())
+    district_candidates=sorted(districts.items())
     for name,model_id in MODELS.items():
         model_started=time.monotonic()
         good=[]
@@ -253,6 +260,41 @@ def collect(now,cities=None):
         print("ECMWF",name,"success",len(good),"/",len(cities),
               "attempted",attempted,"batches",batches_attempted,
               "diagnostics",issues,flush=True)
+        # Supplement existing 167 city/county locations with gu only AFTER
+        # completing that model's baseline requests. A bad district batch
+        # cannot remove working city/county forecasts or block the KMA PDF.
+        district_started=time.monotonic()
+        district_good=[]
+        district_errors=[]
+        district_attempted=0
+        district_batches=0
+        for j in range(0,len(district_candidates),BATCH_SIZE):
+            chunk=district_candidates[j:j+BATCH_SIZE]
+            if (time.monotonic()-started>MAX_COLLECTION_SECONDS or
+                time.monotonic()-district_started>MAX_DISTRICT_SECONDS):
+                district_errors.extend({"city":label,"error":"NOT_REQUESTED",
+                                        "reason":"DISTRICT_TIME_BUDGET_EXCEEDED"}
+                                       for label,_ in chunk)
+                continue
+            district_attempted+=len(chunk)
+            district_batches+=1
+            try:
+                successes,failures=fetch_group(model_id,chunk,now)
+                district_good.extend(successes)
+                district_errors.extend(failures)
+            except Exception as exc:
+                detail=classify_error(exc)
+                district_errors.extend({"city":label,**detail} for label,_ in chunk)
+        # The legacy 'models' payload and 167-target counts stay unchanged.
+        distinct={row["city"]:row for row in district_good}
+        out["district_models"][name]={
+            "model_id":model_id,"status":"verified" if distinct else "unavailable",
+            "cities_requested":len(districts),"cities_attempted":district_attempted,
+            "cities_succeeded":len(distinct),"batches_attempted":district_batches,
+            "records":[distinct[k] for k in sorted(distinct)],
+            "errors":district_errors}
+        print("ECMWF gu",name,"success",len(distinct),"/",len(districts),
+              "attempted",district_attempted,"batches",district_batches,flush=True)
     return out
 
 
@@ -275,6 +317,17 @@ def status_md(result):
             " | 실제 한국 수치 확인 |")
     if not verified:
         lines.append("| 확인된 독립 모델 없음 | — | 최신 수치 미확보 · 비교 생략 |")
+    # District queries are a separate optional tier, not counted as old 167.
+    if result.get("district_models"):
+        lines += ["","## ECMWF 구(區)별 추가 수집 — 성공한 대표 지점만","",
+                  "| 모델 | 구별 근사 대표 지점 | 처리 |","|---|---:|---|"]
+        for name,v in result["district_models"].items():
+            if v.get("status") in ("verified","verified_cached_recent") and v.get("cities_succeeded",0)>0:
+                lines.append("| "+name+" | "+str(v["cities_succeeded"])+"/"+
+                             str(v["cities_requested"])+" | 실제 수치 확보 |")
+            else:
+                lines.append("| "+name+" | 0/"+str(v.get("cities_requested",0))+
+                             " | 신규 구별 자료 없음 |")
     # Record why a model failed, without printing sensitive URLs or response bodies.
     for model,info in result["models"].items():
         failed=[err for err in info.get("errors",[])
@@ -290,7 +343,7 @@ def status_md(result):
                 "개 도시, 원인 "+summary+
                 (" (첫 요청 연결 불가로 남은 도시 생략)" if any(
                     e.get("error")=="NOT_REQUESTED" for e in info.get("errors",[])) else ""))
-    lines += ["","**좌표 주의:** 시 명칭별 참고 지점은 기상청 격자 대표점의 역변환·평균으로 만든 근사 위치이며 행정구역 전체 평균이나 공식 시 중심점이 아닙니다.", "**주의:** ECMWF 모델은 기상청 API와 다른 격자·해상도에서 계산한 *결정론적 예보*입니다. 두 모델의 수치가 일치해도 적중률이 검증된 것은 아니며, 모델 강수량을 확률로 바꿀 수 없습니다.",
+    lines += ["","**좌표 주의:** 시·군 참고 지점은 기상청 격자 대표점의 역변환·평균으로 만든 근사 위치이며 구는 해당 구의 대표 격자를 역변환합니다. 모두 행정구역 전체 평균이나 공식 중심점이 아닙니다.", "**주의:** ECMWF 모델은 기상청 API와 다른 격자·해상도에서 계산한 *결정론적 예보*입니다. 두 모델의 수치가 일치해도 적중률이 검증된 것은 아니며, 모델 강수량을 확률로 바꿀 수 없습니다.",
        "현재 자동 조회에 연결하지 않은 예보 제공사는 표와 알림에서 제외합니다. 모델별 검증 성공은 [ecmwf_regional.json](ecmwf_regional.json)을 함께 확인하세요.",
        ""]
     return "\n".join(lines)

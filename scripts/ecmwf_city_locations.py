@@ -50,3 +50,24 @@ def build_city_locations(source=ROOT/"locations.csv"):
         points[city]=(round(sum(p[0] for p in coords)/len(coords),5),
                       round(sum(p[1] for p in coords)/len(coords),5))
     return points
+
+def build_district_locations(source=ROOT/"locations.csv"):
+    """One approximate ECMWF reference point for each official KMA gu row.
+
+    This supplements (never replaces) the existing 167 city/county points.
+    An inverse 5-km KMA grid cell is NOT a district-area mean or exact
+    Open-Meteo model grid cell. Shared KMA grids may yield identical points.
+    """
+    points={}
+    with Path(source).open(encoding="utf-8-sig",newline="") as f:
+        for row in csv.DictReader(f):
+            if row["level"]!="gu":
+                continue
+            name=row["name"]
+            if name in points:
+                raise ValueError("DUPLICATE_DISTRICT_LABEL_"+name)
+            lat,lon=grid_to_latlon(int(row["nx"]),int(row["ny"]))
+            points[name]=(round(lat,5),round(lon,5))
+    if not points:
+        raise ValueError("EMPTY_KMA_DISTRICT_MAPPING")
+    return dict(sorted(points.items()))
