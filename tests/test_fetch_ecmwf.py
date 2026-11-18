@@ -10,7 +10,7 @@ from zoneinfo import ZoneInfo
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/"scripts"))
-from ecmwf_city_locations import build_city_locations,grid_to_latlon
+from ecmwf_city_locations import build_city_locations,build_district_locations,grid_to_latlon
 from fetch_ecmwf import (
     fetch_one,fetch_group,status_md,request_json,classify_error,collect
 )
@@ -35,6 +35,38 @@ class ECMWFCityExpansionTests(unittest.TestCase):
         for city,(lat,lon) in points.items():
             self.assertTrue(32<=lat<=40,city)
             self.assertTrue(124<=lon<=132,city)
+
+    def test_gu_points_are_individual_official_grid_references(self):
+        cities=build_city_locations()
+        districts=build_district_locations()
+        self.assertEqual(len(cities),167)
+        self.assertEqual(len(districts),109)
+        self.assertIn("서울특별시 강남구",districts)
+        self.assertIn("경기도 수원시 영통구",districts)
+        self.assertIn("울산광역시 남구",districts)
+        self.assertNotIn("울산광역시 울주군",districts)
+        self.assertNotIn("서울특별시",districts)
+        self.assertAlmostEqual(districts["서울특별시 강남구"][0],
+                               grid_to_latlon(61,126)[0],places=4)
+        self.assertEqual(len(set(districts)|set(cities)),276)
+
+    def test_gu_failure_does_not_reduce_existing_city_count(self):
+        start=dt.datetime(2026,11,17,11,0,tzinfo=KST)
+        cities={f"도시{i:02d}":(36.0,128.0) for i in range(23)}
+        districts={f"서울 테스트{i:02d}구":(37.5,127.0) for i in range(12)}
+        def fake_fetch(model,chunk,now):
+            if chunk[0][0].endswith("구"):
+                raise urllib.error.URLError(TimeoutError("TLS handshake timed out"))
+            return ([{"city":name,"days":{},"hours_valid":24} for name,_ in chunk],[])
+        with patch("fetch_ecmwf.fetch_group",side_effect=fake_fetch):
+            report=collect(start,cities=cities,districts=districts)
+        self.assertEqual(report["cities_targeted"],23)
+        self.assertEqual(report["districts_targeted"],12)
+        for item in ("IFS","AIFS Single"):
+            self.assertEqual(report["models"][item]["cities_succeeded"],23)
+            self.assertEqual(report["district_models"][item]["cities_succeeded"],0)
+            self.assertEqual(report["district_models"][item]["cities_attempted"],12)
+            self.assertEqual(len(report["district_models"][item]["errors"]),12)
 
     def test_batch_json_array_is_assigned_to_correct_city(self):
         start=dt.datetime(2026,11,17,11,0,tzinfo=KST)
