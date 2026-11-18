@@ -45,6 +45,27 @@ class GateTests(unittest.TestCase):
                             stamp="2026-11-16T08:31:09+09:00"))
         self.assertFalse(ok)
 
+    def test_gu_only_real_forecast_is_isolated_from_city_collection(self):
+        district=wet_record(2.4,0)
+        district[0]["city"]="서울특별시 강남구"
+        sample=model("verified",7,wet_record(0,0))
+        sample["district_models"]={
+            "IFS":{"status":"verified","cities_succeeded":1,"records":district}}
+        old,has_old=usable_model_rows(KMA,sample)
+        gu,has_gu=usable_model_rows(KMA,sample,scope="district")
+        self.assertFalse(has_old)
+        self.assertEqual(old,{})
+        self.assertTrue(has_gu)
+        self.assertIn(("2026-11-18","서울특별시 강남구"),gu)
+
+    def test_old_167_cache_cannot_masquerade_as_district_forecast(self):
+        sample=model("verified",7,wet_record())
+        rows,good=usable_model_rows(KMA,sample,scope="district")
+        self.assertFalse(good)
+        self.assertEqual(rows,{})
+        with self.assertRaises(ValueError):
+            usable_model_rows(KMA,sample,scope="unknown")
+
     def test_pdf_builder_does_not_create_pagebreak_when_model_missing(self):
         # Extract only its pure section function: PDF libraries are installed
         # later in the production workflow and must not be needed for unit tests.
