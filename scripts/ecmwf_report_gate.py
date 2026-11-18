@@ -8,7 +8,7 @@ import datetime as dt
 from collections import defaultdict
 
 
-def usable_model_rows(kma, model):
+def usable_model_rows(kma, model, scope="city"):
     if not isinstance(model, dict):
         return {}, False
     try:
@@ -21,9 +21,12 @@ def usable_model_rows(kma, model):
     except (TypeError,ValueError,KeyError,AttributeError):
         return {}, False
 
+    if scope not in ("city","district"):
+        raise ValueError("UNKNOWN_ECMWF_SCOPE")
+    collection_key="models" if scope=="city" else "district_models"
     out=defaultdict(dict)
     wet_days=0
-    for model_name,record in (model.get("models") or {}).items():
+    for model_name,record in (model.get(collection_key) or {}).items():
         if not isinstance(record,dict):
             continue
         if record.get("status") not in ("verified","verified_cached_recent"):
