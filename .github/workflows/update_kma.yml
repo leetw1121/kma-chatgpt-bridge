@@ -90,31 +90,6 @@ jobs:
                 "ecmwf_rows",m["ecmwf_unified_date_rows"],
                 "bytes",m["pdf_size_bytes"])
           PY
-      # Pull-request tests must remain offline. Probing the free API on every
-      # PR/commit caused needless requests and contributed to HTTP 429.
-      # Live provider validation runs only in the controlled main workflow.
-      - name: Probe real Open-Meteo TLS edge (informational, no secrets)
-        if: github.event_name != 'pull_request'
-        run: |
-          python - <<'PY'
-          import sys
-          sys.path.insert(0,"scripts")
-          from open_meteo_transport import verified_dns_addresses
-          from fetch_ecmwf import request_json, classify_error
-          addresses=verified_dns_addresses()
-          print("Open-Meteo independently resolved public IPv4 edges:",len(addresses),flush=True)
-          try:
-              payload=request_json({
-                  "latitude":37.5665,"longitude":126.978,
-                  "hourly":"precipitation","models":"ecmwf_ifs",
-                  "forecast_hours":24,"timezone":"Asia/Seoul"},
-                  max_attempts=1,timeout=4)
-              success=bool(payload.get("hourly",{}).get("precipitation"))
-              print("OPEN_METEO_REAL_PROBE", "SUCCESS" if success else "RESPONSE_INCOMPLETE",flush=True)
-          except Exception as exc:
-              # Dependency outage must not turn unit tests into a false failure.
-              print("OPEN_METEO_REAL_PROBE_EXTERNAL_FAILURE",classify_error(exc),flush=True)
-          PY
   collect:
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-24.04
@@ -130,7 +105,7 @@ jobs:
           GITHUB_EVENT_NAME: ${{ github.event_name }}
         run: python scripts/check_freshness.py >> "$GITHUB_OUTPUT"
       - name: Validate collector
-        if: steps.freshness.outputs.needed == 'true' || steps.freshness.outputs.ecmwf_retry == 'true'
+        if: steps.freshness.outputs.needed == 'true' || steps.freshness.outputs.ecmwf_retry == 'true' || steps.freshness.outputs.render_only == 'true'
         run: python -m unittest discover -s tests -v
       - name: Import official nationwide KMA grid mapping (if uploaded)
         if: steps.freshness.outputs.needed == 'true'
@@ -164,25 +139,25 @@ jobs:
           KMA_SERVICE_KEY: ${{ secrets.KMA_SERVICE_KEY }}
         run: python scripts/fetch_kma.py
       - name: Publish rain/snow forecast regions only (all qualifying regions, no TOP limit)
-        if: steps.freshness.outputs.needed == 'true'
+        if: steps.freshness.outputs.needed == 'true' || steps.freshness.outputs.render_only == 'true'
         run: python scripts/create_precip_report.py
       - name: Check independent ECMWF IFS / AIFS model availability
-        if: steps.freshness.outputs.needed == 'true' || steps.freshness.outputs.ecmwf_retry == 'true'
+        if: steps.freshness.outputs.ecmwf_fetch == 'true'
         run: python scripts/fetch_ecmwf.py
       - name: Audit KMA wet-region ECMWF coverage and publish missing-region diagnostics
-        if: steps.freshness.outputs.needed == 'true' || steps.freshness.outputs.ecmwf_retry == 'true'
+        if: steps.freshness.outputs.needed == 'true' || steps.freshness.outputs.ecmwf_retry == 'true' || steps.freshness.outputs.render_only == 'true'
         run: |
           python scripts/ecmwf_coverage_audit.py
           test -s data/ecmwf_kma_coverage.md
           test -s data/ecmwf_kma_coverage.csv
       - name: Generate date-sorted city/county rain/snow summary
-        if: steps.freshness.outputs.needed == 'true' || steps.freshness.outputs.ecmwf_retry == 'true'
+        if: steps.freshness.outputs.needed == 'true' || steps.freshness.outputs.ecmwf_retry == 'true' || steps.freshness.outputs.render_only == 'true'
         run: |
           python scripts/city_forecast.py
           test -s data/city_precipitation.md
           test -s data/city_precipitation.csv
       - name: Generate city/county PDF with verified ECMWF appendix
-        if: steps.freshness.outputs.needed == 'true' || steps.freshness.outputs.ecmwf_retry == 'true'
+        if: steps.freshness.outputs.needed == 'true' || steps.freshness.outputs.ecmwf_retry == 'true' || steps.freshness.outputs.render_only == 'true'
         run: |
           python -m pip install --quiet "reportlab>=4.0,<5"
           if [ ! -f /usr/share/fonts/truetype/nanum/NanumGothic.ttf ]; then
@@ -194,12 +169,15 @@ jobs:
           test -s data/rain_snow_latest.pdf
           test "$(head -c 5 data/rain_snow_latest.pdf)" = "%PDF-"
       - name: Verify PDF and publish deterministic reminder readiness
-        if: steps.freshness.outputs.needed == 'true' || steps.freshness.outputs.ecmwf_retry == 'true'
+        if: steps.freshness.outputs.needed == 'true' || steps.freshness.outputs.ecmwf_retry == 'true' || steps.freshness.outputs.render_only == 'true'
         run: |
           python scripts/create_alert_status.py
           test -s data/alert_status.json
+      - name: Check cross-file region/model coverage integrity before publishing
+        if: steps.freshness.outputs.needed == 'true' || steps.freshness.outputs.ecmwf_retry == 'true' || steps.freshness.outputs.render_only == 'true'
+        run: python scripts/validate_generated_outputs.py
       - name: Safely publish PDF and forecast data even when code changed
-        if: steps.freshness.outputs.needed == 'true' || steps.freshness.outputs.ecmwf_retry == 'true'
+        if: steps.freshness.outputs.needed == 'true' || steps.freshness.outputs.ecmwf_retry == 'true' || steps.freshness.outputs.render_only == 'true'
         shell: bash
         run: |
           set -euo pipefail
