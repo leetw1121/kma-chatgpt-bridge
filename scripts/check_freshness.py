@@ -5,6 +5,7 @@ Only skip when a complete published forecast/PDF already matches the latest
 expected KMA village forecast base issue. An old issue, missing PDF, or
 partial coverage must always refresh. Push/manual runs always refresh.
 """
+import csv
 import datetime as dt
 import json
 import os
@@ -24,6 +25,12 @@ def needs_refresh(now, root=ROOT):
     try:
         forecast=json.loads(latest.read_text(encoding="utf-8"))
         summary=json.loads(manifest.read_text(encoding="utf-8"))
+        mapping=root/"locations.csv"
+        if mapping.exists():
+            with mapping.open(encoding="utf-8-sig",newline="") as stream:
+                n=sum(1 for _ in csv.DictReader(stream))
+            if forecast.get("locations_checked")!=n:
+                return True,"region_scope_changed"
         expected=issues(now)[0]
         issued=dt.datetime.fromisoformat(forecast["issue_at_kst"]).astimezone(KST)
         generated=dt.datetime.fromisoformat(forecast["generated_at_kst"]).astimezone(KST)

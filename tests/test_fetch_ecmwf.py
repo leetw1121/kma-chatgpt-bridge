@@ -23,9 +23,11 @@ class ECMWFCityExpansionTests(unittest.TestCase):
         self.assertAlmostEqual(lat,37.58,delta=0.1)
         self.assertAlmostEqual(lon,126.99,delta=0.1)
 
-    def test_all_85_city_labels_instead_of_only_seven_hardcoded(self):
+    def test_all_167_city_county_labels_instead_of_seven_hardcoded(self):
         points=build_city_locations()
-        self.assertEqual(len(points),85)
+        self.assertEqual(len(points),167)
+        self.assertIn("울산광역시 울주군",points)
+        self.assertIn("경기도 양평군",points)
         self.assertIn("서울특별시",points)
         self.assertIn("경기도 수원시",points)
         self.assertIn("충청북도 청주시",points)

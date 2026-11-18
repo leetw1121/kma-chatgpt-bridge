@@ -21,13 +21,14 @@ class KmaGridImportTests(unittest.TestCase):
                 "전라남도,무안군,,55,70\n"
                 "세종특별자치시,,,66,103\n"
                 "세종특별자치시,세종특별자치시,,66,103\n",encoding="utf8")
-            self.assertEqual(convert(src,dst),3)
+            self.assertEqual(convert(src,dst),4)
             with dst.open(encoding="utf8",newline="") as stream:
                 records={r["name"]:r for r in csv.DictReader(stream)}
-            self.assertEqual(len(records),3)
+            self.assertEqual(len(records),4)
             self.assertEqual((records["서울특별시 강남구"]["nx"],records["서울특별시 강남구"]["ny"]),("61","126"))
             self.assertIn("경기도 수원시 영통구",records)
             self.assertIn("세종특별자치시",records)
+            self.assertEqual(records["전라남도 무안군"]["level"],"gun")
 
     def test_conflicting_representatives_fail(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -46,7 +47,7 @@ class KmaGridImportTests(unittest.TestCase):
                 convert(src,Path(directory)/"out.csv")
 
     def test_gun_not_gu(self):
-        self.assertIsNone(region_name("강원특별자치도","평창군"))
+        self.assertEqual(region_name("강원특별자치도","평창군"),("강원특별자치도 평창군","gun"))
 
 if __name__=="__main__":
     unittest.main()

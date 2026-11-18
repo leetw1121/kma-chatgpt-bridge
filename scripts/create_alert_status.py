@@ -29,6 +29,22 @@ def slot_for_issue(issue):
         return dt.datetime.combine(issue.date(),dt.time(18,30,tzinfo=KST)),17
     raise ValueError("UNRECOGNIZED_KMA_ISSUE_HOUR")
 
+def baseline_coverage_safe(forecast):
+    """Preserve all 174 existing city/gu areas, allow county-only partial results."""
+    checked=forecast.get("locations_checked",0)
+    succeeded=forecast.get("locations_succeeded",0)
+    if checked<100 or succeeded<100 or succeeded>checked:
+        return False
+    if succeeded==checked:
+        return True
+    if checked<256:
+        return False
+    locations=forecast.get("locations") or []
+    return (len(locations)==succeeded and
+            sum(item.get("level")=="gu" for item in locations)>=109 and
+            sum(item.get("level")=="city" for item in locations)>=65)
+
+
 def compute_status(forecast,manifest,pdf_path,now=None):
     now=now or dt.datetime.now(KST)
     issue=dt.datetime.fromisoformat(forecast["issue_at_kst"]).astimezone(KST)
@@ -46,6 +62,8 @@ def compute_status(forecast,manifest,pdf_path,now=None):
         "pdf_size_bytes":manifest.get("pdf_size_bytes"),
         "regions_succeeded":forecast.get("locations_succeeded"),
         "regions_checked":forecast.get("locations_checked"),
+        "county_succeeded":sum(item.get("level")=="gun" for item in forecast.get("locations",[])),
+        "coverage_partial":forecast.get("locations_succeeded")!=forecast.get("locations_checked"),
     }
     checks={
       "kma_issue_matches_alert":issue.hour==expected_hour and issue.minute==0,
@@ -53,11 +71,10 @@ def compute_status(forecast,manifest,pdf_path,now=None):
       "pdf_matches_source":manifest.get("source_issue_at_kst")==forecast["issue_at_kst"]
                              and manifest.get("source_generated_at_kst")==forecast["generated_at_kst"],
       "times_ordered":issue<=generated<=pdf_time<=now+dt.timedelta(minutes=3),
-      "all_regions":forecast.get("locations_checked",0)>=100
-                    and forecast.get("locations_succeeded")==forecast.get("locations_checked"),
+      "baseline_regions_safe":baseline_coverage_safe(forecast),
       "valid_pdf":pdf_path.is_file() and pdf_path.stat().st_size>=1000
                   and pdf_path.stat().st_size==manifest.get("pdf_size_bytes")
-                  and pdf_path.open("rb").read(5)==b"%PDF-",
+                  and pdf_path.read_bytes()[:5]==b"%PDF-",
     }
     # Intermediate official 02/08/14/20 issues are valid KMA products,
     # but insufficient for the NEXT reminder, which requires 05/11/17/23.

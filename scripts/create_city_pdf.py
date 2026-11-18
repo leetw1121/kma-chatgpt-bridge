@@ -54,9 +54,9 @@ def page(canvas,doc):
     canvas.setFillColor(SECONDARY)
     canvas.setFont("Ko",7.5)
     canvas.drawString(18*mm,12.5*mm,
-        "기상청 단기예보 + ECMWF 모델 참고 | 시 단위"
+        "기상청 단기예보 + ECMWF 모델 참고 | 시·군 단위"
         if getattr(doc,"has_ecmwf_appendix",False)
-        else "기상청 공식 단기예보 | 시 단위")
+        else "기상청 공식 단기예보 | 시·군 단위")
     canvas.drawRightString(w-18*mm,12.5*mm,str(doc.page)+"쪽")
     canvas.restoreState()
 
@@ -86,16 +86,16 @@ def kma_city_tables(data,st):
                                         ("snow","눈 · 신적설","snow_cm","cm")):
             ranked=rank(subset,kind)
             if not ranked:continue
-            story.append(P(date+" | "+label+" | "+str(len(ranked))+"개 도시",st["sec"]))
+            story.append(P(date+" | "+label+" | "+str(len(ranked))+"개 시·군",st["sec"]))
             rows=[]
             for i,r in enumerate(ranked,1):
                 pop=str(r["max_pop"])+"%" if r["max_pop"] is not None else "미발표"
                 period=r["from_kst"][11:16]+"-"+r["to_kst"][11:16]+("" if r["full_day"] else " 일부")
-                method="구 격자 "+str(r["grid_count"])+"곳 중 최대" if r["gu_count"] else "시 대표 격자"
+                method="구 격자 "+str(r["grid_count"])+"곳 중 최대" if r["gu_count"] else r["method"]
                 rows.append([str(i),r["city"],fmt(r[metric],unit),pop,period+" / "+method])
-            story.append(table(["참고","시","예보량","최대 POP","기간 / 근거"],rows,[12,54,32,22,54],st))
+            story.append(table(["참고","시·군","예보량","최대 POP","기간 / 근거"],rows,[12,54,32,22,54],st))
             story.append(Spacer(1,4))
-    if not dates:story.append(P("정량 단기예보에서 비·눈 예상 도시가 없습니다.",st["note"]))
+    if not dates:story.append(P("정량 단기예보에서 비·눈 예상 시·군이 없습니다.",st["note"]))
     return story,records
 
 def model_section(kma,model,st):
@@ -105,10 +105,10 @@ def model_section(kma,model,st):
         return [],False
     story=[PageBreak(),P("7일 비·눈 참고: ECMWF IFS · AIFS",st["title"]),
       P("기상청 단기예보 이후의 전망을 보완하는 별도 모델입니다. Open-Meteo가 제공한 실제 ECMWF 모델 수치를 사용합니다.",st["small"]),
-      P("모델 지점: 전국 시 단위 "+str((model or {}).get("cities_targeted",
+      P("모델 지점: 전국 시·군 단위 "+str((model or {}).get("cities_targeted",
         max((v.get("cities_requested",0) for v in (model or {}).get("models",{}).values()),default=0)))+
-        "개 지역 중 실제 수집에 성공한 근사 대표좌표입니다. 구·시 격자 역변환으로 생성한 위치이며 "
-        "시 전체 평균이나 공식 도시 중심값이 아닙니다.",st["small"]),
+        "개 지역 중 실제 수집에 성공한 근사 대표좌표입니다. 구·시·군 격자 역변환으로 생성한 위치이며 "
+        "시·군 전체 평균이나 공식 지역 중심값이 아닙니다.",st["small"]),
       P("모델 수집: "+str((model or {}).get("generated_at_kst","조회 실패"))+
         (" | 최신 요청 실패, 최근 3시간 이내 성공본 재사용" if (model or {}).get("fallback_recent_success") else " | 이번 실행 신규 조회")+
         " | 1일 미만 시간대는 일부 기간 누적량입니다.",st["small"])]
@@ -137,7 +137,7 @@ def model_section(kma,model,st):
             rows.append([city,value("IFS","precip_mm"),value("AIFS Single","precip_mm"),
                          value("IFS","snowfall_cm"),value("AIFS Single","snowfall_cm")])
         story.append(P(date+" | ECMWF 실제 검증된 모델 총강수량 참고",st["sec"]))
-        story.append(table(["도시","IFS 강수 mm","AIFS 강수 mm","IFS 눈 cm","AIFS 눈 cm"],
+        story.append(table(["시·군","IFS 강수 mm","AIFS 강수 mm","IFS 눈 cm","AIFS 눈 cm"],
                            rows,[50,34,34,28,28],st))
         story.append(Spacer(1,4))
     story.append(P("Open-Meteo.com 제공 ECMWF 모델 참고 (CC BY 4.0). 총강수량은 눈을 포함하는 수분량으로 "
@@ -149,22 +149,22 @@ def create(kma,model,filename):
     st=styles()
     filename.parent.mkdir(exist_ok=True,parents=True)
     doc=BaseDocTemplate(str(filename),pagesize=A4,leftMargin=18*mm,rightMargin=18*mm,
-        topMargin=19*mm,bottomMargin=24*mm,title="전국 시 단위 비·눈 예보",author="KMA-ECMWF Bridge")
+        topMargin=19*mm,bottomMargin=24*mm,title="전국 시·군 단위 비·눈 예보",author="KMA-ECMWF Bridge")
     frame=Frame(doc.leftMargin,doc.bottomMargin,doc.width,doc.height,
                 leftPadding=0,rightPadding=0,topPadding=0,bottomPadding=0)
     doc.addPageTemplates(PageTemplate(id="normal",frames=frame,onPage=page))
     story=[
-        P("전국 시 단위 비·눈 예보",st["title"]),
-        P("날짜별 비·눈이 예보된 도시만 · 강수량/신적설량 많은 순",st["sub"]),
+        P("전국 시·군 단위 비·눈 예보",st["title"]),
+        P("날짜별 비·눈이 예보된 시·군만 · 강수량/신적설량 많은 순",st["sub"]),
         P("기상청 발표: "+kma["issue_at_kst"]+" | 수집: "+kma["generated_at_kst"],st["sub"]),
         P("원본 기상청 격자 조회 "+str(kma["locations_succeeded"])+"/"+
-           str(kma["locations_checked"])+"개 구·시 (고유 격자 "+
-           str(kma.get("unique_grids_succeeded","-"))+"개). 시별로 통합해 중복 구를 생략합니다.",st["note"]),
+           str(kma["locations_checked"])+"개 구·시·군 (고유 격자 "+
+           str(kma.get("unique_grids_succeeded","-"))+"개). 시 단위로 구를 통합하고 군은 별도 표시합니다.",st["note"]),
         P("주의: 구가 있는 도시는 구 대표 격자 예보 중 최대 범위를 도시의 참고값으로 사용합니다. "
           "강수량을 더하거나 시 전체의 실제 최대 강수량으로 주장하지 않습니다.",st["small"]),
         P("예보량 **상한값이 큰 순의 참고 정렬**입니다. 범위가 겹치면 우열은 확정되지 않습니다. "
           "총강수량(mm)은 눈을 포함하며, 신적설(cm)은 별도로 표시합니다.",st["small"]),
-        P("기상청 단기 API에서 실제 제공하는 날짜만 수록합니다. 7일 전체의 시별 정량 예보가 아니며, "
+        P("기상청 단기 API에서 실제 제공하는 날짜만 수록합니다. 7일 전체의 시·군별 정량 예보가 아니며, "
           "장기 기간의 미제공 강수량·신적설량을 생성하지 않습니다.",st["small"]),
     ]
     kma_story,records=kma_city_tables(kma,st)
@@ -190,6 +190,9 @@ def main():
     stats=create(data,model,OUTPUT)
     manifest={
         "pdf_file":"data/rain_snow_latest.pdf","scope":"city_only",
+        "coverage_scope":"city_and_county",
+        "scope_compatibility_note":"legacy city_only retained for deployed Cloudflare and ChatGPT validators",
+        "county_regions_succeeded":sum(p["level"]=="gun" for p in data.get("locations",[])),
         "source":("KMA getVilageFcst + verified ECMWF IFS/AIFS"
                   if stats["ecmwf_models_included"] else "KMA getVilageFcst only"),
         "source_issue_at_kst":data["issue_at_kst"],

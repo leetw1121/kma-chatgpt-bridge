@@ -36,6 +36,18 @@ class CityForecastTests(unittest.TestCase):
         self.assertEqual(rank(result,"rain")[0]["city"],"제주특별자치도 제주시")
         self.assertEqual(len(city_csv(data).splitlines()),3)
 
+    def test_gun_is_not_collapsed_into_parent_province(self):
+        sample={"locations":[
+          {"name":"울산광역시 울주군","level":"gun","nx":60,"ny":103,
+           "days":{"2026-11-14":day(low=4,high=8)}},
+          {"name":"울산광역시 남구","level":"gu","nx":60,"ny":102,
+           "days":{"2026-11-14":day(low=10,high=15)}}]}
+        result=group_rows(sample)
+        self.assertEqual(len(result),2)
+        county=next(x for x in result if x["city"]=="울산광역시 울주군")
+        self.assertEqual(county["method"],"군 대표격자")
+        self.assertIn("울산광역시",{x["city"] for x in result})
+
     def test_snow_and_rain_are_ranked_separately(self):
         loc=[
           {"name":"강원특별자치도 원주시","level":"city","nx":76,"ny":122,"days":{"2026-11-14":day(False,True,0,3)}},

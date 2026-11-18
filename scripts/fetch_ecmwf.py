@@ -183,7 +183,7 @@ def collect(now,cities=None):
     started=time.monotonic()
     out={"generated_at_kst":now.isoformat(),
          "source":"Open-Meteo ECMWF IFS/AIFS open data",
-         "sample_scope":f"{len(cities)} KMA city groups represented by approximate inverse-DFS grid points; not official city centres, not the 174 district grids",
+         "sample_scope":f"{len(cities)} KMA city/county groups represented by approximate inverse-DFS grid points; not official city centres, not the official district grids",
          "location_method":"mean of DISTINCT KMA 5km gu/grid representative cell centres within each city label",
          "cities_targeted":len(cities),"models":{}}
     all_candidates=sorted(cities.items())
@@ -263,7 +263,7 @@ def status_md(result):
        "- 기상청 중기예보·특보: 이 GitHub 수집에는 미포함; 공식 중기 수치가 없으면 임의의 시별 정량값을 생성하지 않음",
        ("- ECMWF: 최근 성공자료를 재사용했습니다 (신규 조회 실패, 이전 성공 수집시각을 반드시 확인)" if result.get("fallback_recent_success") else "- ECMWF: 이번 실행의 실제 신규 수집 결과"),
        "",
-       "## ECMWF 공개 예측모델 — 최신 한국 도시 수치 확인에 성공한 모델만 표시",
+       "## ECMWF 공개 예측모델 — 최신 한국 시·군 수치 확인에 성공한 모델만 표시",
        "",
        "| 모델 | 한국 시 단위 근사 대표좌표 실제 조회 | 처리 |",
        "|---|---:|---|"]
@@ -300,6 +300,7 @@ def main():
     now=dt.datetime.now(KST)
     result=collect(now)
     last_good=ROOT/"data/ecmwf_last_verified.json"
+    expected_locations=len(build_city_locations())
     verified=any(v.get("status")=="verified" and v.get("cities_succeeded",0)>0
                  for v in result.get("models",{}).values())
     if verified:
@@ -310,7 +311,7 @@ def main():
         try:
             old=json.loads(last_good.read_text(encoding="utf-8"))
             age=(now-dt.datetime.fromisoformat(old["generated_at_kst"])).total_seconds()
-            if 0<=age<=3*3600 and any(
+            if 0<=age<=3*3600 and old.get("cities_targeted")==expected_locations and any(
                 v.get("status")=="verified" and v.get("cities_succeeded",0)>0
                 for v in old.get("models",{}).values()):
                 old["fallback_recent_success"]=True

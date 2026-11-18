@@ -99,7 +99,8 @@ class ForecastTests(unittest.TestCase):
         self.assertIn("서울특별시 강남구",table)
 
     def test_sample_locations(self):
-        self.assertGreaterEqual(len(load_locations()),5)
+        self.assertEqual(len(load_locations()),256)
+        self.assertEqual(sum(x["level"]=="gun" for x in load_locations()),82)
 
 if __name__=="__main__":
     unittest.main()
