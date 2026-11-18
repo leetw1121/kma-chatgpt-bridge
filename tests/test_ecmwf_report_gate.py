@@ -91,7 +91,7 @@ class GateTests(unittest.TestCase):
         self.assertEqual(rows[0]["scope"],"gu")
         self.assertEqual(rows[1]["scope"],"city_county")
 
-    def test_combined_snow_is_secondary_sort_and_unavailable_not_fake_zero(self):
+    def test_combined_snow_first_and_unavailable_not_fake_zero(self):
         def d(mm,snow,valid=True):
             return {"forecast_hours":24,"precip_mm":mm,"snowfall_cm":snow,
                     "snowfall_valid":valid}
