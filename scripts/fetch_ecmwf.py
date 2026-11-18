@@ -369,7 +369,13 @@ def collect(now,cities=None,districts=None,priorities=None):
                         if diag2["reason"]=="API_RATE_LIMITED":
                             rate_limited=True
                             break
-        if st["network_errors"]>=MAX_NETWORK_FAILURE_BATCHES and not st["records"]:
+        # If the same model's baseline city requests already proved that
+        # the provider is unreachable, one more gu failure is sufficient.
+        # This protects the KMA publishing deadline during full outages.
+        failure_threshold=(1 if scope=="district_models" and
+                           state[name,"models"]["circuit"]
+                           else MAX_NETWORK_FAILURE_BATCHES)
+        if st["network_errors"]>=failure_threshold and not st["records"]:
             st["circuit"]=True
 
     for name,model_id in MODELS.items():
