@@ -108,6 +108,32 @@ class GateTests(unittest.TestCase):
         self.assertTrue(city)
         self.assertFalse(gu)
 
+    def test_snow_wins_over_heavy_rain_and_missing_snow_uses_precip(self):
+        date="2026-11-18"
+        def d(precip,snow=None):
+            return {"forecast_hours":24,"precip_mm":precip,
+                    "snowfall_cm":snow,"snowfall_valid":snow is not None}
+        entries=[
+            ("가-눈5",d(2,5)),
+            ("나-눈2",d(1,2)),
+            ("다-비99-눈없음",d(99)),
+            ("라-비30-눈0",d(30,0)),
+            ("마-비10-눈없음",d(10)),
+            ("바-눈2-비8",d(8,2)),
+        ]
+        sample={"generated_at_kst":KMA["generated_at_kst"],
+                "models":{"IFS":{"status":"verified",
+                                "cities_succeeded":len(entries),
+                                "records":[{"city":name,"days":{date:value}}
+                                           for name,value in entries]}},
+                "district_models":{}}
+        got,city,gu=combined_model_rows(KMA,sample)
+        self.assertTrue(city)
+        self.assertFalse(gu)
+        self.assertEqual([x["region"] for x in got],
+            ["가-눈5","바-눈2-비8","나-눈2",
+             "다-비99-눈없음","라-비30-눈0","마-비10-눈없음"])
+
     def test_duplicate_model_region_across_scopes_rejected(self):
         item=wet_record()
         sample=model("verified",1,item)
