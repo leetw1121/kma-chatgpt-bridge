@@ -84,6 +84,9 @@ def needs_ecmwf_retry(now,root=ROOT):
             # Cached locations are not confirmed fresh provider responses;
             # schedule retries after the appropriate cooldown.
             return True,"cached_model_needs_fresh_sample"
+        generated=dt.datetime.fromisoformat(result["generated_at_kst"]).astimezone(KST)
+        if (now-generated).total_seconds()>3*3600:
+            return True,"model_data_stale"
         for collection,target in (("models",167),("district_models",109)):
             for model in ("IFS","AIFS Single"):
                 entry=(result.get(collection) or {}).get(model) or {}
@@ -94,22 +97,38 @@ def needs_ecmwf_retry(now,root=ROOT):
     except (ValueError,KeyError,TypeError,OSError):
         return True,"invalid_model_status"
 
+def decide_run(now,event_name,root=ROOT):
+    """Separate KMA refresh, ECMWF provider calls, and report rebuilding.
+
+    Pushes with already-current KMA regenerate reports without calling *any*
+    external forecast API. This prevents code/deployment churn from causing
+    Open-Meteo HTTP 429. Scheduled jobs still retry incomplete model coverage
+    after a cooldown; manual jobs may force KMA refresh but respect upstream
+    429 and existing recent model coverage.
+    """
+    if event_name=="workflow_dispatch":
+        kma_needed,reason=True,"manual_kma_refresh"
+    else:
+        kma_needed,reason=needs_refresh(now,root)
+    model_needed,model_reason=needs_ecmwf_retry(now,root)
+    model_fetch=bool(model_needed and (kma_needed or event_name=="schedule"))
+    model_retry=bool(not kma_needed and event_name=="schedule" and model_fetch)
+    render_only=bool(event_name=="push" and not kma_needed)
+    return {
+        "needed":kma_needed,
+        "ecmwf_retry":model_retry,
+        "ecmwf_fetch":model_fetch,
+        "render_only":render_only,
+        "reason":reason,
+        "ecmwf_reason":model_reason
+    }
+
+
 def main():
-    if os.getenv("GITHUB_EVENT_NAME")!="schedule":
-        print("needed=true")
-        print("reason=manual_or_code_change")
-        print("ecmwf_retry=false")
-        return
     now=dt.datetime.now(KST)
-    needed,reason=needs_refresh(now)
-    ecmwf_retry=False
-    model_reason="full_kma_refresh_required"
-    if not needed:
-        ecmwf_retry,model_reason=needs_ecmwf_retry(now)
-    print("needed="+str(needed).lower())
-    print("reason="+reason)
-    print("ecmwf_retry="+str(ecmwf_retry).lower())
-    print("ecmwf_reason="+model_reason)
+    plan=decide_run(now,os.getenv("GITHUB_EVENT_NAME","schedule"))
+    for k,v in plan.items():
+        print(k+"="+(str(v).lower() if isinstance(v,bool) else str(v)))
 
 if __name__=="__main__":
     main()
