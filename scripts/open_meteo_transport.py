@@ -93,6 +93,10 @@ def request_with_verified_ip(url,timeout=4,max_ips=3):
             if len(payload)>_MAX_PAYLOAD:
                 raise ValueError("OPEN_METEO_RESPONSE_TOO_LARGE")
             return json.loads(payload.decode("utf-8"))
+        except urllib.error.HTTPError:
+            # A real HTTP 429/4xx is a provider decision, not a TLS edge
+            # outage. Do not route around quotas or unsupported parameters.
+            raise
         except (OSError,ValueError,UnicodeError) as exc:
             last=exc
         finally:
