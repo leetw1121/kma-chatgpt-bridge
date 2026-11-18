@@ -64,9 +64,15 @@ def compute_status(forecast,manifest,pdf_path,now=None):
         "regions_checked":forecast.get("locations_checked"),
         "county_succeeded":sum(item.get("level")=="gun" for item in forecast.get("locations",[])),
         "coverage_partial":forecast.get("locations_succeeded")!=forecast.get("locations_checked"),
+        # Do not advertise a PDF generated AFTER its intended alert slot as
+        # ready for that already-missed slot. This is not a delivery receipt:
+        # GitHub publication and the ChatGPT alert are separate actions.
+        "pdf_generated_before_alert_slot":pdf_time<=slot,
+        "late_pdf_for_alert_slot":pdf_time>slot,
     }
     checks={
       "kma_issue_matches_alert":issue.hour==expected_hour and issue.minute==0,
+      "pdf_generated_before_alert_slot":pdf_time<=slot,
       "correct_pdf_scope":manifest.get("scope")=="city_only",
       "pdf_matches_source":manifest.get("source_issue_at_kst")==forecast["issue_at_kst"]
                              and manifest.get("source_generated_at_kst")==forecast["generated_at_kst"],
@@ -80,9 +86,11 @@ def compute_status(forecast,manifest,pdf_path,now=None):
     # but insufficient for the NEXT reminder, which requires 05/11/17/23.
     # They must not cause the otherwise healthy collection job to fail.
     structure_ok=all(value for key,value in checks.items()
-                     if key!="kma_issue_matches_alert")
+                     if key not in ("kma_issue_matches_alert",
+                                    "pdf_generated_before_alert_slot"))
     report["checks_passed"]=structure_ok
-    report["pdf_ready"]=structure_ok and checks["kma_issue_matches_alert"]
+    report["pdf_ready"]=(structure_ok and checks["kma_issue_matches_alert"]
+                         and checks["pdf_generated_before_alert_slot"])
     if report["pdf_ready"]:
         report["ready_for_alert_slot_kst"]=slot.isoformat()
     else:

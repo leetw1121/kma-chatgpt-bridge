@@ -36,6 +36,22 @@ class AlertReadyTests(unittest.TestCase):
         self.assertEqual(status["ready_for_alert_slot_kst"],"2026-11-16T18:30:00+09:00")
         self.assertEqual(status["source_issue_at_kst"],"2026-11-16T17:00:00+09:00")
 
+    def test_pdf_generated_after_alert_slot_must_not_claim_slot_ready(self):
+        self.manifest["pdf_generated_at_utc"]="2026-11-16T09:45:41+00:00"
+        status=compute_status(self.forecast,self.manifest,self.pdf,self.now)
+        self.assertTrue(status["checks_passed"])
+        self.assertFalse(status["pdf_ready"])
+        self.assertTrue(status["late_pdf_for_alert_slot"])
+        self.assertFalse(status["pdf_generated_before_alert_slot"])
+        self.assertIsNone(status["ready_for_alert_slot_kst"])
+        self.assertIn("pdf_generated_before_alert_slot",status["reason"])
+
+    def test_pdf_prepared_before_slot_keeps_readiness_when_alert_runs_late(self):
+        status=compute_status(self.forecast,self.manifest,self.pdf,self.now)
+        self.assertTrue(status["pdf_ready"])
+        self.assertFalse(status["late_pdf_for_alert_slot"])
+        self.assertTrue(status["pdf_generated_before_alert_slot"])
+
     def test_valid_intermediate_issue_is_not_false_success_or_pipeline_failure(self):
         self.forecast["issue_at_kst"]="2026-11-16T14:00:00+09:00"
         self.manifest["source_issue_at_kst"]=self.forecast["issue_at_kst"]
