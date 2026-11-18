@@ -148,7 +148,8 @@ class ECMWFExistingSafetyTests(unittest.TestCase):
              "AIFS Single":{"cities_succeeded":2,"cities_requested":7,"status":"verified"}}}
         text=status_md(result)
         self.assertIn("2/7",text)
-        self.assertNotIn("IFS | 0/7",text)
+        self.assertIn("IFS | 0/7",text)
+        self.assertIn("수치 미확보",text)
 
     def test_tls_handshake_timeout_is_explicit(self):
         error=urllib.error.URLError(TimeoutError("_ssl.c:1001: The handshake operation timed out"))
@@ -159,6 +160,7 @@ class ECMWFExistingSafetyTests(unittest.TestCase):
         good=io.BytesIO(b'{"hourly": {"time": []}}')
         with patch("fetch_ecmwf.urllib.request.urlopen",side_effect=[
                 urllib.error.URLError(TimeoutError("handshake timed out")),good]) as mocked,\
+             patch("fetch_ecmwf.request_with_verified_ip",side_effect=OSError("mocked fallback offline")),\
              patch("fetch_ecmwf.time.sleep") as sleep:
             result=request_json({"latitude":37.5,"longitude":127.0},max_attempts=2)
         self.assertEqual(mocked.call_count,2)
