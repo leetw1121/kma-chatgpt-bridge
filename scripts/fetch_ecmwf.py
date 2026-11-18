@@ -16,16 +16,18 @@ import urllib.error
 from pathlib import Path
 from zoneinfo import ZoneInfo
 from ecmwf_city_locations import build_city_locations, build_district_locations
+from open_meteo_transport import request_with_verified_ip
 
 ROOT=Path(__file__).resolve().parents[1]
 KST=ZoneInfo("Asia/Seoul")
 URL="https://api.open-meteo.com/v1/forecast"
 MODELS={"IFS":"ecmwf_ifs","AIFS Single":"ecmwf_aifs025_single"}
 
-def request_json(params, max_attempts=3, timeout=18):
+def request_json(params, max_attempts=2, timeout=6):
     """Retry timeouts and transient HTTP 429/5xx; never retry unsupported 400s."""
-    req=urllib.request.Request(URL+"?"+urllib.parse.urlencode(params),
-        headers={"User-Agent":"KMA-ChatGPT-Bridge/2.0","Accept":"application/json"})
+    url=URL+"?"+urllib.parse.urlencode(params)
+    req=urllib.request.Request(url,
+        headers={"User-Agent":"KMA-ChatGPT-Bridge/2.1","Accept":"application/json"})
     for attempt in range(max_attempts):
         try:
             with urllib.request.urlopen(req,timeout=timeout) as resp:
@@ -40,9 +42,18 @@ def request_json(params, max_attempts=3, timeout=18):
             except (ValueError,TypeError):
                 delay=min(8,2**attempt)
         except (urllib.error.URLError, TimeoutError, ConnectionError, ssl.SSLError):
-            if attempt+1==max_attempts:
-                raise
-            delay=min(8,2**attempt)
+            # An Open-Meteo edge may hang at TCP/TLS while another DNS A
+            # record is healthy. Keep the original HTTPS hostname / SNI and
+            # verify the certificate against the normal CA store.
+            try:
+                answer=request_with_verified_ip(url,timeout=3,max_ips=3)
+                print("ECMWF verified-TLS alternate edge recovered",flush=True)
+                return answer
+            except (OSError,ValueError,UnicodeError):
+                # Alternate DNS can also fail; no fake successful payload.
+                if attempt+1==max_attempts:
+                    raise
+                delay=min(2,2**attempt)
         time.sleep(delay)
     raise RuntimeError("UNREACHABLE_RETRY_LOOP")
 
@@ -172,6 +183,10 @@ MAX_COLLECTION_SECONDS=240
 MAX_MODEL_SECONDS=78
 # Gu queries are supplementary; do not spend the city's baseline budget on them.
 MAX_DISTRICT_SECONDS=35
+MAX_NETWORK_FAILURE_BATCHES=2
+_NETWORK_FAILURES={"TLS_HANDSHAKE_TIMEOUT","NETWORK_TIMEOUT","DNS_RESOLUTION",
+                   "TLS_CONNECTION","CONNECTION_REFUSED","CONNECTION_RESET",
+                   "NETWORK_OR_RESPONSE_ERROR"}
 
 def collect(now,cities=None,districts=None):
     """Try every city in small multi-location batches, keeping partial successes.
@@ -200,8 +215,14 @@ def collect(now,cities=None,districts=None):
         errors=[]
         attempted=0
         batches_attempted=0
+        failed_network_batches=0
+        circuit_open=False
         for i in range(0,len(all_candidates),BATCH_SIZE):
             chunk=all_candidates[i:i+BATCH_SIZE]
+            if circuit_open:
+                errors.extend({"city":city,"error":"NOT_REQUESTED",
+                               "reason":"NETWORK_CIRCUIT_OPEN"} for city,_ in chunk)
+                continue
             if (time.monotonic()-started>MAX_COLLECTION_SECONDS or
                 time.monotonic()-model_started>MAX_MODEL_SECONDS):
                 errors.extend({"city":city,"error":"NOT_REQUESTED",
@@ -214,6 +235,12 @@ def collect(now,cities=None,districts=None):
                 successes,failures=fetch_group(model_id,chunk,now)
                 good.extend(successes)
                 errors.extend(failures)
+                if successes:
+                    failed_network_batches=0
+                elif failures and all(e.get("reason") in _NETWORK_FAILURES for e in failures):
+                    failed_network_batches+=1
+                else:
+                    failed_network_batches=0
                 # If a batch response omitted/broke a subset, retry only
                 # those cities individually, within the time budget.
                 for failed in failures[:2]:
@@ -233,6 +260,10 @@ def collect(now,cities=None,districts=None):
             except Exception as exc:
                 diagnostic=classify_error(exc)
                 errors.extend({"city":city,**diagnostic} for city,_ in chunk)
+                if diagnostic["reason"] in _NETWORK_FAILURES:
+                    failed_network_batches+=1
+                else:
+                    failed_network_batches=0
                 # A malformed batch must not stop any other city groups.
                 # Do not multiply a TLS outage into ten single-city timeouts.
                 if isinstance(exc,(ValueError,TypeError)) and len(chunk)>1:
@@ -245,6 +276,8 @@ def collect(now,cities=None,districts=None):
                             errors=[e for e in errors if e["city"]!=city]
                         except Exception:
                             pass
+            if failed_network_batches>=MAX_NETWORK_FAILURE_BATCHES and not good:
+                circuit_open=True
         # Confirm each city appears once even after retried rows.
         unique={item["city"]:item for item in good}
         good=[unique[k] for k in sorted(unique)]
@@ -255,7 +288,7 @@ def collect(now,cities=None,districts=None):
             "status":"verified" if good else "unavailable",
             "cities_succeeded":len(good),"cities_requested":len(cities),
             "cities_attempted":attempted,
-            "batches_attempted":batches_attempted,
+            "batches_attempted":batches_attempted,"circuit_open":circuit_open,
             "records":good,"errors":errors}
         print("ECMWF",name,"success",len(good),"/",len(cities),
               "attempted",attempted,"batches",batches_attempted,
@@ -268,8 +301,15 @@ def collect(now,cities=None,districts=None):
         district_errors=[]
         district_attempted=0
         district_batches=0
+        district_network_failures=0
+        district_circuit=False
         for j in range(0,len(district_candidates),BATCH_SIZE):
             chunk=district_candidates[j:j+BATCH_SIZE]
+            if district_circuit:
+                district_errors.extend({"city":label,"error":"NOT_REQUESTED",
+                                        "reason":"NETWORK_CIRCUIT_OPEN"}
+                                       for label,_ in chunk)
+                continue
             if (time.monotonic()-started>MAX_COLLECTION_SECONDS or
                 time.monotonic()-district_started>MAX_DISTRICT_SECONDS):
                 district_errors.extend({"city":label,"error":"NOT_REQUESTED",
@@ -282,16 +322,30 @@ def collect(now,cities=None,districts=None):
                 successes,failures=fetch_group(model_id,chunk,now)
                 district_good.extend(successes)
                 district_errors.extend(failures)
+                if successes:
+                    district_network_failures=0
+                elif failures and all(x.get("reason") in _NETWORK_FAILURES for x in failures):
+                    district_network_failures+=1
+                else:
+                    district_network_failures=0
             except Exception as exc:
                 detail=classify_error(exc)
                 district_errors.extend({"city":label,**detail} for label,_ in chunk)
+                if detail["reason"] in _NETWORK_FAILURES:
+                    district_network_failures+=1
+                else:
+                    district_network_failures=0
+            if (district_network_failures >=
+                (1 if circuit_open else MAX_NETWORK_FAILURE_BATCHES) and
+                not district_good):
+                district_circuit=True
         # The legacy 'models' payload and 167-target counts stay unchanged.
         distinct={row["city"]:row for row in district_good}
         out["district_models"][name]={
             "model_id":model_id,"status":"verified" if distinct else "unavailable",
             "cities_requested":len(districts),"cities_attempted":district_attempted,
             "cities_succeeded":len(distinct),"batches_attempted":district_batches,
-            "records":[distinct[k] for k in sorted(distinct)],
+            "circuit_open":district_circuit,"records":[distinct[k] for k in sorted(distinct)],
             "errors":district_errors}
         print("ECMWF gu",name,"success",len(distinct),"/",len(districts),
               "attempted",district_attempted,"batches",district_batches,flush=True)
