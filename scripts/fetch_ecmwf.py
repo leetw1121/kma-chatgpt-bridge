@@ -349,7 +349,82 @@ def collect(now,cities=None,districts=None):
             "errors":district_errors}
         print("ECMWF gu",name,"success",len(distinct),"/",len(districts),
               "attempted",district_attempted,"batches",district_batches,flush=True)
+    recover_missing_after_service_restored(out,now,all_candidates,
+                                           district_candidates,started)
     return out
+
+
+MAX_RECOVERY_SECONDS=55
+
+def recover_missing_after_service_restored(out,now,cities,districts,started):
+    """Second chance AFTER both models: a later successful batch can prove
+    that an earlier TLS outage was transient. Protect the 240-second overall
+    ECMWF budget; never retry already successful coordinates.
+    """
+    # Do not spend more requests during a genuinely persistent total outage.
+    if not any(v.get("cities_succeeded",0)>0
+               for scope in ("models","district_models")
+               for v in (out.get(scope) or {}).values()):
+        return
+    recovery_started=time.monotonic()
+    for name,model_id in MODELS.items():
+        for scope,points in (("models",cities),("district_models",districts)):
+            existing=out[scope][name]
+            known={row["city"]:row for row in existing.get("records",[])}
+            missing=[(label,coords) for label,coords in points if label not in known]
+            if not missing:
+                continue
+            errors={e["city"]:e for e in existing.get("errors",[])}
+            attempted_labels=set(known)
+            attempted_labels.update(e["city"] for e in errors.values()
+                                    if e.get("error")!="NOT_REQUESTED")
+            retries=0
+            recovered=0
+            network_failures=0
+            for i in range(0,len(missing),BATCH_SIZE):
+                if (time.monotonic()-started>=MAX_COLLECTION_SECONDS or
+                    time.monotonic()-recovery_started>=MAX_RECOVERY_SECONDS):
+                    break
+                chunk=missing[i:i+BATCH_SIZE]
+                retries+=1
+                attempted_labels.update(label for label,_ in chunk)
+                try:
+                    successes,failures=fetch_group(model_id,chunk,now)
+                    if successes:
+                        network_failures=0
+                    elif failures and all(e.get("reason") in _NETWORK_FAILURES
+                                          for e in failures):
+                        network_failures+=1
+                    else:
+                        network_failures=0
+                    for label,_ in chunk:
+                        errors.pop(label,None)
+                    for item in successes:
+                        known[item["city"]]=item
+                        recovered+=1
+                    for error in failures:
+                        errors[error["city"]]=error
+                except Exception as exc:
+                    info=classify_error(exc)
+                    network_failures=(network_failures+1
+                        if info["reason"] in _NETWORK_FAILURES else 0)
+                    for label,_ in chunk:
+                        errors[label]={"city":label,**info}
+                if network_failures>=MAX_NETWORK_FAILURE_BATCHES:
+                    break
+            existing["records"]=[known[k] for k in sorted(known)]
+            existing["cities_succeeded"]=len(known)
+            existing["status"]="verified" if known else "unavailable"
+            existing["cities_attempted"]=len(attempted_labels)
+            existing["batches_attempted"]+=retries
+            existing["recovery_batches"]=retries
+            existing["recovery_succeeded"]=recovered
+            existing["errors"]=[errors[k] for k in sorted(errors)]
+            if recovered:
+                existing["circuit_open"]=False
+            print("ECMWF second chance",name,scope,
+                  "recovered",recovered,"total",len(known),"/",len(points),
+                  "recovery_batches",retries,flush=True)
 
 
 def status_md(result):
@@ -380,6 +455,9 @@ def status_md(result):
             if counts:
                 line=", ".join(f"{k} {v}건" for k,v in sorted(counts.items()))
                 lines.append(f"- {scope} {name} 미수집 원인: {line}")
+            if item.get("recovery_succeeded",0)>0:
+                lines.append(f"- {scope} {name}: 다른 지역의 연결 회복 후 "
+                             f"{item['recovery_succeeded']}곳 재시도 복구 성공")
             if item.get("circuit_open"):
                 lines.append(f"- {scope} {name}: 연속 네트워크 실패로 회로 차단 "
                              "(추가 지역 요청 생략, 기상청 PDF 계속 생성)")
