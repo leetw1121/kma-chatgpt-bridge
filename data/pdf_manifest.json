@@ -6,18 +6,49 @@
   "county_regions_succeeded": 82,
   "source": "KMA getVilageFcst + verified ECMWF IFS/AIFS",
   "source_issue_at_kst": "2026-11-18T23:00:00+09:00",
-  "source_generated_at_kst": "2026-11-19T01:07:13.831117+09:00",
-  "model_generated_at_kst": "2026-11-19T01:07:14.016347+09:00",
-  "pdf_generated_at_utc": "2026-11-18T16:12:17.684359+00:00",
+  "source_generated_at_kst": "2026-11-19T01:47:49.701124+09:00",
+  "model_generated_at_kst": "2026-11-19T01:47:49.883611+09:00",
+  "pdf_generated_at_utc": "2026-11-18T16:51:10.016280+00:00",
   "regions_checked": 256,
   "regions_succeeded": 256,
   "kma_city_date_rows": 134,
   "kma_city_names": 64,
   "kma_gu_date_rows": 31,
   "kma_unified_date_rows": 155,
-  "ecmwf_unified_date_rows": 73,
-  "pdf_layout_version": "unified_kma_ecmwf_v1",
-  "ecmwf_gu_models_included": false,
+  "ecmwf_unified_date_rows": 690,
+  "ecmwf_kma_coverage_rows": 155,
+  "ecmwf_kma_coverage_by_date": {
+    "2026-11-19": {
+      "kma_wet": 68,
+      "IFS_checked": 68,
+      "IFS_missing": 0,
+      "AIFS_checked": 68,
+      "AIFS_missing": 0
+    },
+    "2026-11-20": {
+      "kma_wet": 73,
+      "IFS_checked": 73,
+      "IFS_missing": 0,
+      "AIFS_checked": 73,
+      "AIFS_missing": 0
+    },
+    "2026-11-21": {
+      "kma_wet": 13,
+      "IFS_checked": 13,
+      "IFS_missing": 0,
+      "AIFS_checked": 13,
+      "AIFS_missing": 0
+    },
+    "2026-11-22": {
+      "kma_wet": 1,
+      "IFS_checked": 1,
+      "IFS_missing": 0,
+      "AIFS_checked": 1,
+      "AIFS_missing": 0
+    }
+  },
+  "pdf_layout_version": "unified_kma_ecmwf_v1_coverage_audit",
+  "ecmwf_gu_models_included": true,
   "ecmwf_models_included": true,
-  "pdf_size_bytes": 123766
+  "pdf_size_bytes": 202375
 }
