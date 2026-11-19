@@ -83,12 +83,35 @@ class FreshnessTests(unittest.TestCase):
         self.assertEqual(needs_refresh(self.now,self.root),
                          (False,"already_current"))
 
+    def add_valid_snapshot_locations(self):
+        self.forecast["locations"]=[{"name":"지역"+str(i),"level":"gu",
+                                      "days":{}} for i in range(174)]
+        self.write()
+
     def test_push_on_current_issue_rebuilds_report_without_any_provider_calls(self):
+        self.add_valid_snapshot_locations()
         plan=decide_run(self.now,"push",self.root)
         self.assertFalse(plan["needed"])
         self.assertTrue(plan["render_only"])
         self.assertFalse(plan["ecmwf_fetch"])
         self.assertFalse(plan["ecmwf_retry"])
+
+    def test_push_with_newer_kma_issue_still_does_not_call_provider(self):
+        self.forecast["issue_at_kst"]="2026-11-14T05:00:00+09:00"
+        self.add_valid_snapshot_locations()
+        self.assertTrue(needs_refresh(self.now,self.root)[0])
+        plan=decide_run(self.now,"push",self.root)
+        self.assertFalse(plan["needed"])
+        self.assertTrue(plan["render_only"])
+        self.assertFalse(plan["ecmwf_fetch"])
+        self.assertEqual(plan["reason"],"code_change_report_only")
+
+    def test_invalid_kma_snapshot_cannot_be_used_for_offline_report(self):
+        self.forecast["locations"]=[{"name":"중복","level":"gu","days":{}}]*174
+        self.write()
+        plan=decide_run(self.now,"push",self.root)
+        self.assertFalse(plan["render_only"])
+        self.assertNotEqual(plan["reason"],"code_change_report_only")
 
     def test_schedule_with_missing_model_only_retries_ecmwf(self):
         plan=decide_run(self.now,"schedule",self.root)
