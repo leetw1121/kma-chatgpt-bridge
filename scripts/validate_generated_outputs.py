@@ -16,6 +16,7 @@ from pathlib import Path
 from create_precip_report import ROOT, as_csv as kma_csv, rows as kma_rows
 from ecmwf_coverage_audit import csv_report as audit_csv, coverage_rows, daily_counts
 from ecmwf_report_gate import combined_model_rows
+from model_agreement_7day import agreement_by_date, markdown_report
 
 
 def read_rows(text):
@@ -71,6 +72,17 @@ def validate(root=ROOT):
             "PDF missing KMA-to-ECMWF comparison rows")
     require(manifest.get("ecmwf_kma_coverage_by_date")==daily_counts(expected_coverage),
             "PDF KMA-to-ECMWF day counts inconsistent")
+
+    agreement=agreement_by_date(kma,model)
+    comparison=(data/"model_agreement_7day.md")
+    require(comparison.exists(),"missing model agreement report")
+    require(comparison.read_text(encoding="utf-8")==markdown_report(agreement,kma),
+            "7-day model agreement report does not match verified sources")
+    require(manifest.get("model_agreement_dates")==len(agreement),
+            "PDF model agreement date count mismatch")
+    require(manifest.get("model_agreement_pairs_checked")==
+            sum(x["pairs_checked"] for x in agreement),
+            "PDF model agreement checked pairs mismatch")
 
     modeled,_,_=combined_model_rows(kma,model)
     require(manifest.get("ecmwf_unified_date_rows")==len(modeled),

@@ -19,6 +19,7 @@ from city_forecast import group_rows, ROOT
 from create_precip_report import rows as precipitation_rows
 from ecmwf_report_gate import combined_model_rows
 from ecmwf_coverage_audit import coverage_rows, daily_counts
+from model_agreement_7day import agreement_by_date
 
 OUTPUT=ROOT/"data/rain_snow_latest.pdf"
 INK=colors.HexColor("#143147")
@@ -184,6 +185,29 @@ def kma_model_coverage_tables(kma,model,st,events):
         story.append(Spacer(1,5))
     return story,summary,len(records)
 
+def agreement_summary_tables(kma,model,st):
+    """Compact date comparison for 276 points; not an ensemble forecast."""
+    counts=agreement_by_date(kma,model)
+    story=[PageBreak(),
+           P("7일 IFS·AIFS 비·눈 일치 현황 (적중률 아님)",st["title"]),
+           P("모델 쌍이 모두 실제 수집된 지역·날짜만 비교합니다. 일치 건수는 적중 확률이나 관측 검증 점수가 아니며, "
+             "미수집과 무강수를 구분합니다.",st["small"]),
+           P("날짜는 한국시간 달력 기준입니다. 0~6시간 초단기예보는 아직 별도 수집하지 않으며, "
+             "JMA MSM은 5km 모델이지만 적설량은 기온 기반 환산값이어서 실제 신적설과 같은 뜻이 아닙니다.",st["small"])]
+    values=[]
+    for row in counts:
+        values.append([row["date"],str(row["kma_wet"]) if row["kma_wet"] is not None else "미제공",
+                       str(row["both_wet"]),str(row["one_wet"]),str(row["both_dry"]),
+                       str(row["pairs_unverified"]),str(row["both_snow"])])
+    story.append(table(["날짜","KMA 비눈","양쪽 강수","한쪽 강수",
+                        "양쪽 무강수","미확인","양쪽 눈"],
+                       values,[28,23,27,25,29,20,22],st))
+    story.append(Spacer(1,7))
+    story.append(P("6~96시간은 기상청 단기예보 제공 기간에 한해 공식값을 기준으로 비교합니다. "
+        "96~168시간은 IFS·AIFS 둘 다 유지하며 한국 지역의 관측 검증 없이 AIFS를 더 정확하다고 단정하지 않습니다.",
+        st["small"]))
+    return story,counts
+
 def create(kma,model,filename):
     fonts()
     st=styles()
@@ -219,6 +243,8 @@ def create(kma,model,filename):
     audit_story,model_coverage,model_coverage_count=kma_model_coverage_tables(
         kma,model,st,kma_records)
     story.extend(audit_story)
+    compare_story,compare_counts=agreement_summary_tables(kma,model,st)
+    story.extend(compare_story)
     doc.has_ecmwf_appendix=verified
     doc.build(story)
     if filename.stat().st_size<1000 or filename.read_bytes()[:5]!=b"%PDF-":
@@ -230,6 +256,8 @@ def create(kma,model,filename):
             "ecmwf_unified_date_rows":model_stats["rows"],
             "ecmwf_kma_coverage_rows":model_coverage_count,
             "ecmwf_kma_coverage_by_date":model_coverage,
+            "model_agreement_dates":len(compare_counts),
+            "model_agreement_pairs_checked":sum(x["pairs_checked"] for x in compare_counts),
             "pdf_layout_version":"unified_kma_ecmwf_v1_coverage_audit",
             "ecmwf_gu_models_included":model_stats["district"],
             "ecmwf_models_included":bool(verified),
