@@ -140,10 +140,15 @@ def decide_run(now,event_name,root=ROOT):
     """
     if event_name=="workflow_dispatch":
         kma_needed,reason=True,"manual_kma_refresh"
-    elif event_name=="push" and can_render_existing_snapshot(root):
-        # Code deploy alone must never add 256 KMA + 552 ECMWF lookups,
-        # even when a newer issue exists. Scheduled collection handles that.
-        kma_needed,reason=False,"code_change_report_only"
+    elif event_name=="push":
+        if can_render_existing_snapshot(root):
+            # A valid old snapshot is enough to rebuild reports. Any new
+            # KMA issue is collected by the already configured scheduler.
+            kma_needed,reason=False,"code_change_report_only"
+        else:
+            # Existing source validation is stricter than PDF freshness;
+            # never render a malformed source with duplicate region names.
+            kma_needed,reason=True,"invalid_snapshot_force_refresh"
     else:
         kma_needed,reason=needs_refresh(now,root)
     model_needed,model_reason=needs_ecmwf_retry(now,root)
