@@ -97,10 +97,42 @@ def needs_ecmwf_retry(now,root=ROOT):
     except (ValueError,KeyError,TypeError,OSError):
         return True,"invalid_model_status"
 
+def can_render_existing_snapshot(root):
+    """A code-only push may reuse valid source even if a new issue is due.
+
+    The normal scheduled run remains responsible for freshness. Never treat
+    an invalid/missing KMA JSON as a usable report source.
+    """
+    path=root/"data/latest.json"
+    try:
+        source=json.loads(path.read_text(encoding="utf-8"))
+        labels=source.get("locations")
+        checked=source["locations_checked"]
+        succeeded=source["locations_succeeded"]
+        if (not isinstance(labels,list) or checked<100 or succeeded<100
+            or succeeded>checked or len(labels)!=succeeded):
+            return False
+        observed=[entry["name"] for entry in labels]
+        if len(observed)!=len(set(observed)):
+            return False
+        if (dt.datetime.fromisoformat(source["generated_at_kst"]).tzinfo is None
+            or dt.datetime.fromisoformat(source["issue_at_kst"]).tzinfo is None):
+            return False
+        mapping=root/"locations.csv"
+        if mapping.is_file():
+            with mapping.open(encoding="utf-8-sig",newline="") as stream:
+                expected={r["name"] for r in csv.DictReader(stream)}
+            if len(expected)!=checked or not set(observed)<=expected:
+                return False
+        return True
+    except (OSError,ValueError,KeyError,TypeError):
+        return False
+
+
 def decide_run(now,event_name,root=ROOT):
     """Separate KMA refresh, ECMWF provider calls, and report rebuilding.
 
-    Pushes with already-current KMA regenerate reports without calling *any*
+    Pushes with valid existing KMA regenerate reports without calling *any*
     external forecast API. This prevents code/deployment churn from causing
     Open-Meteo HTTP 429. Scheduled jobs still retry incomplete model coverage
     after a cooldown; manual jobs may force KMA refresh but respect upstream
@@ -108,6 +140,10 @@ def decide_run(now,event_name,root=ROOT):
     """
     if event_name=="workflow_dispatch":
         kma_needed,reason=True,"manual_kma_refresh"
+    elif event_name=="push" and can_render_existing_snapshot(root):
+        # Code deploy alone must never add 256 KMA + 552 ECMWF lookups,
+        # even when a newer issue exists. Scheduled collection handles that.
+        kma_needed,reason=False,"code_change_report_only"
     else:
         kma_needed,reason=needs_refresh(now,root)
     model_needed,model_reason=needs_ecmwf_retry(now,root)
