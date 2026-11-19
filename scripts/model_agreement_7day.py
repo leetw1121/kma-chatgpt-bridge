@@ -84,6 +84,12 @@ def agreement_by_date(kma,model,city_labels=None,gu_labels=None):
                 if aw is None or bw is None:
                     tallies["unverified"]+=1
                     continue
+                if (a.get("forecast_hours")!=24 or b.get("forecast_hours")!=24):
+                    # D+0 / final horizon days often have only some hours.
+                    # Never call a short dry interval a full-day dry forecast
+                    # or include it in full-day agreement denominators.
+                    tallies["partial_pairs"]+=1
+                    continue
                 if aw and bw:
                     tallies["both_wet"]+=1
                 elif aw or bw:
@@ -100,13 +106,14 @@ def agreement_by_date(kma,model,city_labels=None,gu_labels=None):
 
         total=len(labels)
         checked=tallies["both_wet"]+tallies["one_wet"]+tallies["both_dry"]
-        if checked+tallies["unverified"]!=total:
+        if checked+tallies["partial_pairs"]+tallies["unverified"]!=total:
             raise ValueError("MODEL_PAIR_ACCOUNTING_FAILED")
         daily.append({
             "date":date,
             "days_ahead":offset,
             "model_regions_targeted":total,
             "pairs_checked":checked,
+            "pairs_partial":tallies["partial_pairs"],
             "pairs_unverified":tallies["unverified"],
             "both_wet":tallies["both_wet"],
             "one_wet":tallies["one_wet"],
@@ -129,18 +136,19 @@ def markdown_report(daily,kma):
         "- IFS/AIFS는 서로 다른 독립 관측이 아니라 상관관계가 있는 예측 모델입니다. 두 모델이 일치해도 적중률 또는 확률을 의미하지 않습니다.",
         "- KMA 발표범위 밖의 날짜는 KMA 비·눈 지역 수를 '미제공'으로 표시합니다. 미확인과 무강수를 구분합니다.",
         "- D+0~D+6은 한국시간 **달력 날짜 기준**이며, 엄밀한 0~6시간 또는 96~168시간 시작·종료 구간이 아닙니다.",
+        "- **하루 24시간을 모두 제공한 IFS/AIFS 쌍**만 강수·무강수·눈 일치 건수에 포함합니다. 일부 시간만 제공한 쌍은 '일부기간'으로 별도 집계하며, 미조회와 구별합니다.",
         "",
         "기상청 자료 생성: "+kma["generated_at_kst"],
         "",
-        "| 날짜 | 기상청 비·눈 지역 | 모델 쌍 확인/대상 | 양쪽 강수 | 한쪽만 강수 | 양쪽 무강수 | 양쪽 눈 | 한쪽만 눈 | 쌍 미확인 |",
-        "|---|---:|---:|---:|---:|---:|---:|---:|---:|",
+        "| 날짜 | 기상청 비·눈 지역 | 전체일 쌍/대상 | 양쪽 강수 | 한쪽만 강수 | 양쪽 무강수 | 양쪽 눈 | 한쪽만 눈 | 일부기간 쌍 | 쌍 미확인 |",
+        "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
     ]
     for x in daily:
         kma_num=str(x["kma_wet"]) if x["kma_wet"] is not None else "미제공"
         lines.append(
             f"| {x['date']} | {kma_num} | {x['pairs_checked']}/{x['model_regions_targeted']} | "
             f"{x['both_wet']} | {x['one_wet']} | {x['both_dry']} | "
-            f"{x['both_snow']} | {x['one_snow']} | {x['pairs_unverified']} |"
+            f"{x['both_snow']} | {x['one_snow']} | {x['pairs_partial']} | {x['pairs_unverified']} |"
         )
     lines.extend([
         "",
