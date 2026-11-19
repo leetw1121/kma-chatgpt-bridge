@@ -83,6 +83,9 @@ def validate(root=ROOT):
     require(manifest.get("model_agreement_pairs_checked")==
             sum(x["pairs_checked"] for x in agreement),
             "PDF model agreement checked pairs mismatch")
+    require(manifest.get("model_agreement_pairs_partial")==
+            sum(x["pairs_partial"] for x in agreement),
+            "PDF model agreement partial pairs mismatch")
 
     modeled,_,_=combined_model_rows(kma,model)
     require(manifest.get("ecmwf_unified_date_rows")==len(modeled),
