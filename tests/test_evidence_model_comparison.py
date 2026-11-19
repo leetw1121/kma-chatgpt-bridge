@@ -63,6 +63,41 @@ class SevenDayAgreementTests(unittest.TestCase):
         self.assertIn("기상청 초단기예보는 아직 별도로 수집하지 않습니다",report)
         self.assertIn("미제공",report)
 
+    def test_partial_day_is_not_counted_as_full_day_dry_agreement(self):
+        model=sample_model()
+        model["models"]["IFS"]["records"][1]["days"][DAY]["forecast_hours"]=6
+        counts=agreement_by_date({"generated_at_kst":NOW,"locations":[]},
+                                 model,city_labels=["시1","시2","시3"],
+                                 gu_labels=["구1"])
+        day=counts[0]
+        self.assertEqual(day["pairs_checked"],2)
+        self.assertEqual(day["pairs_partial"],1)
+        self.assertEqual(day["pairs_unverified"],1)
+        self.assertEqual(day["both_dry"],0)
+        self.assertEqual(day["both_wet"],1)
+        self.assertEqual(day["one_wet"],1)
+        self.assertIn("일부기간 쌍",markdown_report(counts,{"generated_at_kst":NOW}))
+
+    def test_snapshot_does_not_rearchive_cached_or_unfetched_models(self):
+        sample=sample_model()
+        item=sample["models"]["IFS"]["records"][0]
+        item["collected_at_kst"]="2026-11-20T05:12:00+09:00"
+        sample["models"]["IFS"]["records"][1]["cached_from_previous_run"]=True
+        sample["models"]["AIFS Single"]["status"]="verified_cached_recent"
+        kma={"generated_at_kst":NOW,"issue_at_kst":NOW,"locations":[]}
+        only_models=snapshot_rows(kma,sample,include_kma=False,include_ecmwf=True)
+        self.assertEqual(len(only_models),3)
+        self.assertEqual({x["model"] for x in only_models},{"IFS"})
+        city1=next(x for x in only_models if x["region"]=="시1")
+        self.assertEqual(city1["retrieved_at_kst"],"2026-11-20T05:12:00+09:00")
+        self.assertFalse(any(x["region"]=="시2" for x in only_models))
+        self.assertEqual(snapshot_rows(kma,sample,include_kma=False,
+                                       include_ecmwf=False),[])
+        with tempfile.TemporaryDirectory() as folder:
+            output=write_snapshot([],Path(folder)/"zero.jsonl")
+            self.assertTrue(output.exists())
+            self.assertEqual(output.stat().st_size,0)
+
     def test_unknown_snow_and_missing_model_not_dry(self):
         self.assertTrue(wet_class(model_day(1,None,False)))
         self.assertFalse(wet_class(model_day(0,None,False)))

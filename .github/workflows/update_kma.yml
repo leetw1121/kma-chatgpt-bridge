@@ -190,12 +190,21 @@ jobs:
         if: steps.freshness.outputs.needed == 'true' || steps.freshness.outputs.ecmwf_retry == 'true' || steps.freshness.outputs.render_only == 'true'
         run: python scripts/validate_generated_outputs.py
       - name: Preserve timestamped forecasts for future observation-based verification
+        id: skill_snapshot
         if: steps.freshness.outputs.needed == 'true' || steps.freshness.outputs.ecmwf_fetch == 'true'
+        env:
+          FORECAST_SNAPSHOT_KMA: ${{ steps.freshness.outputs.needed }}
+          FORECAST_SNAPSHOT_ECMWF: ${{ steps.freshness.outputs.ecmwf_fetch }}
         run: |
           python scripts/forecast_skill_snapshot.py /tmp/weather-forecast-snapshot.jsonl
-          test -s /tmp/weather-forecast-snapshot.jsonl
+          if [ -s /tmp/weather-forecast-snapshot.jsonl ]; then
+            echo 'ready=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'ready=false' >> "$GITHUB_OUTPUT"
+            echo "No genuinely new forecast samples to archive; publishing may proceed."
+          fi
       - name: Archive snapshots independently of published PDF and main branch history
-        if: steps.freshness.outputs.needed == 'true' || steps.freshness.outputs.ecmwf_fetch == 'true'
+        if: steps.skill_snapshot.outputs.ready == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: forecast-skill-snapshot-${{ github.run_id }}

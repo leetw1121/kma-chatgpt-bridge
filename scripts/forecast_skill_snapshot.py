@@ -6,6 +6,7 @@ output in GitHub Actions artifacts, not repository commit history.
 """
 import datetime as dt
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -30,11 +31,16 @@ def as_float(x):
     return x if isinstance(x,(int,float)) and not isinstance(x,bool) and x>=0 else None
 
 
-def snapshot_rows(kma,model):
-    """Includes dry predictions, never fills unknowns; no location averages."""
+def snapshot_rows(kma,model,include_kma=True,include_ecmwf=True):
+    """Archive truly new predictions, not repeated cached forecasts.
+
+    include_* follows which provider was actually refreshed this run.
+    Forecasts reused from a previous ECMWF success are NOT a new issuance
+    and cannot be archived as a newly sampled prediction.
+    """
     source_time=kma["generated_at_kst"]
     rows=[]
-    for place in kma.get("locations") or []:
+    for place in (kma.get("locations") or []) if include_kma else []:
         for valid_date,day in (place.get("days") or {}).items():
             total=day.get("precip_mm") or {}
             snow=day.get("snow_cm") or {}
@@ -58,17 +64,39 @@ def snapshot_rows(kma,model):
                 "snow_upper_cm":snow.get("upper") if snow.get("comparable") else None,
                 "snow_origin":"KMA_official_forecast",
             })
-    if model:
+    if model and include_ecmwf:
         for scope,level in (("city","city_county"),("district","gu")):
+            # The PDF gate exposes day values only. Recover the provenance
+            # from raw per-region records and reject any older cached entry.
+            group_key="models" if scope=="city" else "district_models"
+            provenance={}
+            for name,group in (model.get(group_key) or {}).items():
+                if group.get("status")!="verified":
+                    continue
+                for record in group.get("records") or []:
+                    if record.get("cached_from_previous_run"):
+                        continue
+                    stamp=record.get("collected_at_kst",model.get("generated_at_kst"))
+                    try:
+                        if dt.datetime.fromisoformat(stamp).tzinfo is None:
+                            continue
+                    except (ValueError,TypeError):
+                        continue
+                    provenance[name,record.get("city")]=stamp
+
             index,_=usable_model_rows(kma,model,scope=scope,include_dry=True)
             for (date,region),series in index.items():
                 for name,day in series.items():
+                    stamp=provenance.get((name,region))
+                    if stamp is None:
+                        continue
                     rain=as_float(day.get("precip_mm"))
                     snow=as_float(day.get("snowfall_cm")) if day.get("snowfall_valid") else None
                     rows.append({
                         "model":name,"source_time_kst":None,
-                        # This is API retrieval time, NOT the model initialization.
-                        "retrieved_at_kst":model["generated_at_kst"],
+                        # Original individual region fetch time, never the
+                        # time a cached record was merged into a later run.
+                        "retrieved_at_kst":stamp,
                         "region":region,"level":level,"valid_date":date,
                         "forecast_hours":day.get("forecast_hours",0),
                         "full_day":day.get("forecast_hours")==24,
@@ -105,8 +133,15 @@ def main():
     model_file=data/"ecmwf_regional.json"
     model=json.loads(model_file.read_text(encoding="utf-8")) if model_file.exists() else None
     destination=Path(sys.argv[1]) if len(sys.argv)>1 else data/"forecast_skill_snapshot.jsonl"
-    saved=write_snapshot(snapshot_rows(kma,model),destination)
-    print("FORECAST_SKILL_SNAPSHOT",saved,saved.stat().st_size)
+    def enabled(name):
+        value=os.getenv(name)
+        return True if value is None else value.strip().lower()=="true"
+    records=snapshot_rows(kma,model,
+                          include_kma=enabled("FORECAST_SNAPSHOT_KMA"),
+                          include_ecmwf=enabled("FORECAST_SNAPSHOT_ECMWF"))
+    saved=write_snapshot(records,destination)
+    print("FORECAST_SKILL_SNAPSHOT",saved,"rows",len(records),
+          "bytes",saved.stat().st_size)
 
 
 if __name__=="__main__":
