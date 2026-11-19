@@ -46,8 +46,12 @@ def snapshot_rows(kma,model):
                 "forecast_hours":day.get("hours",0),
                 "full_day":bool(day.get("full_day")),
                 "predicted_precipitation":kma_occurrence(day),
-                "predicted_snow":bool(day.get("forecast_snow") or
-                                      day.get("forecast_mixed") or positive(snow)),
+                "predicted_snow":(
+                    True if (day.get("forecast_snow") or
+                             day.get("forecast_mixed") or positive(snow))
+                    else False if snow.get("comparable") and
+                         snow.get("lower")==0 and snow.get("upper")==0
+                    else None),
                 "precip_lower_mm":total.get("lower") if total.get("comparable") else None,
                 "precip_upper_mm":total.get("upper") if total.get("comparable") else None,
                 "snow_lower_cm":snow.get("lower") if snow.get("comparable") else None,
