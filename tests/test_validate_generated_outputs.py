@@ -33,6 +33,7 @@ class GeneratedOutputIntegrityTests(unittest.TestCase):
         records=agreement_by_date(kma,model)
         manifest["model_agreement_dates"]=len(records)
         manifest["model_agreement_pairs_checked"]=sum(x["pairs_checked"] for x in records)
+        manifest["model_agreement_pairs_partial"]=sum(x["pairs_partial"] for x in records)
         manifest_path.write_text(json.dumps(manifest,ensure_ascii=False),encoding="utf-8")
 
     def test_consistent_published_256_region_snapshot_passes(self):
@@ -45,6 +46,14 @@ class GeneratedOutputIntegrityTests(unittest.TestCase):
         path=self.data/"model_agreement_7day.md"
         path.write_text("검증되지 않은 높은 적중률 100%",encoding="utf-8")
         with self.assertRaisesRegex(ValueError,"7-day model agreement report"):
+            validate(self.root)
+
+    def test_wrong_partial_day_model_pair_count_prevents_publication(self):
+        path=self.data/"pdf_manifest.json"
+        manifest=json.loads(path.read_text(encoding="utf-8"))
+        manifest["model_agreement_pairs_partial"]+=1
+        path.write_text(json.dumps(manifest),encoding="utf-8")
+        with self.assertRaisesRegex(ValueError,"PDF model agreement partial pairs"):
             validate(self.root)
 
     def test_wrong_pdf_model_pair_count_prevents_publication(self):
