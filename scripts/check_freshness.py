@@ -140,6 +140,11 @@ def decide_run(now,event_name,root=ROOT):
     """
     if event_name=="workflow_dispatch":
         kma_needed,reason=True,"manual_kma_refresh"
+    elif (event_name=="push" and
+          os.getenv("KMA_ONE_SHOT_RECOVERY","false").lower()=="true"):
+        # Deliberate, one-time deployment recovery marker only. Normal code
+        # pushes stay API-free and the main scheduled collector remains active.
+        kma_needed,reason=True,"explicit_one_shot_kma_recovery"
     elif event_name=="push":
         if can_render_existing_snapshot(root):
             # A valid old snapshot is enough to rebuild reports. Any new
