@@ -5,31 +5,31 @@
   "scope_compatibility_note": "legacy city_only retained for deployed Cloudflare and ChatGPT validators",
   "county_regions_succeeded": 82,
   "source": "KMA getVilageFcst + verified ECMWF IFS/AIFS",
-  "source_issue_at_kst": "2026-11-20T11:00:00+09:00",
-  "source_generated_at_kst": "2026-11-20T13:10:06.090435+09:00",
-  "model_generated_at_kst": "2026-11-20T13:10:06.269547+09:00",
-  "pdf_generated_at_utc": "2026-11-20T04:11:03.425469+00:00",
+  "source_issue_at_kst": "2026-11-20T17:00:00+09:00",
+  "source_generated_at_kst": "2026-11-20T18:15:56.823208+09:00",
+  "model_generated_at_kst": "2026-11-20T18:15:57.022024+09:00",
+  "pdf_generated_at_utc": "2026-11-20T09:16:57.071432+00:00",
   "regions_checked": 256,
   "regions_succeeded": 256,
-  "kma_city_date_rows": 306,
+  "kma_city_date_rows": 309,
   "kma_city_names": 165,
-  "kma_gu_date_rows": 150,
-  "kma_unified_date_rows": 425,
-  "ecmwf_unified_date_rows": 845,
-  "ecmwf_kma_coverage_rows": 425,
+  "kma_gu_date_rows": 157,
+  "kma_unified_date_rows": 436,
+  "ecmwf_unified_date_rows": 874,
+  "ecmwf_kma_coverage_rows": 436,
   "ecmwf_kma_coverage_by_date": {
     "2026-11-20": {
-      "kma_wet": 45,
-      "IFS_checked": 45,
+      "kma_wet": 19,
+      "IFS_checked": 19,
       "IFS_missing": 0,
-      "AIFS_checked": 45,
+      "AIFS_checked": 19,
       "AIFS_missing": 0
     },
     "2026-11-21": {
-      "kma_wet": 21,
-      "IFS_checked": 21,
+      "kma_wet": 43,
+      "IFS_checked": 43,
       "IFS_missing": 0,
-      "AIFS_checked": 21,
+      "AIFS_checked": 43,
       "AIFS_missing": 0
     },
     "2026-11-22": {
@@ -40,17 +40,24 @@
       "AIFS_missing": 0
     },
     "2026-11-23": {
-      "kma_wet": 209,
-      "IFS_checked": 209,
+      "kma_wet": 254,
+      "IFS_checked": 254,
       "IFS_missing": 0,
-      "AIFS_checked": 209,
+      "AIFS_checked": 254,
       "AIFS_missing": 0
     },
     "2026-11-24": {
-      "kma_wet": 146,
-      "IFS_checked": 146,
+      "kma_wet": 115,
+      "IFS_checked": 115,
       "IFS_missing": 0,
-      "AIFS_checked": 146,
+      "AIFS_checked": 115,
+      "AIFS_missing": 0
+    },
+    "2026-11-25": {
+      "kma_wet": 1,
+      "IFS_checked": 1,
+      "IFS_missing": 0,
+      "AIFS_checked": 1,
       "AIFS_missing": 0
     }
   },
@@ -60,5 +67,5 @@
   "pdf_layout_version": "unified_kma_ecmwf_v1_coverage_audit",
   "ecmwf_gu_models_included": true,
   "ecmwf_models_included": true,
-  "pdf_size_bytes": 272423
+  "pdf_size_bytes": 272346
 }
