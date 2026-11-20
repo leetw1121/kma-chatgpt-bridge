@@ -275,6 +275,18 @@ def build(secret,locations,now):
                             failed.get(grid,"UNKNOWN_ERROR"))
     if not collected:
         raise ValueError("NO_SUCCESSFUL_LOCATIONS")
+    # Never replace a previously complete 256-region PDF with a nearly
+    # empty nationwide snapshot merely because one probe grid worked.
+    # A few isolated grid failures can be reported as partial coverage
+    # and retried; a systemic provider outage leaves last-good intact.
+    if len(grids)>=20 and len(cache)/len(grids)<0.95:
+        reason_counts={}
+        for reason in failed.values():
+            reason_counts[reason]=reason_counts.get(reason,0)+1
+        raise ValueError(
+            "KMA_INSUFFICIENT_GRID_COVERAGE_"+
+            str(len(cache))+"_OF_"+str(len(grids))+
+            "_"+json.dumps(reason_counts,ensure_ascii=False))
 
     finished=dt.datetime.now(KST)
     counts={}
