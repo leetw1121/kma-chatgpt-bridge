@@ -113,7 +113,7 @@ class ForecastTests(unittest.TestCase):
                         b'"totalCount":1}}}')
         now=dt.datetime(2026,11,20,11,tzinfo=ZoneInfo("Asia/Seoul"))
         with patch("fetch_kma.urllib.request.urlopen",
-                   side_effect=[Response(True),Response(False)]) as api,\\
+                   side_effect=[Response(True),Response(False)]) as api,\
              patch("fetch_kma.time.sleep") as delay:
             rows,total=one_page("private-key",now,60,127,max_attempts=2)
         self.assertEqual(api.call_count,2)
@@ -127,7 +127,7 @@ class ForecastTests(unittest.TestCase):
             def __exit__(self,*args):return False
             def read(self,n):raise TimeoutError("secret url must never be logged")
         now=dt.datetime(2026,11,20,11,tzinfo=ZoneInfo("Asia/Seoul"))
-        with patch("fetch_kma.urllib.request.urlopen",return_value=Response()) as api,\\
+        with patch("fetch_kma.urllib.request.urlopen",return_value=Response()) as api,\
              patch("fetch_kma.time.sleep"):
             with self.assertRaisesRegex(ValueError,"^KMA_READ_TIMEOUT$") as exc:
                 one_page("SENSITIVE-PRIVATE-KEY",now,60,127,max_attempts=2)
