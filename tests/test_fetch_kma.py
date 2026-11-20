@@ -156,6 +156,21 @@ class ForecastTests(unittest.TestCase):
                          ["나군","다구"])
         self.assertGreaterEqual(get.call_count,3)
 
+    def test_catastrophic_outage_cannot_overwrite_last_good_national_snapshot(self):
+        now=dt.datetime(2026,11,20,11,45,tzinfo=ZoneInfo("Asia/Seoul"))
+        places=[{"name":f"지역{i}","level":"city","nx":i+10,"ny":127}
+                for i in range(24)]
+        rows=[{"fcstDate":"20261120","fcstTime":"1200",
+               "category":"PCP","fcstValue":"1mm"}]
+        def getter(secret,issue,nx,ny,**kwargs):
+            if nx!=10:
+                raise ValueError("KMA_READ_TIMEOUT")
+            return list(rows)
+        with patch("fetch_kma.all_pages",side_effect=getter):
+            with self.assertRaisesRegex(
+                ValueError,"KMA_INSUFFICIENT_GRID_COVERAGE"):
+                build("private-key",places,now)
+
     def test_upstream_429_does_not_probe_second_grid_or_retry(self):
         now=dt.datetime(2026,11,20,11,45,tzinfo=ZoneInfo("Asia/Seoul"))
         locations=[{"name":"가시","level":"city","nx":60,"ny":127},
