@@ -5,24 +5,24 @@
   "scope_compatibility_note": "legacy city_only retained for deployed Cloudflare and ChatGPT validators",
   "county_regions_succeeded": 82,
   "source": "KMA getVilageFcst + verified ECMWF IFS/AIFS",
-  "source_issue_at_kst": "2026-11-20T05:00:00+09:00",
-  "source_generated_at_kst": "2026-11-20T06:15:33.952264+09:00",
-  "model_generated_at_kst": "2026-11-20T06:15:34.201623+09:00",
-  "pdf_generated_at_utc": "2026-11-19T21:16:17.155461+00:00",
+  "source_issue_at_kst": "2026-11-20T11:00:00+09:00",
+  "source_generated_at_kst": "2026-11-20T13:10:06.090435+09:00",
+  "model_generated_at_kst": "2026-11-20T13:10:06.269547+09:00",
+  "pdf_generated_at_utc": "2026-11-20T04:11:03.425469+00:00",
   "regions_checked": 256,
   "regions_succeeded": 256,
-  "kma_city_date_rows": 304,
+  "kma_city_date_rows": 306,
   "kma_city_names": 165,
-  "kma_gu_date_rows": 144,
-  "kma_unified_date_rows": 418,
-  "ecmwf_unified_date_rows": 764,
-  "ecmwf_kma_coverage_rows": 418,
+  "kma_gu_date_rows": 150,
+  "kma_unified_date_rows": 425,
+  "ecmwf_unified_date_rows": 845,
+  "ecmwf_kma_coverage_rows": 425,
   "ecmwf_kma_coverage_by_date": {
     "2026-11-20": {
-      "kma_wet": 38,
-      "IFS_checked": 38,
+      "kma_wet": 45,
+      "IFS_checked": 45,
       "IFS_missing": 0,
-      "AIFS_checked": 38,
+      "AIFS_checked": 45,
       "AIFS_missing": 0
     },
     "2026-11-21": {
@@ -60,5 +60,5 @@
   "pdf_layout_version": "unified_kma_ecmwf_v1_coverage_audit",
   "ecmwf_gu_models_included": true,
   "ecmwf_models_included": true,
-  "pdf_size_bytes": 264110
+  "pdf_size_bytes": 272423
 }
