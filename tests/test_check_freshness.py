@@ -3,6 +3,7 @@ import json
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -87,6 +88,16 @@ class FreshnessTests(unittest.TestCase):
         self.forecast["locations"]=[{"name":"지역"+str(i),"level":"gu",
                                       "days":{}} for i in range(174)]
         self.write()
+
+    def test_explicit_recovery_marker_allows_one_push_refresh(self):
+        self.add_valid_snapshot_locations()
+        with patch("check_freshness.os.getenv",
+                   side_effect=lambda name,default=None:
+                       "true" if name=="KMA_ONE_SHOT_RECOVERY" else default):
+            plan=decide_run(self.now,"push",self.root)
+        self.assertTrue(plan["needed"])
+        self.assertFalse(plan["render_only"])
+        self.assertEqual(plan["reason"],"explicit_one_shot_kma_recovery")
 
     def test_push_on_current_issue_rebuilds_report_without_any_provider_calls(self):
         self.add_valid_snapshot_locations()
