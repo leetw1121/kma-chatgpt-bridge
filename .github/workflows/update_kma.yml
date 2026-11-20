@@ -111,6 +111,8 @@ jobs:
         id: freshness
         env:
           GITHUB_EVENT_NAME: ${{ github.event_name }}
+          # One-shot explicit recovery, never on ordinary code deployments.
+          KMA_ONE_SHOT_RECOVERY: ${{ github.event_name == 'push' && contains(github.event.head_commit.message, '[kma-recovery]') }}
         run: python scripts/check_freshness.py >> "$GITHUB_OUTPUT"
       - name: Validate collector
         if: steps.freshness.outputs.needed == 'true' || steps.freshness.outputs.ecmwf_retry == 'true' || steps.freshness.outputs.render_only == 'true'

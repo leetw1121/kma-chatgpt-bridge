@@ -22,6 +22,10 @@ ROOT = Path(__file__).resolve().parents[1]
 API = "https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst"
 HOURS = (2, 5, 8, 11, 14, 17, 20, 23)
 FIELDS = ("PCP", "SNO", "POP", "PTY")
+REQUEST_TIMEOUT_SECONDS = 18
+MAX_ISSUE_PROBE_SECONDS = 125
+MAX_GRID_COLLECTION_SECONDS = 570
+PROVIDER_FAILURE_CIRCUIT_THRESHOLD = 16
 
 def issues(now):
     """Use the latest expected published forecast and three fallbacks."""
@@ -35,39 +39,58 @@ def issues(now):
                 result.append(at)
     return sorted(result, reverse=True)[:4]
 
-def one_page(secret, issue, nx, ny, page=1):
+def one_page(secret, issue, nx, ny, page=1, max_attempts=3):
+    """One official KMA page with bounded retries for *both* connection and
+    response-body read timeouts. Never log the URL (it includes serviceKey).
+    """
     args = {"serviceKey": secret, "dataType": "JSON", "pageNo": page,
             "numOfRows": 1500, "base_date": issue.strftime("%Y%m%d"),
             "base_time": issue.strftime("%H%M"), "nx": nx, "ny": ny}
     url = API + "?" + urllib.parse.urlencode(args)
     request = urllib.request.Request(url, headers={"Accept": "application/json",
                                                     "User-Agent": "KMA-Weather-Bridge/1.0"})
-    for trial in range(3):
+    if not 1 <= max_attempts <= 3:
+        raise ValueError("INVALID_KMA_RETRY_COUNT")
+    for trial in range(max_attempts):
         try:
-            with urllib.request.urlopen(request, timeout=25) as response:
+            with urllib.request.urlopen(request, timeout=REQUEST_TIMEOUT_SECONDS) as response:
                 body = json.loads(response.read(10000000).decode("utf-8-sig"))
             if str(body["response"]["header"]["resultCode"]) != "00":
-                raise ValueError("KMA_API_ERROR_" + re.sub("[^0-9A-Za-z]","",str(body["response"]["header"]["resultCode"])))
+                raise ValueError("KMA_API_ERROR_" + re.sub(
+                    "[^0-9A-Za-z]","",str(body["response"]["header"]["resultCode"])))
             data = body["response"]["body"]
             rows = (data.get("items") or {}).get("item") or []
             return (rows if isinstance(rows,list) else [rows]), int(data["totalCount"])
         except urllib.error.HTTPError as exc:
-            if exc.code in (429,500,502,503,504) and trial < 2:
+            # 429 is an explicit provider throttle, NOT an invitation to
+            # hammer the same endpoint again. Slow 5xx can be retried.
+            if exc.code in (500,502,503,504) and trial+1 < max_attempts:
                 time.sleep(2*(trial+1))
                 continue
             raise ValueError("HTTP_STATUS_"+str(exc.code)) from None
-        except urllib.error.URLError:
-            if trial < 2:
+        except urllib.error.URLError as exc:
+            error="KMA_READ_TIMEOUT" if isinstance(exc.reason,TimeoutError) else "NETWORK_ERROR"
+            if trial+1 < max_attempts:
                 time.sleep(2*(trial+1))
                 continue
-            raise ValueError("NETWORK_ERROR") from None
+            raise ValueError(error) from None
+        except (TimeoutError,ConnectionError):
+            # urllib.urlopen(...).read(...) can raise socket.timeout as a
+            # bare TimeoutError, not wrapped by URLError. Previously this
+            # escaped build() and cancelled an entire nationwide run.
+            if trial+1 < max_attempts:
+                time.sleep(2*(trial+1))
+                continue
+            raise ValueError("KMA_READ_TIMEOUT") from None
         except (KeyError,TypeError,json.JSONDecodeError,UnicodeError):
             raise ValueError("INVALID_KMA_RESPONSE") from None
+    raise ValueError("KMA_RETRIES_EXHAUSTED")
 
-def all_pages(secret, issue, nx, ny):
-    rows,total = one_page(secret,issue,nx,ny)
+
+def all_pages(secret, issue, nx, ny, max_attempts=3):
+    rows,total = one_page(secret,issue,nx,ny,max_attempts=max_attempts)
     for p in range(2,math.ceil(total/1500)+1):
-        more,_ = one_page(secret,issue,nx,ny,p)
+        more,_ = one_page(secret,issue,nx,ny,p,max_attempts=max_attempts)
         rows.extend(more)
     if len(rows) != total or total < 50:
         raise ValueError("PARTIAL_KMA_RESPONSE")
@@ -161,42 +184,118 @@ def load_locations():
     return locations
 
 def build(secret,locations,now):
+    """Retrieve up to 224 unique official grids, independently and bounded.
+
+    A transient failure at a single grid cannot abort the entire national
+    collection. New issue probing tries two different representative grids.
+    Time and provider-error circuits bound catastrophic upstream outages.
+    """
+    if not locations:
+        raise ValueError("NO_LOCATIONS")
     warnings=[]
     issue=None
-    first=None
-    for candidate in issues(now):
-        try:
-            first=all_pages(secret,candidate,locations[0]["nx"],locations[0]["ny"])
-            issue=candidate
-            break
-        except ValueError as exc:
-            warnings.append("issue_"+candidate.strftime("%Y%m%d%H%M")+"_"+str(exc))
-    if issue is None: raise ValueError("NO_AVAILABLE_FORECAST_ISSUE")
+    cache={}
     grids=sorted({(place["nx"],place["ny"]) for place in locations})
-    first_grid=(locations[0]["nx"],locations[0]["ny"])
-    cache={first_grid:first}
+    # A faulty representative grid should not force an older issuance.
+    probe_grids=list(dict.fromkeys(
+        (place["nx"],place["ny"]) for place in locations))[:2]
+    probe_started=time.monotonic()
+    for candidate in issues(now):
+        for grid in probe_grids:
+            if time.monotonic()-probe_started>=MAX_ISSUE_PROBE_SECONDS:
+                warnings.append("KMA_ISSUE_PROBE_TIME_BUDGET_EXCEEDED")
+                break
+            try:
+                first=all_pages(secret,candidate,*grid,max_attempts=2)
+                cache[grid]=first
+                issue=candidate
+                break
+            except ValueError as exc:
+                warnings.append("issue_"+candidate.strftime("%Y%m%d%H%M")+
+                                "_probe_"+str(exc))
+                if str(exc)=="HTTP_STATUS_429":
+                    # Do not use a second grid to bypass an upstream throttle.
+                    raise ValueError("KMA_PROVIDER_RATE_LIMITED") from None
+        if issue is not None or time.monotonic()-probe_started>=MAX_ISSUE_PROBE_SECONDS:
+            break
+    if issue is None:
+        raise ValueError("NO_AVAILABLE_FORECAST_ISSUE: "+",".join(warnings[-5:]))
+
+    remaining=[grid for grid in grids if grid not in cache]
     failed={}
-    # Unique grid fetches only; bounded parallelism keeps the 10,000-call/day API quota safe.
-    remaining=[g for g in grids if g!=first_grid]
+    circuit_open=False
+    budget_exceeded=False
     if remaining:
-        with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
-            futures={pool.submit(all_pages,secret,issue,*grid):grid for grid in remaining}
-            for future in concurrent.futures.as_completed(futures):
-                grid=futures[future]
-                try:
-                    cache[grid]=future.result()
-                except ValueError as exc:
-                    failed[grid]=str(exc)
+        pool=concurrent.futures.ThreadPoolExecutor(max_workers=4)
+        futures={pool.submit(all_pages,secret,issue,*grid):grid
+                 for grid in remaining}
+        try:
+            try:
+                for future in concurrent.futures.as_completed(
+                    futures,timeout=MAX_GRID_COLLECTION_SECONDS):
+                    grid=futures[future]
+                    try:
+                        cache[grid]=future.result()
+                    except (ValueError,OSError) as exc:
+                        # No untrusted URL or service key in a diagnostic.
+                        reason=str(exc)
+                        failed[grid]=reason if reason.startswith((
+                            "HTTP_STATUS_","KMA_","NETWORK_ERROR",
+                            "INVALID_KMA_","PARTIAL_KMA_")) else "NETWORK_ERROR"
+                    # Avoid a 10+ minute stampede when upstream rejects
+                    # every grid or rate-limits the key.
+                    bad_429=sum(v=="HTTP_STATUS_429" for v in failed.values())
+                    if (bad_429>=2 or
+                        (len(failed)>=PROVIDER_FAILURE_CIRCUIT_THRESHOLD
+                         and len(cache)<=len(probe_grids))):
+                        circuit_open=True
+                        break
+            except concurrent.futures.TimeoutError:
+                budget_exceeded=True
+            if circuit_open or budget_exceeded:
+                for future in futures:
+                    future.cancel()
+        finally:
+            # Running requests complete their own bounded socket timeout;
+            # prevent the main job from hanging on hundreds of queued tasks.
+            pool.shutdown(wait=False,cancel_futures=True)
+        for future,grid in futures.items():
+            if grid not in cache and grid not in failed:
+                failed[grid]=("PROVIDER_CIRCUIT_OPEN" if circuit_open else
+                              "COLLECTION_TIME_BUDGET" if budget_exceeded else
+                              "NOT_COLLECTED")
+
     collected=[]
     for place in locations:
         grid=(place["nx"],place["ny"])
         if grid in cache:
             collected.append({**place,"days":daily_summary(cache[grid],now)})
         else:
-            warnings.append("location_failed_"+place["name"]+"_"+failed.get(grid,"UNKNOWN_ERROR"))
-    if not collected: raise ValueError("NO_SUCCESSFUL_LOCATIONS")
+            warnings.append("location_failed_"+place["name"]+"_"+
+                            failed.get(grid,"UNKNOWN_ERROR"))
+    if not collected:
+        raise ValueError("NO_SUCCESSFUL_LOCATIONS")
+    # Never replace a previously complete 256-region PDF with a nearly
+    # empty nationwide snapshot merely because one probe grid worked.
+    # A few isolated grid failures can be reported as partial coverage
+    # and retried; a systemic provider outage leaves last-good intact.
+    if len(grids)>=20 and len(cache)/len(grids)<0.95:
+        reason_counts={}
+        for reason in failed.values():
+            reason_counts[reason]=reason_counts.get(reason,0)+1
+        raise ValueError(
+            "KMA_INSUFFICIENT_GRID_COVERAGE_"+
+            str(len(cache))+"_OF_"+str(len(grids))+
+            "_"+json.dumps(reason_counts,ensure_ascii=False))
+
     finished=dt.datetime.now(KST)
-    # The run can succeed partially, but report exact coverage and prevent silent gaps.
+    counts={}
+    for reason in failed.values():
+        counts[reason]=counts.get(reason,0)+1
+    print("KMA grid collection",len(cache),"/",len(grids),
+          "failed",len(failed),"issue",issue.isoformat(),
+          "circuit",circuit_open,"budget",budget_exceeded,
+          "reasons",json.dumps(counts,ensure_ascii=False),flush=True)
     return {"schema_version":"1.2","source":"KMA getVilageFcst",
             "generated_at_kst":finished.isoformat(),
             "collection_started_at_kst":now.astimezone(KST).isoformat(),
@@ -205,6 +304,8 @@ def build(secret,locations,now):
             "ranking_note":"Representative grids only. Duplicate districts share the same forecast; intervals can overlap.",
             "locations_checked":len(locations),"locations_succeeded":len(collected),
             "unique_grids_checked":len(grids),"unique_grids_succeeded":len(cache),
+            "failed_grid_reasons":counts,"provider_circuit_open":circuit_open,
+            "collection_time_budget_exceeded":budget_exceeded,
             "warnings":warnings[:30],"locations":collected}
 
 def render(data):
