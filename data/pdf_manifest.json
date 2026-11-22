@@ -5,10 +5,10 @@
   "scope_compatibility_note": "legacy city_only retained for deployed Cloudflare and ChatGPT validators",
   "county_regions_succeeded": 82,
   "source": "KMA getVilageFcst + verified ECMWF IFS/AIFS",
-  "source_issue_at_kst": "2026-11-22T08:00:00+09:00",
-  "source_generated_at_kst": "2026-11-22T09:43:22.964652+09:00",
+  "source_issue_at_kst": "2026-11-22T11:00:00+09:00",
+  "source_generated_at_kst": "2026-11-22T12:14:43.331880+09:00",
   "model_generated_at_kst": "2026-11-22T09:43:23.144673+09:00",
-  "pdf_generated_at_utc": "2026-11-22T00:43:49.597414+00:00",
+  "pdf_generated_at_utc": "2026-11-22T03:15:09.570935+00:00",
   "regions_checked": 256,
   "regions_succeeded": 256,
   "kma_city_date_rows": 249,
@@ -46,5 +46,5 @@
   "pdf_layout_version": "unified_kma_ecmwf_v1_coverage_audit",
   "ecmwf_gu_models_included": true,
   "ecmwf_models_included": true,
-  "pdf_size_bytes": 271006
+  "pdf_size_bytes": 270754
 }
