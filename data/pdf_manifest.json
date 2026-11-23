@@ -5,38 +5,45 @@
   "scope_compatibility_note": "legacy city_only retained for deployed Cloudflare and ChatGPT validators",
   "county_regions_succeeded": 82,
   "source": "KMA getVilageFcst + verified ECMWF IFS/AIFS",
-  "source_issue_at_kst": "2026-11-23T11:00:00+09:00",
-  "source_generated_at_kst": "2026-11-23T12:15:20.836979+09:00",
-  "model_generated_at_kst": "2026-11-23T10:12:43.076222+09:00",
-  "pdf_generated_at_utc": "2026-11-23T03:15:38.311488+00:00",
+  "source_issue_at_kst": "2026-11-23T17:00:00+09:00",
+  "source_generated_at_kst": "2026-11-23T18:15:13.488436+09:00",
+  "model_generated_at_kst": "2026-11-23T18:15:13.687644+09:00",
+  "pdf_generated_at_utc": "2026-11-23T09:15:48.429981+00:00",
   "regions_checked": 256,
   "regions_succeeded": 256,
-  "kma_city_date_rows": 257,
+  "kma_city_date_rows": 306,
   "kma_city_names": 166,
-  "kma_gu_date_rows": 149,
-  "kma_unified_date_rows": 379,
-  "ecmwf_unified_date_rows": 1078,
-  "ecmwf_kma_coverage_rows": 379,
+  "kma_gu_date_rows": 190,
+  "kma_unified_date_rows": 460,
+  "ecmwf_unified_date_rows": 1077,
+  "ecmwf_kma_coverage_rows": 460,
   "ecmwf_kma_coverage_by_date": {
     "2026-11-23": {
-      "kma_wet": 255,
-      "IFS_checked": 255,
+      "kma_wet": 229,
+      "IFS_checked": 229,
       "IFS_missing": 0,
-      "AIFS_checked": 255,
+      "AIFS_checked": 229,
       "AIFS_missing": 0
     },
     "2026-11-24": {
-      "kma_wet": 123,
-      "IFS_checked": 123,
+      "kma_wet": 124,
+      "IFS_checked": 124,
       "IFS_missing": 0,
-      "AIFS_checked": 123,
+      "AIFS_checked": 124,
       "AIFS_missing": 0
     },
     "2026-11-25": {
-      "kma_wet": 1,
-      "IFS_checked": 1,
+      "kma_wet": 2,
+      "IFS_checked": 2,
       "IFS_missing": 0,
-      "AIFS_checked": 1,
+      "AIFS_checked": 2,
+      "AIFS_missing": 0
+    },
+    "2026-11-27": {
+      "kma_wet": 105,
+      "IFS_checked": 105,
+      "IFS_missing": 0,
+      "AIFS_checked": 105,
       "AIFS_missing": 0
     }
   },
@@ -46,5 +53,5 @@
   "pdf_layout_version": "unified_kma_ecmwf_v1_coverage_audit",
   "ecmwf_gu_models_included": true,
   "ecmwf_models_included": true,
-  "pdf_size_bytes": 284355
+  "pdf_size_bytes": 298817
 }
