@@ -1,9 +1,9 @@
 {
   "schema_version": "1.2",
   "source": "KMA getVilageFcst",
-  "generated_at_kst": "2026-11-25T18:15:10.079740+09:00",
-  "collection_started_at_kst": "2026-11-25T18:13:01.339959+09:00",
-  "issue_at_kst": "2026-11-25T17:00:00+09:00",
+  "generated_at_kst": "2026-11-25T20:40:40.681568+09:00",
+  "collection_started_at_kst": "2026-11-25T20:38:48.501112+09:00",
+  "issue_at_kst": "2026-11-25T20:00:00+09:00",
   "coverage_note": "Only returned KMA short-range forecast hours; not 168h of district totals.",
   "ranking_note": "Representative grids only. Duplicate districts share the same forecast; intervals can overlap.",
   "locations_checked": 256,
@@ -22,11 +22,11 @@
       "ny": 131,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
-          "max_pop_pct": 20,
+          "max_pop_pct": 0,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
@@ -204,9 +204,9 @@
       "ny": 145,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -386,9 +386,9 @@
       "ny": 127,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -568,9 +568,9 @@
       "ny": 125,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -750,9 +750,9 @@
       "ny": 141,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -932,9 +932,9 @@
       "ny": 139,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -1114,9 +1114,9 @@
       "ny": 138,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -1296,9 +1296,9 @@
       "ny": 119,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -1478,9 +1478,9 @@
       "ny": 122,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -1660,9 +1660,9 @@
       "ny": 138,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -1842,9 +1842,9 @@
       "ny": 123,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -2024,9 +2024,9 @@
       "ny": 139,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -2206,9 +2206,9 @@
       "ny": 134,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -2388,9 +2388,9 @@
       "ny": 119,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -2570,9 +2570,9 @@
       "ny": 123,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -2752,9 +2752,9 @@
       "ny": 130,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -2934,9 +2934,9 @@
       "ny": 139,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -3116,9 +3116,9 @@
       "ny": 125,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -3298,9 +3298,9 @@
       "ny": 133,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -3480,9 +3480,9 @@
       "ny": 128,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -3662,9 +3662,9 @@
       "ny": 129,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -3844,9 +3844,9 @@
       "ny": 129,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -4026,11 +4026,11 @@
       "ny": 124,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
-          "max_pop_pct": 20,
+          "max_pop_pct": 0,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
@@ -4208,9 +4208,9 @@
       "ny": 125,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -4390,9 +4390,9 @@
       "ny": 123,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -4572,9 +4572,9 @@
       "ny": 127,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -4754,11 +4754,11 @@
       "ny": 122,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
-          "max_pop_pct": 20,
+          "max_pop_pct": 0,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
@@ -4936,9 +4936,9 @@
       "ny": 128,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -5118,9 +5118,9 @@
       "ny": 128,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -5300,9 +5300,9 @@
       "ny": 134,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -5482,9 +5482,9 @@
       "ny": 125,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -5664,9 +5664,9 @@
       "ny": 126,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -5846,9 +5846,9 @@
       "ny": 125,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -6028,9 +6028,9 @@
       "ny": 123,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -6210,9 +6210,9 @@
       "ny": 124,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -6392,9 +6392,9 @@
       "ny": 124,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -6574,11 +6574,11 @@
       "ny": 120,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
-          "max_pop_pct": 20,
+          "max_pop_pct": 0,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
@@ -6756,11 +6756,11 @@
       "ny": 120,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
-          "max_pop_pct": 20,
+          "max_pop_pct": 0,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
@@ -6938,11 +6938,11 @@
       "ny": 121,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
-          "max_pop_pct": 20,
+          "max_pop_pct": 0,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
@@ -7120,9 +7120,9 @@
       "ny": 121,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -7302,11 +7302,11 @@
       "ny": 123,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
-          "max_pop_pct": 20,
+          "max_pop_pct": 0,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
@@ -7484,11 +7484,11 @@
       "ny": 121,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
-          "max_pop_pct": 20,
+          "max_pop_pct": 0,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
@@ -7666,11 +7666,11 @@
       "ny": 121,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
-          "max_pop_pct": 20,
+          "max_pop_pct": 0,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
@@ -7848,9 +7848,9 @@
       "ny": 115,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -8030,11 +8030,11 @@
       "ny": 123,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
-          "max_pop_pct": 20,
+          "max_pop_pct": 0,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
@@ -8212,11 +8212,11 @@
       "ny": 123,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
-          "max_pop_pct": 20,
+          "max_pop_pct": 0,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
@@ -8394,9 +8394,9 @@
       "ny": 131,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -8576,9 +8576,9 @@
       "ny": 125,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -8758,9 +8758,9 @@
       "ny": 121,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -8940,9 +8940,9 @@
       "ny": 138,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -9122,11 +9122,11 @@
       "ny": 118,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
-          "max_pop_pct": 20,
+          "max_pop_pct": 0,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
@@ -9304,9 +9304,9 @@
       "ny": 120,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -9486,9 +9486,9 @@
       "ny": 121,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -9668,9 +9668,9 @@
       "ny": 119,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -9850,11 +9850,11 @@
       "ny": 122,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
-          "max_pop_pct": 20,
+          "max_pop_pct": 0,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
@@ -10032,9 +10032,9 @@
       "ny": 130,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -10214,11 +10214,11 @@
       "ny": 121,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
-          "max_pop_pct": 20,
+          "max_pop_pct": 0,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
@@ -10396,9 +10396,9 @@
       "ny": 131,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -10578,9 +10578,9 @@
       "ny": 114,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -10760,9 +10760,9 @@
       "ny": 134,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -10942,9 +10942,9 @@
       "ny": 126,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -11124,11 +11124,11 @@
       "ny": 119,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
-          "max_pop_pct": 20,
+          "max_pop_pct": 0,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
@@ -11306,9 +11306,9 @@
       "ny": 117,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -11488,11 +11488,11 @@
       "ny": 119,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
-          "max_pop_pct": 20,
+          "max_pop_pct": 0,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
@@ -11670,11 +11670,11 @@
       "ny": 119,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
-          "max_pop_pct": 20,
+          "max_pop_pct": 0,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
@@ -11852,9 +11852,9 @@
       "ny": 69,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -12034,9 +12034,9 @@
       "ny": 86,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -12217,9 +12217,9 @@
       "ny": 71,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -12399,9 +12399,9 @@
       "ny": 77,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -12581,9 +12581,9 @@
       "ny": 68,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -12763,9 +12763,9 @@
       "ny": 83,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -12945,9 +12945,9 @@
       "ny": 71,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -13127,9 +13127,9 @@
       "ny": 80,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -13310,9 +13310,9 @@
       "ny": 79,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -13492,9 +13492,9 @@
       "ny": 78,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -13674,9 +13674,9 @@
       "ny": 75,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -13856,11 +13856,11 @@
       "ny": 83,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
-          "max_pop_pct": 20,
+          "max_pop_pct": 0,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
@@ -14038,9 +14038,9 @@
       "ny": 76,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -14220,9 +14220,9 @@
       "ny": 76,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -14402,9 +14402,9 @@
       "ny": 76,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -14584,9 +14584,9 @@
       "ny": 77,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -14766,9 +14766,9 @@
       "ny": 75,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -14948,9 +14948,9 @@
       "ny": 68,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -15130,9 +15130,9 @@
       "ny": 73,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -15312,9 +15312,9 @@
       "ny": 77,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -15494,9 +15494,9 @@
       "ny": 82,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -15677,9 +15677,9 @@
       "ny": 84,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -15859,9 +15859,9 @@
       "ny": 90,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -16041,9 +16041,9 @@
       "ny": 91,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -16223,9 +16223,9 @@
       "ny": 87,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -16405,9 +16405,9 @@
       "ny": 96,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -16587,9 +16587,9 @@
       "ny": 96,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -16769,9 +16769,9 @@
       "ny": 106,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -16951,9 +16951,9 @@
       "ny": 113,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -17133,9 +17133,9 @@
       "ny": 102,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -17315,9 +17315,9 @@
       "ny": 91,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -17497,9 +17497,9 @@
       "ny": 106,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -17679,9 +17679,9 @@
       "ny": 103,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -17861,9 +17861,9 @@
       "ny": 108,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -18043,9 +18043,9 @@
       "ny": 111,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -18225,9 +18225,9 @@
       "ny": 93,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -18407,9 +18407,9 @@
       "ny": 107,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -18589,9 +18589,9 @@
       "ny": 127,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -18771,9 +18771,9 @@
       "ny": 115,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -18953,9 +18953,9 @@
       "ny": 101,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -19135,9 +19135,9 @@
       "ny": 86,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -19317,9 +19317,9 @@
       "ny": 103,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -19499,9 +19499,9 @@
       "ny": 93,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -19681,9 +19681,9 @@
       "ny": 94,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -19863,9 +19863,9 @@
       "ny": 95,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -20045,9 +20045,9 @@
       "ny": 99,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -20227,9 +20227,9 @@
       "ny": 90,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -20409,9 +20409,9 @@
       "ny": 90,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -20591,9 +20591,9 @@
       "ny": 88,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -20773,9 +20773,9 @@
       "ny": 91,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -20955,9 +20955,9 @@
       "ny": 91,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -21137,9 +21137,9 @@
       "ny": 90,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -21319,9 +21319,9 @@
       "ny": 90,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -21501,9 +21501,9 @@
       "ny": 90,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -21683,9 +21683,9 @@
       "ny": 100,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -21865,9 +21865,9 @@
       "ny": 100,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -22047,9 +22047,9 @@
       "ny": 100,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -22229,9 +22229,9 @@
       "ny": 101,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -22411,9 +22411,9 @@
       "ny": 100,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -22593,9 +22593,9 @@
       "ny": 76,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -22775,9 +22775,9 @@
       "ny": 77,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -22957,9 +22957,9 @@
       "ny": 77,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -23139,9 +23139,9 @@
       "ny": 75,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -23321,9 +23321,9 @@
       "ny": 75,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -23503,9 +23503,9 @@
       "ny": 76,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -23685,9 +23685,9 @@
       "ny": 75,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -23867,9 +23867,9 @@
       "ny": 76,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -24049,9 +24049,9 @@
       "ny": 75,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -24231,9 +24231,9 @@
       "ny": 74,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -24413,9 +24413,9 @@
       "ny": 74,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -24595,9 +24595,9 @@
       "ny": 75,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -24777,9 +24777,9 @@
       "ny": 76,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -24959,9 +24959,9 @@
       "ny": 74,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -25141,9 +25141,9 @@
       "ny": 74,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -25323,9 +25323,9 @@
       "ny": 75,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -25505,9 +25505,9 @@
       "ny": 126,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -25687,9 +25687,9 @@
       "ny": 126,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -25869,9 +25869,9 @@
       "ny": 128,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -26051,9 +26051,9 @@
       "ny": 126,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -26233,11 +26233,11 @@
       "ny": 125,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
-          "max_pop_pct": 20,
+          "max_pop_pct": 0,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
@@ -26415,9 +26415,9 @@
       "ny": 126,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -26597,9 +26597,9 @@
       "ny": 125,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -26779,11 +26779,11 @@
       "ny": 124,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
-          "max_pop_pct": 20,
+          "max_pop_pct": 0,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
@@ -26961,9 +26961,9 @@
       "ny": 129,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -27143,9 +27143,9 @@
       "ny": 129,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -27325,9 +27325,9 @@
       "ny": 127,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -27507,11 +27507,11 @@
       "ny": 125,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
-          "max_pop_pct": 20,
+          "max_pop_pct": 0,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
@@ -27689,9 +27689,9 @@
       "ny": 127,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -27871,9 +27871,9 @@
       "ny": 127,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -28053,11 +28053,11 @@
       "ny": 125,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
-          "max_pop_pct": 20,
+          "max_pop_pct": 0,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
@@ -28235,9 +28235,9 @@
       "ny": 127,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -28417,9 +28417,9 @@
       "ny": 127,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -28599,9 +28599,9 @@
       "ny": 126,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -28781,9 +28781,9 @@
       "ny": 126,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -28963,9 +28963,9 @@
       "ny": 126,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -29145,9 +29145,9 @@
       "ny": 126,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -29327,9 +29327,9 @@
       "ny": 127,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -29509,9 +29509,9 @@
       "ny": 127,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -29691,9 +29691,9 @@
       "ny": 127,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -29873,9 +29873,9 @@
       "ny": 128,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -30055,9 +30055,9 @@
       "ny": 103,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -30237,9 +30237,9 @@
       "ny": 84,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -30419,9 +30419,9 @@
       "ny": 83,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -30601,9 +30601,9 @@
       "ny": 85,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -30783,9 +30783,9 @@
       "ny": 84,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -30965,9 +30965,9 @@
       "ny": 84,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -31147,9 +31147,9 @@
       "ny": 130,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -31329,9 +31329,9 @@
       "ny": 127,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -31511,9 +31511,9 @@
       "ny": 126,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -31693,9 +31693,9 @@
       "ny": 124,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -31875,9 +31875,9 @@
       "ny": 124,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -32057,9 +32057,9 @@
       "ny": 125,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -32239,9 +32239,9 @@
       "ny": 126,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -32421,9 +32421,9 @@
       "ny": 123,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -32603,9 +32603,9 @@
       "ny": 125,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -32785,9 +32785,9 @@
       "ny": 124,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -32967,9 +32967,9 @@
       "ny": 125,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -33149,9 +33149,9 @@
       "ny": 63,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -33331,9 +33331,9 @@
       "ny": 62,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -33513,9 +33513,9 @@
       "ny": 77,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -33696,11 +33696,11 @@
       "ny": 74,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
-          "max_pop_pct": 20,
+          "max_pop_pct": 0,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
@@ -33879,9 +33879,9 @@
       "ny": 70,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -34061,9 +34061,9 @@
       "ny": 75,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -34244,11 +34244,11 @@
       "ny": 71,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
-          "max_pop_pct": 20,
+          "max_pop_pct": 0,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
@@ -34426,9 +34426,9 @@
       "ny": 73,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -34609,9 +34609,9 @@
       "ny": 78,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -34792,11 +34792,11 @@
       "ny": 74,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
-          "max_pop_pct": 20,
+          "max_pop_pct": 0,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
@@ -34975,9 +34975,9 @@
       "ny": 67,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -35157,9 +35157,9 @@
       "ny": 71,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -35339,11 +35339,11 @@
       "ny": 66,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
-          "max_pop_pct": 20,
+          "max_pop_pct": 0,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
@@ -35522,11 +35522,11 @@
       "ny": 75,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
-          "max_pop_pct": 20,
+          "max_pop_pct": 0,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
@@ -35705,11 +35705,11 @@
       "ny": 74,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
-          "max_pop_pct": 20,
+          "max_pop_pct": 0,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
@@ -35887,9 +35887,9 @@
       "ny": 70,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -36069,9 +36069,9 @@
       "ny": 66,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -36251,11 +36251,11 @@
       "ny": 66,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
-          "max_pop_pct": 20,
+          "max_pop_pct": 0,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
@@ -36433,9 +36433,9 @@
       "ny": 77,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -36616,11 +36616,11 @@
       "ny": 66,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
-          "max_pop_pct": 20,
+          "max_pop_pct": 0,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
@@ -36798,9 +36798,9 @@
       "ny": 56,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -36980,11 +36980,11 @@
       "ny": 77,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
-          "max_pop_pct": 20,
+          "max_pop_pct": 0,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
@@ -37163,9 +37163,9 @@
       "ny": 64,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -37345,9 +37345,9 @@
       "ny": 59,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -37527,9 +37527,9 @@
       "ny": 72,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -37709,9 +37709,9 @@
       "ny": 61,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -37891,9 +37891,9 @@
       "ny": 72,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -38074,11 +38074,11 @@
       "ny": 80,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
-          "max_pop_pct": 20,
+          "max_pop_pct": 0,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
@@ -38257,9 +38257,9 @@
       "ny": 92,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -38439,9 +38439,9 @@
       "ny": 88,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -38621,9 +38621,9 @@
       "ny": 80,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -38804,9 +38804,9 @@
       "ny": 93,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -38987,9 +38987,9 @@
       "ny": 87,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -39169,9 +39169,9 @@
       "ny": 79,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -39352,9 +39352,9 @@
       "ny": 89,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -39534,9 +39534,9 @@
       "ny": 91,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -39716,9 +39716,9 @@
       "ny": 84,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -39899,9 +39899,9 @@
       "ny": 85,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -40082,9 +40082,9 @@
       "ny": 89,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -40264,9 +40264,9 @@
       "ny": 89,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -40446,9 +40446,9 @@
       "ny": 83,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -40628,9 +40628,9 @@
       "ny": 88,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -40811,9 +40811,9 @@
       "ny": 33,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -40993,9 +40993,9 @@
       "ny": 38,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -41175,9 +41175,9 @@
       "ny": 99,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -41357,9 +41357,9 @@
       "ny": 102,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -41539,9 +41539,9 @@
       "ny": 95,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -41721,9 +41721,9 @@
       "ny": 97,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -41903,9 +41903,9 @@
       "ny": 112,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -42085,11 +42085,11 @@
       "ny": 100,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
-          "max_pop_pct": 20,
+          "max_pop_pct": 0,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
@@ -42267,9 +42267,9 @@
       "ny": 99,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -42449,9 +42449,9 @@
       "ny": 110,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -42631,11 +42631,11 @@
       "ny": 94,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
-          "max_pop_pct": 20,
+          "max_pop_pct": 0,
           "precip_mm": {
             "unit": "mm",
             "comparable": true,
@@ -42813,9 +42813,9 @@
       "ny": 110,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -42995,9 +42995,9 @@
       "ny": 107,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -43177,9 +43177,9 @@
       "ny": 110,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -43359,9 +43359,9 @@
       "ny": 112,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -43541,9 +43541,9 @@
       "ny": 103,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -43723,9 +43723,9 @@
       "ny": 109,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 0,
           "precip_mm": {
@@ -43905,9 +43905,9 @@
       "ny": 106,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -44087,9 +44087,9 @@
       "ny": 111,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -44269,9 +44269,9 @@
       "ny": 115,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -44451,9 +44451,9 @@
       "ny": 103,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -44633,9 +44633,9 @@
       "ny": 97,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 30,
           "precip_mm": {
@@ -44815,9 +44815,9 @@
       "ny": 99,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -44997,9 +44997,9 @@
       "ny": 113,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -45179,9 +45179,9 @@
       "ny": 118,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -45361,9 +45361,9 @@
       "ny": 110,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -45543,9 +45543,9 @@
       "ny": 111,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -45725,9 +45725,9 @@
       "ny": 106,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -45907,9 +45907,9 @@
       "ny": 107,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -46089,9 +46089,9 @@
       "ny": 107,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -46271,9 +46271,9 @@
       "ny": 106,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
@@ -46453,9 +46453,9 @@
       "ny": 114,
       "days": {
         "2026-11-25": {
-          "from_kst": "2026-11-25T19:00:00+09:00",
+          "from_kst": "2026-11-25T21:00:00+09:00",
           "to_kst": "2026-11-25T23:00:00+09:00",
-          "hours": 5,
+          "hours": 3,
           "full_day": false,
           "max_pop_pct": 20,
           "precip_mm": {
