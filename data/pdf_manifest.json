@@ -5,18 +5,18 @@
   "scope_compatibility_note": "legacy city_only retained for deployed Cloudflare and ChatGPT validators",
   "county_regions_succeeded": 82,
   "source": "KMA getVilageFcst + verified ECMWF IFS/AIFS",
-  "source_issue_at_kst": "2026-11-25T11:00:00+09:00",
-  "source_generated_at_kst": "2026-11-25T12:14:30.116934+09:00",
-  "model_generated_at_kst": "2026-11-25T12:14:30.292453+09:00",
-  "pdf_generated_at_utc": "2026-11-25T03:14:59.881320+00:00",
+  "source_issue_at_kst": "2026-11-25T17:00:00+09:00",
+  "source_generated_at_kst": "2026-11-25T18:15:10.079740+09:00",
+  "model_generated_at_kst": "2026-11-25T18:15:10.273872+09:00",
+  "pdf_generated_at_utc": "2026-11-25T09:15:43.600924+00:00",
   "regions_checked": 256,
   "regions_succeeded": 256,
-  "kma_city_date_rows": 152,
-  "kma_city_names": 111,
-  "kma_gu_date_rows": 88,
-  "kma_unified_date_rows": 222,
-  "ecmwf_unified_date_rows": 948,
-  "ecmwf_kma_coverage_rows": 222,
+  "kma_city_date_rows": 158,
+  "kma_city_names": 119,
+  "kma_gu_date_rows": 95,
+  "kma_unified_date_rows": 233,
+  "ecmwf_unified_date_rows": 1130,
+  "ecmwf_kma_coverage_rows": 233,
   "ecmwf_kma_coverage_by_date": {
     "2026-11-26": {
       "kma_wet": 10,
@@ -26,24 +26,24 @@
       "AIFS_missing": 0
     },
     "2026-11-27": {
-      "kma_wet": 134,
-      "IFS_checked": 134,
+      "kma_wet": 129,
+      "IFS_checked": 129,
       "IFS_missing": 0,
-      "AIFS_checked": 134,
+      "AIFS_checked": 129,
       "AIFS_missing": 0
     },
     "2026-11-28": {
-      "kma_wet": 59,
-      "IFS_checked": 59,
+      "kma_wet": 91,
+      "IFS_checked": 91,
       "IFS_missing": 0,
-      "AIFS_checked": 59,
+      "AIFS_checked": 91,
       "AIFS_missing": 0
     },
     "2026-11-29": {
-      "kma_wet": 19,
-      "IFS_checked": 19,
+      "kma_wet": 3,
+      "IFS_checked": 3,
       "IFS_missing": 0,
-      "AIFS_checked": 19,
+      "AIFS_checked": 3,
       "AIFS_missing": 0
     }
   },
@@ -53,5 +53,5 @@
   "pdf_layout_version": "unified_kma_ecmwf_v1_coverage_audit",
   "ecmwf_gu_models_included": true,
   "ecmwf_models_included": true,
-  "pdf_size_bytes": 241816
+  "pdf_size_bytes": 259063
 }
