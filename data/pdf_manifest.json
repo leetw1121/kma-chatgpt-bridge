@@ -7,15 +7,15 @@
   "source": "KMA getVilageFcst + verified ECMWF IFS/AIFS",
   "source_issue_at_kst": "2026-11-25T20:00:00+09:00",
   "source_generated_at_kst": "2026-11-25T20:40:40.681568+09:00",
-  "model_generated_at_kst": "2026-11-25T18:15:10.273872+09:00",
-  "pdf_generated_at_utc": "2026-11-25T11:41:04.922880+00:00",
+  "model_generated_at_kst": "2026-11-25T21:36:07.152003+09:00",
+  "pdf_generated_at_utc": "2026-11-25T12:36:34.927802+00:00",
   "regions_checked": 256,
   "regions_succeeded": 256,
   "kma_city_date_rows": 158,
   "kma_city_names": 119,
   "kma_gu_date_rows": 95,
   "kma_unified_date_rows": 233,
-  "ecmwf_unified_date_rows": 1130,
+  "ecmwf_unified_date_rows": 1081,
   "ecmwf_kma_coverage_rows": 233,
   "ecmwf_kma_coverage_by_date": {
     "2026-11-26": {
@@ -53,5 +53,5 @@
   "pdf_layout_version": "unified_kma_ecmwf_v1_coverage_audit",
   "ecmwf_gu_models_included": true,
   "ecmwf_models_included": true,
-  "pdf_size_bytes": 259059
+  "pdf_size_bytes": 256481
 }
