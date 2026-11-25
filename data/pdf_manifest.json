@@ -5,26 +5,19 @@
   "scope_compatibility_note": "legacy city_only retained for deployed Cloudflare and ChatGPT validators",
   "county_regions_succeeded": 82,
   "source": "KMA getVilageFcst + verified ECMWF IFS/AIFS",
-  "source_issue_at_kst": "2026-11-25T23:00:00+09:00",
-  "source_generated_at_kst": "2026-11-26T00:15:46.789769+09:00",
-  "model_generated_at_kst": "2026-11-25T21:36:07.152003+09:00",
-  "pdf_generated_at_utc": "2026-11-25T15:16:02.260590+00:00",
+  "source_issue_at_kst": "2026-11-26T05:00:00+09:00",
+  "source_generated_at_kst": "2026-11-26T06:15:06.010104+09:00",
+  "model_generated_at_kst": "2026-11-26T06:15:06.188693+09:00",
+  "pdf_generated_at_utc": "2026-11-25T21:15:36.323986+00:00",
   "regions_checked": 256,
   "regions_succeeded": 256,
-  "kma_city_date_rows": 158,
-  "kma_city_names": 119,
+  "kma_city_date_rows": 155,
+  "kma_city_names": 123,
   "kma_gu_date_rows": 95,
-  "kma_unified_date_rows": 233,
-  "ecmwf_unified_date_rows": 1081,
-  "ecmwf_kma_coverage_rows": 233,
+  "kma_unified_date_rows": 230,
+  "ecmwf_unified_date_rows": 1341,
+  "ecmwf_kma_coverage_rows": 230,
   "ecmwf_kma_coverage_by_date": {
-    "2026-11-26": {
-      "kma_wet": 10,
-      "IFS_checked": 10,
-      "IFS_missing": 0,
-      "AIFS_checked": 10,
-      "AIFS_missing": 0
-    },
     "2026-11-27": {
       "kma_wet": 129,
       "IFS_checked": 129,
@@ -33,17 +26,17 @@
       "AIFS_missing": 0
     },
     "2026-11-28": {
-      "kma_wet": 91,
-      "IFS_checked": 91,
+      "kma_wet": 96,
+      "IFS_checked": 96,
       "IFS_missing": 0,
-      "AIFS_checked": 91,
+      "AIFS_checked": 96,
       "AIFS_missing": 0
     },
     "2026-11-29": {
-      "kma_wet": 3,
-      "IFS_checked": 3,
+      "kma_wet": 5,
+      "IFS_checked": 5,
       "IFS_missing": 0,
-      "AIFS_checked": 3,
+      "AIFS_checked": 5,
       "AIFS_missing": 0
     }
   },
@@ -53,5 +46,5 @@
   "pdf_layout_version": "unified_kma_ecmwf_v1_coverage_audit",
   "ecmwf_gu_models_included": true,
   "ecmwf_models_included": true,
-  "pdf_size_bytes": 256531
+  "pdf_size_bytes": 276679
 }
