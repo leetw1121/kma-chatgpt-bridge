@@ -113,10 +113,22 @@ def needs_alert_status_refresh(root=ROOT):
         checked=dt.datetime.fromisoformat(status["status_generated_at_kst"])
         if checked.tzinfo is None:
             return True,"status_timestamp_missing_timezone"
+        if status.get("schema_version")!=1 or status.get("checks_passed") is not True:
+            return True,"status_schema_or_integrity_mismatch"
         if status.get("source_generated_at_kst")!=forecast.get("generated_at_kst"):
             return True,"status_source_mismatch"
-        if status.get("pdf_generated_at_kst") is None:
-            return True,"status_pdf_timestamp_missing"
+        if status.get("source_issue_at_kst")!=forecast.get("issue_at_kst"):
+            return True,"status_issue_mismatch"
+        if (status.get("regions_succeeded")!=forecast.get("locations_succeeded") or
+            status.get("regions_checked")!=forecast.get("locations_checked")):
+            return True,"status_region_count_mismatch"
+        try:
+            status_pdf=dt.datetime.fromisoformat(status["pdf_generated_at_kst"]).astimezone(KST)
+            manifest_pdf=dt.datetime.fromisoformat(manifest["pdf_generated_at_utc"]).astimezone(KST)
+        except (KeyError,TypeError,ValueError):
+            return True,"status_pdf_timestamp_missing_or_invalid"
+        if status_pdf!=manifest_pdf:
+            return True,"status_pdf_timestamp_mismatch"
         if status.get("pdf_size_bytes")!=manifest.get("pdf_size_bytes"):
             return True,"status_pdf_size_mismatch"
         return False,"status_current"
