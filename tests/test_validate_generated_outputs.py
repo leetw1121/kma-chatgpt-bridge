@@ -59,7 +59,7 @@ class GeneratedOutputIntegrityTests(unittest.TestCase):
         alert=json.loads(path.read_text(encoding="utf-8"))
         alert["status_generated_at_kst"]="2026-11-20T00:00:00"
         path.write_text(json.dumps(alert),encoding="utf-8")
-        with self.assertRaisesRegex(ValueError,"invalid alert status generation timestamp"):
+        with self.assertRaisesRegex(ValueError,"alert readiness timestamps must include timezone"):
             validate(self.root)
 
     def test_edited_model_agreement_is_rejected_before_publication(self):
