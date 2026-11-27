@@ -15,6 +15,10 @@ const TZ_OFFSET_MS = 9 * 60 * 60 * 1000;
 const ISSUE_HOURS = [23, 20, 17, 14, 11, 8, 5, 2];
 const RELEASE_GRACE_MS = 18 * 60 * 1000;
 const MAX_DATA_AGE_MS = 4 * 60 * 60 * 1000;
+// The GitHub collector's job-level timeout is 15 minutes. Do not dispatch
+// another copy just because an otherwise valid active run is older than
+// seven minutes; that creates a queued duplicate behind the concurrency lock.
+export const MAX_ACTIVE_WORKFLOW_AGE_MS = 18 * 60 * 1000;
 
 export function expectedIssueUTC(nowMs) {
   const cutoff = nowMs - RELEASE_GRACE_MS;
@@ -71,6 +75,12 @@ async function fetchJson(path) {
   return response.json();
 }
 
+export function isActiveWorkflowRun(run, nowMs) {
+  const start = Date.parse(run.run_started_at || run.created_at);
+  const age = nowMs - start;
+  return Number.isFinite(start) && age >= 0 && age < MAX_ACTIVE_WORKFLOW_AGE_MS;
+}
+
 async function maybeInProgress(token, nowMs) {
   const url = `https://api.github.com/repos/${OWNER}/${REPO}/actions/workflows/${WORKFLOW}/runs?status=in_progress&per_page=5`;
   try {
@@ -82,10 +92,7 @@ async function maybeInProgress(token, nowMs) {
     }, cf: { cacheTtl: 0 } });
     if (!response.ok) return false;
     const data = await response.json();
-    return (data.workflow_runs || []).some((x) => {
-      const start = Date.parse(x.run_started_at || x.created_at);
-      return Number.isFinite(start) && start <= nowMs && nowMs - start < 7 * 60_000;
-    });
+    return (data.workflow_runs || []).some((x) => isActiveWorkflowRun(x, nowMs));
   } catch {
     // Status lookup is advisory; do not prevent the fallback on network errors.
     return false;
