@@ -184,12 +184,12 @@ jobs:
           test -s data/rain_snow_latest.pdf
           test "$(head -c 5 data/rain_snow_latest.pdf)" = "%PDF-"
       - name: Verify PDF and publish deterministic reminder readiness
-        if: steps.freshness.outputs.needed == 'true' || steps.freshness.outputs.ecmwf_retry == 'true' || steps.freshness.outputs.render_only == 'true'
+        if: steps.freshness.outputs.needed == 'true' || steps.freshness.outputs.ecmwf_retry == 'true' || steps.freshness.outputs.render_only == 'true' || steps.freshness.outputs.status_only == 'true'
         run: |
           python scripts/create_alert_status.py
           test -s data/alert_status.json
       - name: Check cross-file region/model coverage integrity before publishing
-        if: steps.freshness.outputs.needed == 'true' || steps.freshness.outputs.ecmwf_retry == 'true' || steps.freshness.outputs.render_only == 'true'
+        if: steps.freshness.outputs.needed == 'true' || steps.freshness.outputs.ecmwf_retry == 'true' || steps.freshness.outputs.render_only == 'true' || steps.freshness.outputs.status_only == 'true'
         run: python scripts/validate_generated_outputs.py
       - name: Preserve timestamped forecasts for future observation-based verification
         id: skill_snapshot
@@ -214,7 +214,7 @@ jobs:
           if-no-files-found: error
           retention-days: 30
       - name: Safely publish PDF and forecast data even when code changed
-        if: steps.freshness.outputs.needed == 'true' || steps.freshness.outputs.ecmwf_retry == 'true' || steps.freshness.outputs.render_only == 'true'
+        if: steps.freshness.outputs.needed == 'true' || steps.freshness.outputs.ecmwf_retry == 'true' || steps.freshness.outputs.render_only == 'true' || steps.freshness.outputs.status_only == 'true'
         shell: bash
         run: |
           set -euo pipefail
