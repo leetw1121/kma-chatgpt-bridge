@@ -35,6 +35,10 @@ class AlertReadyTests(unittest.TestCase):
         self.assertTrue(status["pdf_ready"])
         self.assertEqual(status["ready_for_alert_slot_kst"],"2026-11-16T18:30:00+09:00")
         self.assertEqual(status["source_issue_at_kst"],"2026-11-16T17:00:00+09:00")
+        self.assertEqual(status["status_generated_at_kst"],self.now.isoformat())
+        self.assertGreaterEqual(
+            dt.datetime.fromisoformat(status["status_generated_at_kst"]),
+            dt.datetime.fromisoformat(status["pdf_generated_at_kst"]))
 
     def test_pdf_generated_after_alert_slot_must_not_claim_slot_ready(self):
         self.manifest["pdf_generated_at_utc"]="2026-11-16T09:45:41+00:00"
