@@ -89,6 +89,32 @@ class FreshnessTests(unittest.TestCase):
                                       "days":{}} for i in range(174)]
         self.write()
 
+    def add_current_report_outputs(self):
+        self.add_valid_snapshot_locations()
+        pdf=self.directory/"rain_snow_latest.pdf"
+        self.manifest.update({
+            "scope":"city_only","coverage_scope":"city_district_county",
+            "pdf_layout_version":"unified_kma_ecmwf_v1_coverage_audit",
+            "source_generated_at_kst":self.forecast["generated_at_kst"],
+            "source_issue_at_kst":self.forecast["issue_at_kst"],
+            "regions_checked":self.forecast["locations_checked"],
+            "regions_succeeded":self.forecast["locations_succeeded"],
+            "pdf_size_bytes":pdf.stat().st_size,
+            "pdf_generated_at_utc":"2026-11-14T03:15:00+00:00",
+            "kma_unified_date_rows":1,"ecmwf_kma_coverage_rows":1,
+        })
+        self.write()
+        for name in ("precipitation_only.csv","city_precipitation.csv",
+                     "ecmwf_kma_coverage.csv","ecmwf_kma_coverage.md",
+                     "model_agreement_7day.md"):
+            (self.directory/name).write_text("valid\n",encoding="utf-8")
+        (self.directory/"alert_status.json").write_text(json.dumps({
+            "status_generated_at_kst":"2026-11-14T12:19:00+09:00",
+            "source_generated_at_kst":self.forecast["generated_at_kst"],
+            "pdf_generated_at_kst":"2026-11-14T12:15:00+09:00",
+            "pdf_size_bytes":pdf.stat().st_size,
+        }),encoding="utf-8")
+
     def test_explicit_recovery_marker_allows_one_push_refresh(self):
         self.add_valid_snapshot_locations()
         with patch("check_freshness.os.getenv",
@@ -107,15 +133,52 @@ class FreshnessTests(unittest.TestCase):
         self.assertFalse(plan["ecmwf_fetch"])
         self.assertFalse(plan["ecmwf_retry"])
 
-    def test_push_with_newer_kma_issue_still_does_not_call_provider(self):
+    def test_push_with_newer_kma_issue_does_not_fetch_or_regenerate_current_pdf(self):
         self.forecast["issue_at_kst"]="2026-11-14T05:00:00+09:00"
-        self.add_valid_snapshot_locations()
+        self.manifest["source_issue_at_kst"]=self.forecast["issue_at_kst"]
+        self.add_current_report_outputs()
         self.assertTrue(needs_refresh(self.now,self.root)[0])
         plan=decide_run(self.now,"push",self.root)
         self.assertFalse(plan["needed"])
-        self.assertTrue(plan["render_only"])
+        self.assertFalse(plan["render_only"])
+        self.assertFalse(plan["status_only"])
         self.assertFalse(plan["ecmwf_fetch"])
-        self.assertEqual(plan["reason"],"code_change_report_only")
+        self.assertEqual(plan["reason"],"code_change_no_data_rebuild")
+
+    def test_current_code_push_only_refreshes_status_json_not_pdf(self):
+        self.add_current_report_outputs()
+        alert_path=self.directory/"alert_status.json"
+        alert=json.loads(alert_path.read_text(encoding="utf-8"))
+        alert.pop("status_generated_at_kst")
+        alert_path.write_text(json.dumps(alert),encoding="utf-8")
+        plan=decide_run(self.now,"push",self.root)
+        self.assertFalse(plan["needed"])
+        self.assertFalse(plan["render_only"])
+        self.assertTrue(plan["status_only"])
+        self.assertFalse(plan["ecmwf_fetch"])
+        self.assertTrue(plan["reason"].startswith("code_change_status_only"))
+
+    def test_pdf_timestamp_drift_repairs_status_only_without_rebuilding_pdf(self):
+        self.add_current_report_outputs()
+        alert_path=self.directory/"alert_status.json"
+        alert=json.loads(alert_path.read_text(encoding="utf-8"))
+        alert["pdf_generated_at_kst"]="2026-11-14T12:05:00+09:00"
+        alert_path.write_text(json.dumps(alert),encoding="utf-8")
+        plan=decide_run(self.now,"push",self.root)
+        self.assertFalse(plan["needed"])
+        self.assertFalse(plan["render_only"])
+        self.assertTrue(plan["status_only"])
+        self.assertFalse(plan["ecmwf_fetch"])
+
+    def test_code_push_rebuilds_only_when_pdf_layout_version_changes(self):
+        self.add_current_report_outputs()
+        self.manifest["pdf_layout_version"]="old_layout"
+        self.write()
+        plan=decide_run(self.now,"push",self.root)
+        self.assertFalse(plan["needed"])
+        self.assertTrue(plan["render_only"])
+        self.assertFalse(plan["status_only"])
+        self.assertFalse(plan["ecmwf_fetch"])
 
     def test_invalid_kma_snapshot_cannot_be_used_for_offline_report(self):
         self.forecast["locations"]=[{"name":"중복","level":"gu","days":{}}]*174
