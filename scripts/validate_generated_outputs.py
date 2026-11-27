@@ -125,6 +125,15 @@ def validate(root=ROOT):
             "alert status does not match KMA source")
     require(alert.get("pdf_size_bytes")==pdf.stat().st_size,
             "alert status does not match published PDF")
+    try:
+        status_time=dt.datetime.fromisoformat(alert["status_generated_at_kst"])
+        pdf_time=dt.datetime.fromisoformat(alert["pdf_generated_at_kst"])
+        require(status_time.tzinfo is not None and pdf_time.tzinfo is not None,
+                "alert readiness timestamps must include timezone")
+        require(status_time>=pdf_time,
+                "alert readiness was evaluated before the PDF was generated")
+    except (KeyError,TypeError,ValueError):
+        raise ValueError("ARTIFACT_INTEGRITY: invalid alert status generation timestamp")
     require(alert.get("checks_passed") is True,"alert status failed document-integrity checks")
 
     return {"kma_checked":kma["locations_checked"],
