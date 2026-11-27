@@ -14,6 +14,14 @@ from pathlib import Path
 from fetch_kma import KST, issues
 
 ROOT=Path(__file__).resolve().parents[1]
+EXPECTED_PDF_LAYOUT_VERSION="unified_kma_ecmwf_v1_coverage_audit"
+REQUIRED_REPORT_FILES=(
+    "precipitation_only.csv",
+    "city_precipitation.csv",
+    "ecmwf_kma_coverage.csv",
+    "ecmwf_kma_coverage.md",
+    "model_agreement_7day.md",
+)
 
 def needs_refresh(now, root=ROOT):
     data=root/"data"
@@ -51,6 +59,70 @@ def needs_refresh(now, root=ROOT):
         return False,"already_current"
     except (ValueError,KeyError,TypeError,OSError,IndexError):
         return True,"invalid_data"
+
+def needs_report_rebuild(root=ROOT):
+    """Rebuild on code pushes only when report artifacts/layout are obsolete.
+
+    A code-only deployment must not regenerate an already-current PDF after
+    its alert slot: doing so changes pdf_generated_at_kst and can turn a
+    previously on-time alert into a false late/not-ready status.
+    """
+    data=root/"data"
+    try:
+        forecast=json.loads((data/"latest.json").read_text(encoding="utf-8"))
+        manifest=json.loads((data/"pdf_manifest.json").read_text(encoding="utf-8"))
+        pdf=data/"rain_snow_latest.pdf"
+        if not pdf.is_file():
+            return True,"missing_pdf"
+        if manifest.get("pdf_layout_version")!=EXPECTED_PDF_LAYOUT_VERSION:
+            return True,"pdf_layout_changed"
+        if manifest.get("scope")!="city_only" or manifest.get("coverage_scope")!="city_district_county":
+            return True,"pdf_scope_changed"
+        if manifest.get("source_generated_at_kst")!=forecast.get("generated_at_kst"):
+            return True,"pdf_source_mismatch"
+        if manifest.get("source_issue_at_kst")!=forecast.get("issue_at_kst"):
+            return True,"pdf_issue_mismatch"
+        if manifest.get("regions_checked")!=forecast.get("locations_checked") or manifest.get("regions_succeeded")!=forecast.get("locations_succeeded"):
+            return True,"pdf_region_counts_mismatch"
+        if pdf.stat().st_size<1000 or pdf.stat().st_size!=manifest.get("pdf_size_bytes"):
+            return True,"invalid_pdf_size"
+        with pdf.open("rb") as stream:
+            if stream.read(5)!=b"%PDF-":
+                return True,"invalid_pdf_signature"
+        for name in REQUIRED_REPORT_FILES:
+            if not (data/name).is_file() or (data/name).stat().st_size==0:
+                return True,"missing_report_file_"+name
+        if manifest.get("ecmwf_kma_coverage_rows")!=manifest.get("kma_unified_date_rows"):
+            return True,"coverage_audit_rows_mismatch"
+        return False,"reports_current"
+    except (OSError,ValueError,KeyError,TypeError):
+        return True,"invalid_report_metadata"
+
+
+def needs_alert_status_refresh(root=ROOT):
+    """Refresh only the small status JSON if it predates the status schema.
+
+    This deliberately leaves the already-published PDF and its original
+    creation time untouched.
+    """
+    data=root/"data"
+    try:
+        forecast=json.loads((data/"latest.json").read_text(encoding="utf-8"))
+        manifest=json.loads((data/"pdf_manifest.json").read_text(encoding="utf-8"))
+        status=json.loads((data/"alert_status.json").read_text(encoding="utf-8"))
+        checked=dt.datetime.fromisoformat(status["status_generated_at_kst"])
+        if checked.tzinfo is None:
+            return True,"status_timestamp_missing_timezone"
+        if status.get("source_generated_at_kst")!=forecast.get("generated_at_kst"):
+            return True,"status_source_mismatch"
+        if status.get("pdf_generated_at_kst") is None:
+            return True,"status_pdf_timestamp_missing"
+        if status.get("pdf_size_bytes")!=manifest.get("pdf_size_bytes"):
+            return True,"status_pdf_size_mismatch"
+        return False,"status_current"
+    except (OSError,ValueError,KeyError,TypeError):
+        return True,"status_needs_refresh"
+
 
 def needs_ecmwf_retry(now,root=ROOT):
     """Retry external models when KMA PDF is current but ECMWF is incomplete.
@@ -130,45 +202,47 @@ def can_render_existing_snapshot(root):
 
 
 def decide_run(now,event_name,root=ROOT):
-    """Separate KMA refresh, ECMWF provider calls, and report rebuilding.
+    """Separate provider collection, report rebuilding and status-only repair.
 
-    Pushes with valid existing KMA regenerate reports without calling *any*
-    external forecast API. This prevents code/deployment churn from causing
-    Open-Meteo HTTP 429. Scheduled jobs still retry incomplete model coverage
-    after a cooldown; manual jobs may force KMA refresh but respect upstream
-    429 and existing recent model coverage.
+    A valid code push does not regenerate a current PDF. It rebuilds reports
+    only if the published layout/output set is obsolete; if just the alert
+    status schema is old, it refreshes alert_status.json without touching the
+    PDF creation timestamp. Scheduled/manual collection behavior is unchanged.
     """
+    render_only=False
+    status_only=False
     if event_name=="workflow_dispatch":
         kma_needed,reason=True,"manual_kma_refresh"
     elif (event_name=="push" and
           os.getenv("KMA_ONE_SHOT_RECOVERY","false").lower()=="true"):
-        # Deliberate, one-time deployment recovery marker only. Normal code
-        # pushes stay API-free and the main scheduled collector remains active.
         kma_needed,reason=True,"explicit_one_shot_kma_recovery"
     elif event_name=="push":
         if can_render_existing_snapshot(root):
-            # A valid old snapshot is enough to rebuild reports. Any new
-            # KMA issue is collected by the already configured scheduler.
-            kma_needed,reason=False,"code_change_report_only"
+            rebuild,why=needs_report_rebuild(root)
+            if rebuild:
+                kma_needed,reason=False,"code_change_requires_report_rebuild:"+why
+                render_only=True
+            else:
+                kma_needed=False
+                status_only,status_reason=needs_alert_status_refresh(root)
+                reason=("code_change_status_only:"+status_reason if status_only
+                        else "code_change_no_data_rebuild")
         else:
-            # Existing source validation is stricter than PDF freshness;
-            # never render a malformed source with duplicate region names.
             kma_needed,reason=True,"invalid_snapshot_force_refresh"
     else:
         kma_needed,reason=needs_refresh(now,root)
     model_needed,model_reason=needs_ecmwf_retry(now,root)
     model_fetch=bool(model_needed and (kma_needed or event_name=="schedule"))
     model_retry=bool(not kma_needed and event_name=="schedule" and model_fetch)
-    render_only=bool(event_name=="push" and not kma_needed)
     return {
         "needed":kma_needed,
         "ecmwf_retry":model_retry,
         "ecmwf_fetch":model_fetch,
         "render_only":render_only,
+        "status_only":status_only,
         "reason":reason,
         "ecmwf_reason":model_reason
     }
-
 
 def main():
     now=dt.datetime.now(KST)
