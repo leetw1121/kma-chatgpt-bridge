@@ -100,6 +100,7 @@ class FreshnessTests(unittest.TestCase):
             "regions_checked":self.forecast["locations_checked"],
             "regions_succeeded":self.forecast["locations_succeeded"],
             "pdf_size_bytes":pdf.stat().st_size,
+            "pdf_generated_at_utc":"2026-11-14T03:15:00+00:00",
             "kma_unified_date_rows":1,"ecmwf_kma_coverage_rows":1,
         })
         self.write()
@@ -156,6 +157,18 @@ class FreshnessTests(unittest.TestCase):
         self.assertTrue(plan["status_only"])
         self.assertFalse(plan["ecmwf_fetch"])
         self.assertTrue(plan["reason"].startswith("code_change_status_only"))
+
+    def test_pdf_timestamp_drift_repairs_status_only_without_rebuilding_pdf(self):
+        self.add_current_report_outputs()
+        alert_path=self.directory/"alert_status.json"
+        alert=json.loads(alert_path.read_text(encoding="utf-8"))
+        alert["pdf_generated_at_kst"]="2026-11-14T12:05:00+09:00"
+        alert_path.write_text(json.dumps(alert),encoding="utf-8")
+        plan=decide_run(self.now,"push",self.root)
+        self.assertFalse(plan["needed"])
+        self.assertFalse(plan["render_only"])
+        self.assertTrue(plan["status_only"])
+        self.assertFalse(plan["ecmwf_fetch"])
 
     def test_code_push_rebuilds_only_when_pdf_layout_version_changes(self):
         self.add_current_report_outputs()
