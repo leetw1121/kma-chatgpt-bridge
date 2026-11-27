@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { expectedIssueUTC, isFresh } from "./worker.mjs";
+import { expectedIssueUTC, isFresh, isActiveWorkflowRun } from "./worker.mjs";
 
 const time = Date.parse("2026-11-14T12:12:00+09:00");
 const latest = {
@@ -51,4 +51,22 @@ test("unexpected old data triggers fallback", () => {
 
 test("invalid PDF marker triggers fallback", () => {
   assert.equal(isFresh(latest,{ ...pdf, pdf_size_bytes: 0 },time).reason,"invalid_pdf_size");
+});
+
+test("an active run older than seven minutes is still considered active", () => {
+  const now = Date.parse("2026-11-27T18:12:00+09:00");
+  const run = { run_started_at: "2026-11-27T18:00:00+09:00" };
+  assert.equal(isActiveWorkflowRun(run, now), true);
+});
+
+test("an active run beyond the workflow timeout plus grace can be recovered", () => {
+  const now = Date.parse("2026-11-27T18:20:00+09:00");
+  const run = { run_started_at: "2026-11-27T18:00:00+09:00" };
+  assert.equal(isActiveWorkflowRun(run, now), false);
+});
+
+test("future workflow start timestamps do not block a legitimate fallback", () => {
+  const now = Date.parse("2026-11-27T18:12:00+09:00");
+  const run = { run_started_at: "2026-11-27T18:13:00+09:00" };
+  assert.equal(isActiveWorkflowRun(run, now), false);
 });

@@ -25,6 +25,10 @@ class GeneratedOutputIntegrityTests(unittest.TestCase):
             "ecmwf_kma_coverage.csv","rain_snow_latest.pdf"):
             shutil.copy2(ROOT/"data"/name,self.data/name)
         kma=json.loads((self.data/"latest.json").read_text(encoding="utf-8"))
+        alert_path=self.data/"alert_status.json"
+        alert=json.loads(alert_path.read_text(encoding="utf-8"))
+        alert.setdefault("status_generated_at_kst",alert["pdf_generated_at_kst"])
+        alert_path.write_text(json.dumps(alert,ensure_ascii=False),encoding="utf-8")
         model=json.loads((self.data/"ecmwf_regional.json").read_text(encoding="utf-8"))
         (self.data/"model_agreement_7day.md").write_text(
             markdown_report(agreement_by_date(kma,model),kma),encoding="utf-8")
@@ -41,6 +45,22 @@ class GeneratedOutputIntegrityTests(unittest.TestCase):
         self.assertEqual(result["kma_checked"],256)
         self.assertEqual(result["kma_success"],256)
         self.assertEqual(result["kma_wet_date_rows"],result["audit_date_rows"])
+
+    def test_status_timestamp_before_pdf_prevents_publication(self):
+        path=self.data/"alert_status.json"
+        alert=json.loads(path.read_text(encoding="utf-8"))
+        alert["status_generated_at_kst"]="2026-11-20T00:00:00+09:00"
+        path.write_text(json.dumps(alert),encoding="utf-8")
+        with self.assertRaisesRegex(ValueError,"readiness was evaluated before the PDF"):
+            validate(self.root)
+
+    def test_status_timestamp_without_timezone_prevents_publication(self):
+        path=self.data/"alert_status.json"
+        alert=json.loads(path.read_text(encoding="utf-8"))
+        alert["status_generated_at_kst"]="2026-11-20T00:00:00"
+        path.write_text(json.dumps(alert),encoding="utf-8")
+        with self.assertRaisesRegex(ValueError,"alert readiness timestamps must include timezone"):
+            validate(self.root)
 
     def test_edited_model_agreement_is_rejected_before_publication(self):
         path=self.data/"model_agreement_7day.md"

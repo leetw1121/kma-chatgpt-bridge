@@ -59,6 +59,11 @@ def compute_status(forecast,manifest,pdf_path,now=None):
         "source_issue_at_kst":issue.isoformat(),
         "source_generated_at_kst":generated.isoformat(),
         "pdf_generated_at_kst":pdf_time.isoformat(),
+        # Timestamp of this readiness evaluation, distinct from the KMA
+        # retrieval and PDF build timestamps. This lets delayed ChatGPT
+        # reminder runs distinguish a newer published slot from a missing
+        # update for their original scheduled slot.
+        "status_generated_at_kst":now.astimezone(KST).isoformat(),
         "pdf_size_bytes":manifest.get("pdf_size_bytes"),
         "regions_succeeded":forecast.get("locations_succeeded"),
         "regions_checked":forecast.get("locations_checked"),
