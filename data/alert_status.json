@@ -1,17 +1,19 @@
 {
   "schema_version": 1,
-  "pdf_ready": true,
-  "ready_for_alert_slot_kst": "2026-11-27T18:30:00+09:00",
+  "pdf_ready": false,
+  "ready_for_alert_slot_kst": null,
   "expected_kma_issue_hour_kst": 17,
   "source_issue_at_kst": "2026-11-27T17:00:00+09:00",
   "source_generated_at_kst": "2026-11-27T18:15:05.090478+09:00",
-  "pdf_generated_at_kst": "2026-11-27T18:15:32.124884+09:00",
+  "pdf_generated_at_kst": "2026-11-27T18:52:34.367930+09:00",
+  "status_generated_at_kst": "2026-11-27T18:52:34.436365+09:00",
   "pdf_size_bytes": 225289,
   "regions_succeeded": 256,
   "regions_checked": 256,
   "county_succeeded": 82,
   "coverage_partial": false,
-  "pdf_generated_before_alert_slot": true,
-  "late_pdf_for_alert_slot": false,
-  "checks_passed": true
+  "pdf_generated_before_alert_slot": false,
+  "late_pdf_for_alert_slot": true,
+  "checks_passed": true,
+  "reason": "pdf_generated_before_alert_slot"
 }
