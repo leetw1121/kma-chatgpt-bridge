@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Decide whether a scheduled run needs to refresh the forecast PDF.
+"""Decide whether to refresh forecasts, rebuild reports, or repair status only.
 
-Only skip when a complete published forecast/PDF already matches the latest
-expected KMA village forecast base issue. An old issue, missing PDF, or
-partial coverage must always refresh. Push/manual runs always refresh.
+Scheduled/manual forecast refresh behavior remains source-driven. Ordinary
+code pushes do not overwrite a valid PDF just to rerun the renderer; a report
+rebuild requires missing outputs or a changed PDF layout version.
 """
 import csv
 import datetime as dt
