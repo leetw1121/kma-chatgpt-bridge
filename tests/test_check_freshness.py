@@ -109,9 +109,13 @@ class FreshnessTests(unittest.TestCase):
                      "model_agreement_7day.md"):
             (self.directory/name).write_text("valid\n",encoding="utf-8")
         (self.directory/"alert_status.json").write_text(json.dumps({
+            "schema_version":1,"checks_passed":True,"pdf_ready":True,
             "status_generated_at_kst":"2026-11-14T12:19:00+09:00",
+            "source_issue_at_kst":self.forecast["issue_at_kst"],
             "source_generated_at_kst":self.forecast["generated_at_kst"],
             "pdf_generated_at_kst":"2026-11-14T12:15:00+09:00",
+            "regions_succeeded":self.forecast["locations_succeeded"],
+            "regions_checked":self.forecast["locations_checked"],
             "pdf_size_bytes":pdf.stat().st_size,
         }),encoding="utf-8")
 
